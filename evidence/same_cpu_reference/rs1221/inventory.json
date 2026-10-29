@@ -1,0 +1,713 @@
+{
+  "modules": {
+    "AmdCpmOemInitPeim": {
+      "ffs_guid": "D617467B-1FF7-403F-A87D-29F61C80EE7C",
+      "early_offset": "0x41240",
+      "size": 24064,
+      "sha256": "b6bec8e5fd068c5bb2183ad8102c43fd5bc5a9f3b77b6233ec7a1e81574b60b0",
+      "image_base": "0x9b41240",
+      "text_rva": "0x240",
+      "text_size": 3840,
+      "normalized_text_sha256": "139f3ba3745abcff8a5986992ed0bba457d6add63ba78fb1ae09c5bc2e0b8d51"
+    },
+    "AmdCpmInitPeim": {
+      "ffs_guid": "D919136E-865C-4B10-B099-5D897CFEDE08",
+      "early_offset": "0x47120",
+      "size": 17888,
+      "sha256": "69371c49a7764280b6d0c551dd1d6e7cb5e6719f003e727e2a8d674e6dfd107a",
+      "image_base": "0x9b47120",
+      "text_rva": "0x240",
+      "text_size": 14624,
+      "normalized_text_sha256": "a1609397c9a26032c4766b8532213c9bf024a66d1a69b14955f76a4772772358"
+    },
+    "AmdCpmGpioInitPeim": {
+      "ffs_guid": "DE3E049C-A218-4891-7469-4FC0AE853298",
+      "early_offset": "0x4b7a0",
+      "size": 5024,
+      "sha256": "f25ed77aafcdda948dbf280cb54385a5d73b48e10cc13482acd4bd74214f9983",
+      "image_base": "0x9b4b7a0",
+      "text_rva": "0x240",
+      "text_size": 4064,
+      "normalized_text_sha256": "f309d75a79a1f9f31d02a7ba9116bef271c169f4bb15cb736e0173717d2e8cc4"
+    },
+    "AmdCpmPcieInitPeim": {
+      "ffs_guid": "DE3D7A9C-A218-4891-7469-4FC0AE853298",
+      "early_offset": "0x4d320",
+      "size": 3424,
+      "sha256": "1cf36e9423d57461eb68569d2c403286bd30f741147fbc4021ba214c75bb8732",
+      "image_base": "0x9b4d320",
+      "text_rva": "0x240",
+      "text_size": 2656,
+      "normalized_text_sha256": "d45f0d5e52108402eea9929240b23ede7aac4609b7baffc48cbdb6ba4a048d26"
+    }
+  },
+  "dxio_tables": [
+    {
+      "offset": "0x2428",
+      "size": 6532,
+      "platform_mask": "0xff",
+      "body_sha256": "ecf714b8d14a49eee868ce1e6301424556edf817e8b6d64482e3eef4e59d5116",
+      "entries": [
+        {
+          "index": 0,
+          "file_offset": "0x243c",
+          "engine_type": 1,
+          "start_logical_lane": 8,
+          "end_logical_lane": 11,
+          "group_raw": 35,
+          "port_present": true,
+          "requested_bdf": "00:01.1",
+          "first24_hex": "000000000100080b23000000012100f00000008000000000"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x25d0",
+          "engine_type": 1,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 41,
+          "port_present": true,
+          "requested_bdf": "00:01.2",
+          "first24_hex": "000000000100000029000000014100f00000008000000000"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x2764",
+          "engine_type": 1,
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "group_raw": 41,
+          "port_present": true,
+          "requested_bdf": "00:01.3",
+          "first24_hex": "000000000100010129000000016100f00000008000000000"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x28f8",
+          "engine_type": 1,
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "group_raw": 41,
+          "port_present": true,
+          "requested_bdf": "00:01.4",
+          "first24_hex": "000000000100020229000000018100f00000008000000000"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x2a8c",
+          "engine_type": 1,
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "group_raw": 41,
+          "port_present": true,
+          "requested_bdf": "00:01.5",
+          "first24_hex": "00000000010003032900000001a100f00000008000000000"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x2c20",
+          "engine_type": 1,
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "group_raw": 37,
+          "port_present": true,
+          "requested_bdf": "00:01.6",
+          "first24_hex": "00000000010004052500000001c100f00000008000000000"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x2db4",
+          "engine_type": 1,
+          "start_logical_lane": 6,
+          "end_logical_lane": 7,
+          "group_raw": 38,
+          "port_present": true,
+          "requested_bdf": "00:01.7",
+          "first24_hex": "00000000010006072600000001e100f00000008000000000"
+        },
+        {
+          "index": 7,
+          "file_offset": "0x2f48",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 8,
+          "file_offset": "0x30dc",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 9,
+          "file_offset": "0x3270",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 10,
+          "file_offset": "0x3404",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 11,
+          "file_offset": "0x3598",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 12,
+          "file_offset": "0x372c",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 13,
+          "file_offset": "0x38c0",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 14,
+          "file_offset": "0x3a54",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 15,
+          "file_offset": "0x3be8",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 0,
+          "port_present": false,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "offset": "0x3db0",
+      "size": 6532,
+      "platform_mask": "0x3f001f00",
+      "body_sha256": "62c55da3d97a1dcd64ecfdb106370c76ba23e1c5432f637cfd3d30aad35cdd0e",
+      "entries": [
+        {
+          "index": 0,
+          "file_offset": "0x3dc4",
+          "engine_type": 1,
+          "start_logical_lane": 11,
+          "end_logical_lane": 8,
+          "group_raw": 4,
+          "port_present": true,
+          "requested_bdf": "00:01.1",
+          "first24_hex": "0000000001000b08040000000121004e0000008000000000"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x3f58",
+          "engine_type": 1,
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "group_raw": 19,
+          "port_present": true,
+          "requested_bdf": "00:01.2",
+          "first24_hex": "0000000001000405130000000141005e0000008000000000"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x40ec",
+          "engine_type": 0,
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "group_raw": 27,
+          "port_present": true,
+          "requested_bdf": "00:01.5",
+          "first24_hex": "00000000000000011b00000001a100320000008000000000"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x4280",
+          "engine_type": 0,
+          "start_logical_lane": 2,
+          "end_logical_lane": 3,
+          "group_raw": 27,
+          "port_present": true,
+          "requested_bdf": "00:01.5",
+          "first24_hex": "00000000000002031b00000001a100320000008000000000"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x4414",
+          "engine_type": 3,
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "group_raw": 1,
+          "port_present": true,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000300030301000000010000000000002000000000"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x45a8",
+          "engine_type": 3,
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "group_raw": 1,
+          "port_present": true,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000000300020201000000010000000000002000000000"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x473c",
+          "engine_type": 16,
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "group_raw": 1,
+          "port_present": true,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000001000000001000000010000000000000000000000"
+        },
+        {
+          "index": 7,
+          "file_offset": "0x48d0",
+          "engine_type": 16,
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "group_raw": 1,
+          "port_present": true,
+          "requested_bdf": "00:00.0",
+          "first24_hex": "000000801000010101000000010000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "clock_tables": [
+    {
+      "offset": "0x2288",
+      "size": 208,
+      "platform_mask": "0xff",
+      "body_sha256": "a98cecdf6b8f2b8de93982a28007cff7f8953e0fd1ec99b71a2fecb5c11d935c",
+      "body_hex": "00ff0000230101000000000001ff0000290102000000000003ff00002a0103000000000004ff00002b0104000000000002ff00002c0105000000000005ff0000250106000000000006ff00002601070000000000ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "records": [
+        {
+          "file_offset": "0x2298",
+          "clock_id": 0,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 35,
+          "requested_bdf": "00:01.1",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "00ff00002301010000000000"
+        },
+        {
+          "file_offset": "0x22a4",
+          "clock_id": 1,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 41,
+          "requested_bdf": "00:01.2",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "01ff00002901020000000000"
+        },
+        {
+          "file_offset": "0x22b0",
+          "clock_id": 3,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 42,
+          "requested_bdf": "00:01.3",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "03ff00002a01030000000000"
+        },
+        {
+          "file_offset": "0x22bc",
+          "clock_id": 4,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 43,
+          "requested_bdf": "00:01.4",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "04ff00002b01040000000000"
+        },
+        {
+          "file_offset": "0x22c8",
+          "clock_id": 2,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 44,
+          "requested_bdf": "00:01.5",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "02ff00002c01050000000000"
+        },
+        {
+          "file_offset": "0x22d4",
+          "clock_id": 5,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 37,
+          "requested_bdf": "00:01.6",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "05ff00002501060000000000"
+        },
+        {
+          "file_offset": "0x22e0",
+          "clock_id": 6,
+          "clock_request": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 38,
+          "requested_bdf": "00:01.7",
+          "slot_check": 0,
+          "special_function": "0x0",
+          "raw": "06ff00002601070000000000"
+        }
+      ]
+    },
+    {
+      "offset": "0x2358",
+      "size": 208,
+      "platform_mask": "0x3f001f00",
+      "body_sha256": "66b1a4ae0223703de64691320140818ef4c679d0719f047edcd9a07f66d0244d",
+      "body_hex": "040400000401010500000000020500001301020500000000030300001b01050500000000ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "records": [
+        {
+          "file_offset": "0x2368",
+          "clock_id": 4,
+          "clock_request": 4,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 4,
+          "requested_bdf": "00:01.1",
+          "slot_check": 5,
+          "special_function": "0x0",
+          "raw": "040400000401010500000000"
+        },
+        {
+          "file_offset": "0x2374",
+          "clock_id": 2,
+          "clock_request": 5,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 19,
+          "requested_bdf": "00:01.2",
+          "slot_check": 5,
+          "special_function": "0x0",
+          "raw": "020500001301020500000000"
+        },
+        {
+          "file_offset": "0x2380",
+          "clock_id": 3,
+          "clock_request": 3,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 27,
+          "requested_bdf": "00:01.5",
+          "slot_check": 5,
+          "special_function": "0x0",
+          "raw": "030300001b01050500000000"
+        }
+      ]
+    }
+  ],
+  "device_tree": [
+    {
+      "node": "/",
+      "property": "compatible",
+      "value": "Synology"
+    },
+    {
+      "node": "/",
+      "property": "model",
+      "value": "synology_v1000_rs1221+"
+    },
+    {
+      "node": "/RX418",
+      "property": "compatible",
+      "value": "Synology"
+    },
+    {
+      "node": "/RX418",
+      "property": "model",
+      "value": "synology_rx418"
+    },
+    {
+      "node": "/E10M20-T1",
+      "property": "compatible",
+      "value": "Synology"
+    },
+    {
+      "node": "/E10M20-T1",
+      "property": "model",
+      "value": "synology_e10m20-t1"
+    },
+    {
+      "node": "/E10M20-T1/m2_card@1/nvme",
+      "property": "pcie_postfix",
+      "value": "00.0,08.0,00.0"
+    },
+    {
+      "node": "/E10M20-T1/m2_card@1/nvme",
+      "property": "port_type",
+      "value": "ssdcache"
+    },
+    {
+      "node": "/E10M20-T1/m2_card@2/nvme",
+      "property": "pcie_postfix",
+      "value": "00.0,04.0,00.0"
+    },
+    {
+      "node": "/E10M20-T1/m2_card@2/nvme",
+      "property": "port_type",
+      "value": "ssdcache"
+    },
+    {
+      "node": "/M2D18",
+      "property": "compatible",
+      "value": "Synology"
+    },
+    {
+      "node": "/M2D18",
+      "property": "model",
+      "value": "synology_m2d18"
+    },
+    {
+      "node": "/M2D18/m2_card@1/ahci",
+      "property": "pcie_postfix",
+      "value": "00.0,03.0,00.0"
+    },
+    {
+      "node": "/M2D18/m2_card@1/ahci",
+      "property": "ata_port",
+      "value": ""
+    },
+    {
+      "node": "/M2D18/m2_card@1/nvme",
+      "property": "pcie_postfix",
+      "value": "00.0,04.0,00.0"
+    },
+    {
+      "node": "/M2D18/m2_card@1/nvme",
+      "property": "port_type",
+      "value": "ssdcache"
+    },
+    {
+      "node": "/M2D18/m2_card@2/ahci",
+      "property": "pcie_postfix",
+      "value": "00.0,03.0,00.0"
+    },
+    {
+      "node": "/M2D18/m2_card@2/ahci",
+      "property": "ata_port",
+      "value": "00000001"
+    },
+    {
+      "node": "/M2D18/m2_card@2/nvme",
+      "property": "pcie_postfix",
+      "value": "00.0,05.0,00.0"
+    },
+    {
+      "node": "/M2D18/m2_card@2/nvme",
+      "property": "port_type",
+      "value": "ssdcache"
+    },
+    {
+      "node": "/M2D20",
+      "property": "compatible",
+      "value": "Synology"
+    },
+    {
+      "node": "/M2D20",
+      "property": "model",
+      "value": "synology_m2d20"
+    },
+    {
+      "node": "/M2D20/m2_card@1/nvme",
+      "property": "pcie_postfix",
+      "value": "00.0,08.0,00.0"
+    },
+    {
+      "node": "/M2D20/m2_card@1/nvme",
+      "property": "port_type",
+      "value": "ssdcache"
+    },
+    {
+      "node": "/M2D20/m2_card@2/nvme",
+      "property": "pcie_postfix",
+      "value": "00.0,04.0,00.0"
+    },
+    {
+      "node": "/M2D20/m2_card@2/nvme",
+      "property": "port_type",
+      "value": "ssdcache"
+    },
+    {
+      "node": "/internal_slot@1/ahci",
+      "property": "pcie_root",
+      "value": "00:01.6,00.0"
+    },
+    {
+      "node": "/internal_slot@1/ahci",
+      "property": "ata_port",
+      "value": ""
+    },
+    {
+      "node": "/internal_slot@2/ahci",
+      "property": "pcie_root",
+      "value": "00:01.6,00.0"
+    },
+    {
+      "node": "/internal_slot@2/ahci",
+      "property": "ata_port",
+      "value": "00000002"
+    },
+    {
+      "node": "/internal_slot@3/ahci",
+      "property": "pcie_root",
+      "value": "00:01.7,00.0"
+    },
+    {
+      "node": "/internal_slot@3/ahci",
+      "property": "ata_port",
+      "value": "00000001"
+    },
+    {
+      "node": "/internal_slot@4/ahci",
+      "property": "pcie_root",
+      "value": "00:01.7,00.0"
+    },
+    {
+      "node": "/internal_slot@4/ahci",
+      "property": "ata_port",
+      "value": "00000003"
+    },
+    {
+      "node": "/internal_slot@5/ahci",
+      "property": "pcie_root",
+      "value": "00:01.6,00.0"
+    },
+    {
+      "node": "/internal_slot@5/ahci",
+      "property": "ata_port",
+      "value": "00000001"
+    },
+    {
+      "node": "/internal_slot@6/ahci",
+      "property": "pcie_root",
+      "value": "00:01.6,00.0"
+    },
+    {
+      "node": "/internal_slot@6/ahci",
+      "property": "ata_port",
+      "value": "00000003"
+    },
+    {
+      "node": "/internal_slot@7/ahci",
+      "property": "pcie_root",
+      "value": "00:01.7,00.0"
+    },
+    {
+      "node": "/internal_slot@7/ahci",
+      "property": "ata_port",
+      "value": ""
+    },
+    {
+      "node": "/internal_slot@8/ahci",
+      "property": "pcie_root",
+      "value": "00:01.7,00.0"
+    },
+    {
+      "node": "/internal_slot@8/ahci",
+      "property": "ata_port",
+      "value": "00000002"
+    },
+    {
+      "node": "/esata_port@1/ahci",
+      "property": "pcie_root",
+      "value": "00:01.6,00.0"
+    },
+    {
+      "node": "/esata_port@1/ahci",
+      "property": "ata_port",
+      "value": "00000004"
+    },
+    {
+      "node": "/pcie_slot@1",
+      "property": "pcie_root",
+      "value": "00:01.1"
+    },
+    {
+      "node": "/usb_slot@1/usb2",
+      "property": "usb_port",
+      "value": "1-2"
+    },
+    {
+      "node": "/usb_slot@1/usb3",
+      "property": "usb_port",
+      "value": "2-2"
+    },
+    {
+      "node": "/usb_slot@2/usb2",
+      "property": "usb_port",
+      "value": "3-1"
+    },
+    {
+      "node": "/usb_slot@2/usb3",
+      "property": "usb_port",
+      "value": "4-1"
+    }
+  ]
+}

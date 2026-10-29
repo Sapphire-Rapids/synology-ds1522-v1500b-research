@@ -1,0 +1,31 @@
+{
+  "source_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS1221%2B_72806.pat",
+  "package_sha256": "54fe800e17f39fcb08ac79212f5cdb72c5d1cd3e4f1a96903af089327c2f0b2f",
+  "signature_and_encrypted_block_hashes_verified": true,
+  "selected": {
+    "bios.ROM": {
+      "size": 9158376,
+      "sha256": "7415998a3289e52a32ced275b2911732ea2db5d373a55c6f9959fcad1d038d6a"
+    },
+    "VERSION": {
+      "size": 672,
+      "sha256": "d1c29740ccbf00a528ea75ccf650084b26e2a03e6d22d689bbb9f2cfb032ee48"
+    },
+    "model.dtb": {
+      "size": 3980,
+      "sha256": "e84f4a43721c0f342939dcf3f40111767fcc13e1f137310521fbd478c5588da9"
+    },
+    "checksum.syno": {
+      "size": 2875,
+      "sha256": "3ecee6ef7bc1e006e2d480bcbb5c477c651b030c72a725342f8b3ad46a98998e"
+    }
+  },
+  "payload_offset": "0xb08d0",
+  "payload_size": 8388608,
+  "payload_sha256": "e7581f601eaecbc3e6486c0ea4106d6a8274f40b6cb67b0c33f69a4dce5fc5f4",
+  "early_code_source_offset": "0x750000",
+  "early_code_sha256": "84afdd402d7aa9b87dd429ba59f7679f2aac6ff1d56cf578161db5230728244a",
+  "patology_source": "https://github.com/sud0woodo/patology/blob/main/patology.py",
+  "patology_git_blob_sha": "e0eff9f69d6d644cdcf1512131f0195085c639b6",
+  "selected_extraction_script_sha256": "56041f95dcd2da6961cf117107afc6247f1fb250b8c6746e7c045fe702095e42"
+}

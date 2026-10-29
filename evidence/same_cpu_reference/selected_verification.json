@@ -1,0 +1,25 @@
+{
+  "scope": "Integration verification of RS1221 positive precedent against extracted bytes.",
+  "module_comparisons": [
+    {
+      "module": "AmdCpmInitPeim",
+      "ds1621_rs1221_complete_bytes_identical": true,
+      "sha256": "69371c49a7764280b6d0c551dd1d6e7cb5e6719f003e727e2a8d674e6dfd107a"
+    },
+    {
+      "module": "AmdCpmGpioInitPeim",
+      "ds1621_rs1221_complete_bytes_identical": true,
+      "sha256": "f25ed77aafcdda948dbf280cb54385a5d73b48e10cc13482acd4bd74214f9983"
+    },
+    {
+      "module": "AmdCpmPcieInitPeim",
+      "ds1621_rs1221_complete_bytes_identical": true,
+      "sha256": "1cf36e9423d57461eb68569d2c403286bd30f741147fbc4021ba214c75bb8732"
+    }
+  ],
+  "rs1221_dual_x1_records": {
+    "0x25d0": "000000000100000029000000014100f00000008000000000",
+    "0x2764": "000000000100010129000000016100f00000008000000000"
+  },
+  "nas_accessed": false
+}

@@ -1,0 +1,78 @@
+{
+  "question": "Does the DS1522+ BIOS contain handling for additional CPU models beyond the installed R1600 and previously studied V1500B?",
+  "conclusion": "V1404I has an actual model-specific early-initialization branch. This establishes handling in the firmware, not a successful DS1522+ boot or full-system compatibility.",
+  "inputs": {
+    "pei": {
+      "module": "AmdNbioSmuV10Pei_7307BD0F_early.efi",
+      "sha256": "1ca0d455ac739c37394dc6232c1e2741122ac4cf4f95ae9dd9587b260fff92fb"
+    },
+    "dxe": {
+      "module": "AmdNbioSmuV10Dxe.efi",
+      "sha256": "dc0d4554c53415fbbb34cc1ead96a6f8a2435b00f340e77d517fac0bcd813d4c"
+    }
+  },
+  "named_model_scan": {
+    "scope": "ASCII and UTF-16LE printable strings in all359 extracted official DS1522+ EFI modules; SKU-shaped R/V1xxx..3xxx tokens. This is not an exhaustive supported-CPU inventory.",
+    "module_count": 359,
+    "hits": [
+      {
+        "module": "AmdNbioSmuV10Dxe.efi",
+        "encoding": "ascii",
+        "model": "V1500B",
+        "file_offset": "0x9d18",
+        "text": "V1500B"
+      },
+      {
+        "module": "AmdNbioSmuV10Pei_7307BD0F_early.efi",
+        "encoding": "ascii",
+        "model": "V1404I",
+        "file_offset": "0x4720",
+        "text": "V1404I"
+      },
+      {
+        "module": "AmdPbsSetupDxe.efi",
+        "encoding": "utf16le",
+        "model": "V1000",
+        "file_offset": "0x5d33",
+        "text": "For V1000 only XGBE and Nvme, M.2 NVME X4 are supported"
+      }
+    ]
+  },
+  "v1404i_behavior": {
+    "string_file_offset": "0x4720",
+    "string_address": "0x09b86620",
+    "early_init_function": "0x09b826ae",
+    "comparison_instructions": "0x09b826ee..0x09b8270b",
+    "equal_branch_call": "0x09b82719",
+    "pcd_guid": "7788adf0-9788-4a3f-83fa-cb512e7cf8dd",
+    "pcd_token": "0x4140d",
+    "value_when_model_matches": 1,
+    "model_helper": "0x09b82600 extracts six7-bit characters from reads indexed by0x5d5a0 and0x5d5a4; hardware was not accessed.",
+    "later_consumer": "AmdNbioSmuV10Dxe 0x2823..0x2840 reads the same GUID/token and places the byte at power-table offset0x3d.",
+    "firmware_field_label": "The existing DXE diagnostic labels that offset PPTable->itemp.",
+    "semantic_limit": "The itemp label and AMD industrial-temperature SKU description support a temperature-mode interpretation; the precise signed-SMU implementation was not inspected.",
+    "rea_evidence_id": "ev_9ece4d72ea7771bb2b0a482584ec7b5b83899bcde906ce87e13a021df2671177",
+    "rea_record": "v1404i_function.json",
+    "assembly": "v1404i_branch.asm",
+    "consumer_existing_evidence": "../key_function_evidence.json, label smu_v1500b_handling"
+  },
+  "model_summary": [
+    {
+      "model": "R1600",
+      "evidence_level": "Observed running in the investigated DS1522+."
+    },
+    {
+      "model": "V1500B",
+      "evidence_level": "Explicit model match and16W configuration branch; replacement boot not verified."
+    },
+    {
+      "model": "V1404I",
+      "evidence_level": "Explicit model match and itemp configuration propagation; replacement boot not tested."
+    }
+  ],
+  "other_models_limit": "No same-level named-model handling evidence for V1605B/V1756B/V1807B or R1606G was established by this bounded scan. Absence of a name does not rule out generic family-based initialization.",
+  "amd_spec_source": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/v1000-family-product-brief.pdf",
+  "nas_accessed": false,
+  "firmware_executed": false,
+  "firmware_modified": false
+}

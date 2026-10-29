@@ -1,0 +1,516 @@
+{
+  "scope": "Bounded RS1221+ factory-selection and possible OEM override review. Read-only official project artifacts; no NAS, hardware/target execution, emulation, firmware modification or shared REA state. Existing inventory/source/module files are unchanged.",
+  "judgment": {
+    "same_v1500b_dual_x1_firmware_precedent": "SUPPORTED: the official RS1221+ image supplies a registered, selector-reachable factory-intended table with separate logical0 and1 PCIe x1 engines.",
+    "factory_applicability": "Strong static evidence: the original CPU-class/platform selector, OEM table registration, selected-table consumer, and shipped disk/slot device-tree roots are consistent with the seven-port mask0xff branch.",
+    "explicit_oem_override_replacing_or_merging_logical0_1_found": false,
+    "exact_ds1522_candidate_validated": false,
+    "practical_effect": "The broad claim that V1500B cannot split logical0/1 into independent PCIe x1 engines is not supported by this official firmware precedent. The DS1522 candidate's reversed root-port ordering and complete lane/clock/reset configuration still require their own validation."
+  },
+  "source": {
+    "manifest": "source.json",
+    "inventory": "inventory.json",
+    "official_package_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS1221%2B_72806.pat",
+    "package_sha256": "54fe800e17f39fcb08ac79212f5cdb72c5d1cd3e4f1a96903af089327c2f0b2f",
+    "oem_module": "AmdCpmOemInitPeim.efi",
+    "oem_module_sha256": "b6bec8e5fd068c5bb2183ad8102c43fd5bc5a9f3b77b6233ec7a1e81574b60b0"
+  },
+  "shared_selector_and_interpreters": [
+    {
+      "rs1221_module": "AmdCpmInitPeim.efi",
+      "ds1621_module": "../ds1621/modules/AmdCpmInitPeim_D919136E_early.efi",
+      "sha256": "69371c49a7764280b6d0c551dd1d6e7cb5e6719f003e727e2a8d674e6dfd107a",
+      "size": 17888,
+      "entire_file_byte_identical": true
+    },
+    {
+      "rs1221_module": "AmdCpmGpioInitPeim.efi",
+      "ds1621_module": "../ds1621/modules/AmdCpmGpioInitPeim_DE3E049C_early.efi",
+      "sha256": "f25ed77aafcdda948dbf280cb54385a5d73b48e10cc13482acd4bd74214f9983",
+      "size": 5024,
+      "entire_file_byte_identical": true
+    },
+    {
+      "rs1221_module": "AmdCpmPcieInitPeim.efi",
+      "ds1621_module": "../ds1621/modules/AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+      "sha256": "1cf36e9423d57461eb68569d2c403286bd30f741147fbc4021ba214c75bb8732",
+      "size": 3424,
+      "entire_file_byte_identical": true
+    }
+  ],
+  "table_registration": {
+    "callback": "0x9b414d5",
+    "table_pointer_array_file_offset": "0x5cf0",
+    "table_pointer_array_va": "0x9b46f30",
+    "list_publication_instruction": {
+      "address": "0x9b41548",
+      "file_offset": "0x308",
+      "bytes": "c74008306fb409",
+      "meaning": "Store table-pointer-array address at offset8 of the PPI interface being installed."
+    },
+    "ppi_install_instruction": {
+      "address": "0x9b4157c",
+      "file_offset": "0x33c",
+      "bytes": "ff5018"
+    },
+    "entries": [
+      {
+        "pointer_file_offset": "0x5cf0",
+        "table_va": "0x9b46eb0",
+        "table_file_offset": "0x5c70",
+        "signature": "$CPM"
+      },
+      {
+        "pointer_file_offset": "0x5cf4",
+        "table_va": "0x9b42764",
+        "table_file_offset": "0x1524",
+        "signature": "$A00"
+      },
+      {
+        "pointer_file_offset": "0x5cf8",
+        "table_va": "0x9b42788",
+        "table_file_offset": "0x1548",
+        "signature": "$A01"
+      },
+      {
+        "pointer_file_offset": "0x5cfc",
+        "table_va": "0x9b42958",
+        "table_file_offset": "0x1718",
+        "signature": "$A02"
+      },
+      {
+        "pointer_file_offset": "0x5d00",
+        "table_va": "0x9b42b28",
+        "table_file_offset": "0x18e8",
+        "signature": "$A03"
+      },
+      {
+        "pointer_file_offset": "0x5d04",
+        "table_va": "0x9b42b40",
+        "table_file_offset": "0x1900",
+        "signature": "$A10"
+      },
+      {
+        "pointer_file_offset": "0x5d08",
+        "table_va": "0x9b42f50",
+        "table_file_offset": "0x1d10",
+        "signature": "$A11"
+      },
+      {
+        "pointer_file_offset": "0x5d0c",
+        "table_va": "0x9b42fe0",
+        "table_file_offset": "0x1da0",
+        "signature": "$A12"
+      },
+      {
+        "pointer_file_offset": "0x5d10",
+        "table_va": "0x9b430b8",
+        "table_file_offset": "0x1e78",
+        "signature": "$A13"
+      },
+      {
+        "pointer_file_offset": "0x5d14",
+        "table_va": "0x9b43248",
+        "table_file_offset": "0x2008",
+        "signature": "$A14"
+      },
+      {
+        "pointer_file_offset": "0x5d18",
+        "table_va": "0x9b433b8",
+        "table_file_offset": "0x2178",
+        "signature": "$A15"
+      },
+      {
+        "pointer_file_offset": "0x5d1c",
+        "table_va": "0x9b434c8",
+        "table_file_offset": "0x2288",
+        "signature": "$A17"
+      },
+      {
+        "pointer_file_offset": "0x5d20",
+        "table_va": "0x9b43598",
+        "table_file_offset": "0x2358",
+        "signature": "$A17"
+      },
+      {
+        "pointer_file_offset": "0x5d24",
+        "table_va": "0x9b43668",
+        "table_file_offset": "0x2428",
+        "signature": "$A26"
+      },
+      {
+        "pointer_file_offset": "0x5d28",
+        "table_va": "0x9b44ff0",
+        "table_file_offset": "0x3db0",
+        "signature": "$A26"
+      },
+      {
+        "pointer_file_offset": "0x5d2c",
+        "table_va": "0x9b46978",
+        "table_file_offset": "0x5738",
+        "signature": "$A80"
+      },
+      {
+        "pointer_file_offset": "0x5d30",
+        "table_va": "0x9b46b58",
+        "table_file_offset": "0x5918",
+        "signature": "$A81"
+      }
+    ]
+  },
+  "selection_applicability": {
+    "reuse_basis": "The entire RS1221 CPM Init PE file has the same SHA-256 and bytes as the independently analyzed DS1621 file. Its instruction addresses and immutable CPU-class tables are therefore the same.",
+    "cpu_classification": {
+      "procedure": "0x9b4951f",
+      "class_wrapper": "0x9b496c5",
+      "evidence": "../ds1621/selector_cpu_class.json",
+      "evidence_id": "ev_ff593523e96b77ef95dcbd359f38cd1e88b0971b2a84a33196d40dd18f0e65c4",
+      "logic": "CPUID masked by0x0fff0f00 matching0x00810f00 maps to class0x0b, except SMU/PCD token0x4f0c4 high bits31:30 of2/3 rewrite the comparison key to0x00820f00, whose class is0x0c."
+    },
+    "platform_table": {
+      "signature": "$A01",
+      "file_offset": "0x1548",
+      "size": 464,
+      "sha256": "31617d137ba82bc48fe668a1e94df13a27a87f9e280302050d6cce908adf65d1",
+      "identical_to_ds1621": true
+    },
+    "platform_selector": {
+      "procedure": "0x9b478b7",
+      "evidence": "../ds1621/selector_platform.json",
+      "evidence_id": "ev_bc348aea29a93d7bfcddeae6475db1e2e6365c54339022f264b75f9a6b06cf98",
+      "logic": "The first matching zero-board-word row maps class0x0b to platform0 and class0x0c to platform8. The platform is stored in PCD0x10000000 and the CPM current-platform field."
+    },
+    "lookup": {
+      "wrapper": "0x9b47bb0",
+      "procedure": "0x9b47bd4",
+      "logic": "Signature lookup also requires a zero platform mask or overlap with1<<platform. Platform0 therefore selects DXIO0x2428 and clocks0x2288, both mask0xff. Platform8 selects the alternate two-root/Ethernet table0x3db0 and clocks0x2358."
+    },
+    "not_dead_table": "The seven-port table is registered in the interface and selected by the unmodified class0x0b/platform0 code path; it is not merely an unused matching byte pattern."
+  },
+  "factory_table": {
+    "signature": "$A26",
+    "file_offset": "0x2428",
+    "virtual_address": "0x9b43668",
+    "size": 6532,
+    "platform_mask": "0xff",
+    "sha256": "efd542775dde561312ab9d56ad22c35611e2e95f595e77fd4f59447ebcd86847",
+    "body_sha256": "ecf714b8d14a49eee868ce1e6301424556edf817e8b6d64482e3eef4e59d5116",
+    "active_ports": [
+      {
+        "index": 0,
+        "file_offset": "0x243c",
+        "engine_type": 1,
+        "start_logical_lane": 8,
+        "end_logical_lane": 11,
+        "group_raw": 35,
+        "port_present": true,
+        "requested_bdf": "00:01.1",
+        "first24_hex": "000000000100080b23000000012100f00000008000000000"
+      },
+      {
+        "index": 1,
+        "file_offset": "0x25d0",
+        "engine_type": 1,
+        "start_logical_lane": 0,
+        "end_logical_lane": 0,
+        "group_raw": 41,
+        "port_present": true,
+        "requested_bdf": "00:01.2",
+        "first24_hex": "000000000100000029000000014100f00000008000000000"
+      },
+      {
+        "index": 2,
+        "file_offset": "0x2764",
+        "engine_type": 1,
+        "start_logical_lane": 1,
+        "end_logical_lane": 1,
+        "group_raw": 41,
+        "port_present": true,
+        "requested_bdf": "00:01.3",
+        "first24_hex": "000000000100010129000000016100f00000008000000000"
+      },
+      {
+        "index": 3,
+        "file_offset": "0x28f8",
+        "engine_type": 1,
+        "start_logical_lane": 2,
+        "end_logical_lane": 2,
+        "group_raw": 41,
+        "port_present": true,
+        "requested_bdf": "00:01.4",
+        "first24_hex": "000000000100020229000000018100f00000008000000000"
+      },
+      {
+        "index": 4,
+        "file_offset": "0x2a8c",
+        "engine_type": 1,
+        "start_logical_lane": 3,
+        "end_logical_lane": 3,
+        "group_raw": 41,
+        "port_present": true,
+        "requested_bdf": "00:01.5",
+        "first24_hex": "00000000010003032900000001a100f00000008000000000"
+      },
+      {
+        "index": 5,
+        "file_offset": "0x2c20",
+        "engine_type": 1,
+        "start_logical_lane": 4,
+        "end_logical_lane": 5,
+        "group_raw": 37,
+        "port_present": true,
+        "requested_bdf": "00:01.6",
+        "first24_hex": "00000000010004052500000001c100f00000008000000000"
+      },
+      {
+        "index": 6,
+        "file_offset": "0x2db4",
+        "engine_type": 1,
+        "start_logical_lane": 6,
+        "end_logical_lane": 7,
+        "group_raw": 38,
+        "port_present": true,
+        "requested_bdf": "00:01.7",
+        "first24_hex": "00000000010006072600000001e100f00000008000000000"
+      }
+    ],
+    "logical0_1_entries": [
+      {
+        "index": 1,
+        "file_offset": "0x25d0",
+        "engine_type": 1,
+        "start_logical_lane": 0,
+        "end_logical_lane": 0,
+        "group_raw": 41,
+        "port_present": true,
+        "requested_bdf": "00:01.2",
+        "first24_hex": "000000000100000029000000014100f00000008000000000"
+      },
+      {
+        "index": 2,
+        "file_offset": "0x2764",
+        "engine_type": 1,
+        "start_logical_lane": 1,
+        "end_logical_lane": 1,
+        "group_raw": 41,
+        "port_present": true,
+        "requested_bdf": "00:01.3",
+        "first24_hex": "000000000100010129000000016100f00000008000000000"
+      }
+    ],
+    "corresponding_clock_rows": [
+      {
+        "file_offset": "0x22a4",
+        "clock_id": 1,
+        "clock_request_raw": 255,
+        "device_id_raw": 41,
+        "requested_bdf": "00:01.2",
+        "slot_check_raw": 0,
+        "raw_hex": "01ff00002901020000000000"
+      },
+      {
+        "file_offset": "0x22b0",
+        "clock_id": 3,
+        "clock_request_raw": 255,
+        "device_id_raw": 42,
+        "requested_bdf": "00:01.3",
+        "slot_check_raw": 0,
+        "raw_hex": "03ff00002a01030000000000"
+      }
+    ],
+    "reset_id_note": "Both split descriptors carry raw reset/group value41. Clock records carry their own device IDs. These raw values are not asserted to be physical GPIO pin numbers."
+  },
+  "device_tree_corroboration": {
+    "model": "synology_v1000_rs1221+",
+    "model_dtb_sha256": "e84f4a43721c0f342939dcf3f40111767fcc13e1f137310521fbd478c5588da9",
+    "relevant_roots": [
+      {
+        "node": "/internal_slot@1/ahci",
+        "property": "pcie_root",
+        "value": "00:01.6,00.0"
+      },
+      {
+        "node": "/internal_slot@2/ahci",
+        "property": "pcie_root",
+        "value": "00:01.6,00.0"
+      },
+      {
+        "node": "/internal_slot@3/ahci",
+        "property": "pcie_root",
+        "value": "00:01.7,00.0"
+      },
+      {
+        "node": "/internal_slot@4/ahci",
+        "property": "pcie_root",
+        "value": "00:01.7,00.0"
+      },
+      {
+        "node": "/internal_slot@5/ahci",
+        "property": "pcie_root",
+        "value": "00:01.6,00.0"
+      },
+      {
+        "node": "/internal_slot@6/ahci",
+        "property": "pcie_root",
+        "value": "00:01.6,00.0"
+      },
+      {
+        "node": "/internal_slot@7/ahci",
+        "property": "pcie_root",
+        "value": "00:01.7,00.0"
+      },
+      {
+        "node": "/internal_slot@8/ahci",
+        "property": "pcie_root",
+        "value": "00:01.7,00.0"
+      },
+      {
+        "node": "/esata_port@1/ahci",
+        "property": "pcie_root",
+        "value": "00:01.6,00.0"
+      },
+      {
+        "node": "/pcie_slot@1",
+        "property": "pcie_root",
+        "value": "00:01.1"
+      }
+    ],
+    "inference": "The official tree needs roots01.6/01.7 for internal disks and01.1 for the expansion slot. The seven-port platform0 table provides those roots; the two-root platform8 alternative does not. This supports the intended production branch.",
+    "limit": "The device tree does not independently show the live CPU classification or measure all four x1 endpoints. This review establishes a factory firmware configuration precedent, not a captured link-training result."
+  },
+  "oem_override_review": {
+    "procedure": "0x9b418b8",
+    "evidence_id": "ev_cf4bf60a223d747a9004aef95b15aa1449d06b52e6e4eeef760944d8d9cf3716",
+    "selected_dxio_get": "0x9b41959\u20130x9b41967 obtains $A26 through the CPM table service and stores it in iStack_49c in recovered pseudocode.",
+    "visible_writes_to_selected_dxio_offsets": [
+      "0x1958",
+      "0x195e",
+      "0x1964",
+      "0x196a"
+    ],
+    "port_array_extent_relative_to_table": [
+      "0x14",
+      "0x1954"
+    ],
+    "finding": "The explicit selected-DXIO writes in this callback are after the16-entry port array. No explicit replacement, merger, or reassignment of the populated logical0/1 PCIe entries was found. Clock-table updates can force clock requests to0xff; the factory rows already use0xff.",
+    "other_board_specific_changes_observed": [
+      "PCD0x3ff81 is ORed with0x04001800.",
+      "The GPIO-table loop writes0x988 for GPIO IDs0x8c and0x8e rather than the0x888 applied to the surrounding group."
+    ],
+    "interpretation": "These are board-specific settings, not evidence that the first two x1 descriptors are replaced. Their physical purpose or necessity on DS1522 was not inferred.",
+    "limit": "This is a bounded review of the OEM callback and shared table interpreters, not a proof about every downstream SMU/AGESA action."
+  },
+  "candidate_boundary": {
+    "rs1221_pair": [
+      {
+        "lane": 0,
+        "requested_bdf": "00:01.2"
+      },
+      {
+        "lane": 1,
+        "requested_bdf": "00:01.3"
+      }
+    ],
+    "ds1522_candidate_pair": [
+      {
+        "lane": 0,
+        "requested_bdf": "00:01.5"
+      },
+      {
+        "lane": 1,
+        "requested_bdf": "00:01.4"
+      }
+    ],
+    "remaining": "RS1221 uses ascending lane/root ordering and a seven-root PCIe layout, including x1 engines on logical2/3. The DS1522 candidate uses different BDF ordering, different reset/clock fields, and native SATA on logical2/3. The exact complete DS1522 combination is not validated by this example."
+  },
+  "limits": [
+    "No RS1221 runtime CPUID/SMU reply or trained-link capture was collected.",
+    "All BDF values are requested values from official descriptors.",
+    "The result does not establish a deployment/authentication path for modified DS1522 firmware."
+  ],
+  "retained_oem_native_evidence": {
+    "evidence_id": "ev_cf4bf60a223d747a9004aef95b15aa1449d06b52e6e4eeef760944d8d9cf3716",
+    "subject": {
+      "name": "AmdCpmOemInitPeim.efi",
+      "digest": {
+        "sha256": "b6bec8e5fd068c5bb2183ad8102c43fd5bc5a9f3b77b6233ec7a1e81574b60b0"
+      },
+      "format": "pe",
+      "architecture": "x86",
+      "local_path": "analysis/same_cpu_reference/rs1221/AmdCpmOemInitPeim.efi"
+    },
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "analysis_profile": {
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.2"
+      },
+      "parameters": {
+        "target_kind": "executable",
+        "target_format": "pe",
+        "executable_role": "shared-library",
+        "managed": false,
+        "native_aot_metadata": {
+          "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+          "source_bytes": 134217728,
+          "work_units": 67108864,
+          "working_memory_bytes": 67108864,
+          "report_bytes": 4194304
+        },
+        "architecture": "x86",
+        "available_architectures": [
+          "x86"
+        ],
+        "import_mode": "ephemeral-source-immutable",
+        "annotation_policy": "atomic-function-entry-metadata-v1",
+        "load_image_observations": "source-mappings-entry-context-v2",
+        "function_body_evidence": "complete-inclusive-ranges-v1",
+        "function_references": "complete-body-and-entry-reference-manager-v2",
+        "string_inventory_evidence": "defined-data-coverage-v1",
+        "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+        "instruction_flow_evidence": "decoded-return-pcode-v1",
+        "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+        "no_return_repair": "returning-imports-decoded-return-v2",
+        "process_launch": "inspected-jvm-launch-support-v1",
+        "jump_table_evidence": "typed-case-default-blocks-v1",
+        "decompiler_jump_loads": true,
+        "loader": "auto-from-header",
+        "language_id": "auto-from-header",
+        "compiler_spec_id": "auto-default",
+        "analyzer_preset": "ghidra-default"
+      },
+      "digest": "9294c431618dd0d6457ee21dff6d191a9237cfd99f92e5bffec34503aa04b65c"
+    },
+    "predicate_type": "rea.analysis",
+    "operation": "procedure_pseudo_code",
+    "parameters": {
+      "procedure": "0x9b418b8"
+    },
+    "raw_result": {
+      "value": "\nint __cdecl FUN_09b418b8(int *param_1)\n\n{\n  short sVar1;\n  ushort uVar2;\n  char cVar3;\n  bool bVar4;\n  int iVar5;\n  int iVar6;\n  short *psVar7;\n  uint uVar8;\n  ushort *puVar9;\n  char *pcVar10;\n  int iVar11;\n  char *pcVar12;\n  undefined1 *puVar13;\n  int iVar14;\n  undefined *puVar15;\n  int local_4a0;\n  int iStack_49c;\n  undefined1 *puStack_498;\n  int iStack_494;\n  int iStack_490;\n  uint uStack_48c;\n  undefined1 auStack_488 [4];\n  char cStack_484;\n  char cStack_483;\n  char cStack_482;\n  char cStack_47d;\n  undefined1 uStack_47b;\n  char cStack_47a;\n  char cStack_479;\n  char cStack_478;\n  char cStack_477;\n  char cStack_476;\n  undefined1 uStack_475;\n  uint uStack_474;\n  char cStack_470;\n  char cStack_46f;\n  char cStack_46e;\n  char cStack_46b;\n  byte bStack_468;\n  undefined2 local_408;\n  undefined1 local_406 [1026];\n  \n  local_408 = 0;\n  FUN_09b4234d(local_406,0,0x3fe);\n  iVar5 = (**(code **)(*param_1 + 0x20))(param_1,&DAT_09b423c0,0,0,&local_4a0);\n  if (-1 < iVar5) {\n    iVar11 = *(int *)(local_4a0 + 4);\n    uStack_48c = FUN_09b41ff4(0x10000000);\n    uStack_48c = uStack_48c & 0xffff;\n    iVar5 = FUN_09b420a7((int)auStack_488);\n    if (-1 < iVar5) {\n      FUN_09b42008(&DAT_09b42390,0x3f501,uStack_474);\n      FUN_09b41ff4(0x10000001);\n      iStack_49c = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x36324124);\n      iStack_490 = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x37314124);\n      (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x32314124);\n      (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x35324124);\n      iStack_494 = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x33314124);\n      iVar5 = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x30314124);\n      iVar6 = FUN_09b41fdb();\n      cVar3 = (**(code **)(iVar6 + 4))(&DAT_09b42380,0x20000008);\n      if (cVar3 == '\\x01') {\n        FUN_09b4185c(iVar5);\n        FUN_09b4181b();\n      }\n      if (bStack_468 < 2) {\n        if (bStack_468 == 1) {\n          uVar8 = (**(code **)(local_4a0 + 0x30))(*(int *)(iVar11 + 0x37) + 0x3e4);\n          (**(code **)(local_4a0 + 0x40))(*(int *)(iVar11 + 0x37) + 0x3e4,uVar8 | 3);\n        }\n      }\n      else if (iVar5 != 0) {\n        psVar7 = (short *)(iVar5 + 0x10);\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0xb) {\n            psVar7[1] = bStack_468 + 0x87e;\n          }\n          psVar7 = psVar7 + 2;\n          sVar1 = *psVar7;\n        }\n      }\n      FUN_09b42024(&DAT_09b423a0,0x4f0a0,81000);\n      FUN_09b42024(&DAT_09b423a0,0x4f0a1,0);\n      FUN_09b42024(&DAT_09b423a0,0x4f0a2,26000);\n      FUN_09b42024(&DAT_09b423a0,0x4f0a3,0);\n      iVar6 = FUN_09b41fdb();\n      uVar8 = (**(code **)(iVar6 + 0xc))(&DAT_09b42390,0x3ff81);\n      FUN_09b42024(&DAT_09b42390,0x3ff81,uVar8 | 0x4001800);\n      if ((iVar5 != 0) && (((uVar8 | 0x4001800) & 0x800) != 0)) {\n        puVar9 = (ushort *)(iVar5 + 0x10);\n        uVar2 = *puVar9;\n        while (uVar2 != 0xff) {\n          uVar2 = *puVar9;\n          if (((0x86 < uVar2) && (uVar2 < 0x91)) &&\n             ((puVar9[1] = 0x888, uVar2 == 0x8c || (uVar2 == 0x8e)))) {\n            puVar9[1] = 0x988;\n          }\n          puVar9 = puVar9 + 2;\n          uVar2 = *puVar9;\n        }\n      }\n      (**(code **)(local_4a0 + 0x38))(*(int *)(iVar11 + 0x37) + 0x400,7);\n      iVar6 = iStack_49c;\n      *(uint *)(iVar11 + 99) =\n           *(uint *)(iVar11 + 99) ^\n           ((uint)(cStack_484 == '\\x04') << 0x12 ^ *(uint *)(iVar11 + 99)) & 0x40000;\n      uVar8 = ((uint)(cStack_484 == '\\x04') << 0x13 ^ *(uint *)(iVar11 + 99)) & 0x80000 ^\n              *(uint *)(iVar11 + 99);\n      *(uint *)(iVar11 + 99) = uVar8;\n      uVar8 = ((uint)(cStack_483 == '\\0') << 10 ^ uVar8) & 0x400 ^ uVar8;\n      *(uint *)(iVar11 + 99) = uVar8;\n      if (((cStack_470 != '\\0') && (*(uint *)(iVar11 + 99) = uVar8 | 0x400000, iStack_494 != 0)) &&\n         (pcVar12 = (char *)(iStack_494 + 0x10), *pcVar12 != -1)) {\n        pcVar10 = (char *)(iStack_494 + 0x12);\n        do {\n          if (((*pcVar12 == '\\x04') && (pcVar10[-1] == '\\x01')) && (*pcVar10 == '\\x01')) {\n            *pcVar10 = '\\x02';\n            pcVar10[1] = -0x60;\n            pcVar10[2] = -0x7a;\n            pcVar10[3] = '\\x01';\n            pcVar10[4] = '\\0';\n          }\n          pcVar12 = pcVar10 + 6;\n          pcVar10 = pcVar10 + 8;\n        } while (*pcVar12 != -1);\n      }\n      *(undefined1 *)(iVar11 + 0x76) = uStack_475;\n      if (cStack_482 == '\\x02') {\n        *(uint *)(iVar11 + 99) = *(uint *)(iVar11 + 99) | 0x100;\n      }\n      if (cStack_46f == '\\0') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        iVar14 = 0;\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0x1f) {\n            *(undefined2 *)(iVar5 + 0x12 + iVar14 * 4) = 0xac0;\n            break;\n          }\n          psVar7 = psVar7 + 2;\n          iVar14 = iVar14 + 1;\n          sVar1 = *psVar7;\n        }\n        *(byte *)(iStack_49c + 0x195e) = *(byte *)(iStack_49c + 0x195e) | 8;\n        *(undefined1 *)(iStack_49c + 0x1958) = 4;\n        bVar4 = FUN_09b417f5();\n        if (bVar4) {\n          puVar15 = &DAT_09b46e48;\n        }\n        else {\n          puVar15 = &DAT_09b46e10;\n        }\n        FUN_09b42024(&DAT_09b42390,0x41040,puVar15);\n      }\n      if (cStack_46e == '\\0') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        iVar14 = 0;\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0x1d) {\n            *(undefined2 *)(iVar5 + 0x12 + iVar14 * 4) = 0x9c0;\n            break;\n          }\n          psVar7 = psVar7 + 2;\n          iVar14 = iVar14 + 1;\n          iVar6 = iStack_49c;\n          sVar1 = *psVar7;\n        }\n        *(byte *)(iVar6 + 0x196a) = *(byte *)(iVar6 + 0x196a) | 8;\n        *(undefined1 *)(iVar6 + 0x1964) = 4;\n        bVar4 = FUN_09b417f5();\n        if (bVar4) {\n          puVar15 = &DAT_09b46e64;\n        }\n        else {\n          puVar15 = &DAT_09b46e2c;\n        }\n        FUN_09b42024(&DAT_09b42390,0x41041,puVar15);\n      }\n      *(undefined1 *)(iVar11 + 0x6a) = uStack_47b;\n      if (7 < (ushort)uStack_48c) {\n        iVar11 = FUN_09b41fdb();\n        (**(code **)(iVar11 + 0x20))(&DAT_09b423a0,0x4f030,0);\n      }\n      iVar11 = FUN_09b41fdb();\n      cVar3 = (**(code **)(iVar11 + 4))(&DAT_09b42390,0x3f601);\n      if (cVar3 != '\\0') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0x56) {\n            iVar11 = FUN_09b41fdb();\n            (**(code **)(iVar11 + 0x20))(&DAT_09b42380,0x10000022,0);\n            psVar7[1] = 0x9c0;\n          }\n          psVar7 = psVar7 + 2;\n          sVar1 = *psVar7;\n        }\n      }\n      if ((cStack_47d != '\\0') && (iStack_494 != 0)) {\n        pcVar12 = (char *)(iStack_494 + 0x10);\n        cVar3 = *pcVar12;\n        while (cVar3 != -1) {\n          if ((*pcVar12 == '\\x04') && (pcVar12[1] == '\\0')) {\n            pcVar12[7] = '\\x01';\n          }\n          pcVar12 = pcVar12 + 8;\n          cVar3 = *pcVar12;\n        }\n      }\n      if (iStack_490 != 0) {\n        if (cStack_47a == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x03') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_479 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x04') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_478 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x02') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_477 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x05') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_476 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x06') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        for (pcVar12 = (char *)(iStack_490 + 0x10); *pcVar12 != -1; pcVar12 = pcVar12 + 0xc) {\n        }\n      }\n      if (cStack_46b == '\\x01') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        iVar11 = 0;\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0xc) {\n            puVar9 = (ushort *)(iVar5 + 0x12 + iVar11 * 4);\n            *puVar9 = *puVar9 | 1;\n            break;\n          }\n          psVar7 = psVar7 + 2;\n          iVar11 = iVar11 + 1;\n          sVar1 = *psVar7;\n        }\n      }\n      FUN_09b42024(&DAT_09b42390,0x41108,&DAT_09b46bb8);\n      bVar4 = FUN_09b417f5();\n      if (!bVar4) {\n        iVar11 = (**(code **)(*param_1 + 0x4c))(param_1,0x32,&puStack_498);\n        puVar13 = puStack_498;\n        if (-1 < iVar11) {\n          iVar11 = FUN_09b41fdb();\n          (**(code **)(iVar11 + 0x20))(&DAT_09b423a0,0x4f072,0xf);\n          iVar11 = FUN_09b41fdb();\n          (**(code **)(iVar11 + 0x20))(&DAT_09b423a0,0x4f073,0);\n          iVar11 = FUN_09b41fdb();\n          (**(code **)(iVar11 + 0x24))(&DAT_09b423a0,0x4f074,5);\n          *puVar13 = 2;\n          *(undefined2 *)(puVar13 + 3) = 0x8000;\n          *(undefined2 *)(puVar13 + 1) = 0x19;\n          puVar13[5] = 8;\n          *(undefined4 *)(puVar13 + 6) = 0x80002934;\n          puVar13[10] = 9;\n          *(undefined4 *)(puVar13 + 0xb) = 0x8000291c;\n          puVar13[0xf] = 0x10;\n          *(undefined4 *)(puVar13 + 0x10) = 0x80004214;\n          puVar13[0x14] = 0x18;\n          *(undefined4 *)(puVar13 + 0x15) = 0x9f004c00;\n          puVar13 = puVar13 + 0x1c;\n          iVar11 = 5;\n          do {\n            puVar13[-3] = 0xff;\n            *(undefined4 *)(puVar13 + -2) = 0;\n            puVar13 = puVar13 + 5;\n            iVar11 = iVar11 + -1;\n          } while (iVar11 != 0);\n        }\n        FUN_09b42024(&DAT_09b423a0,0x4f075,puStack_498);\n        iVar11 = FUN_09b41fdb();\n        (**(code **)(iVar11 + 0x24))(&DAT_09b423a0,0x4f040,0x10);\n      }\n      if ((undefined4 *)&local_408 != (undefined4 *)(iVar5 + 0x10)) {\n        FUN_09b422f0((undefined4 *)&local_408,(undefined4 *)(iVar5 + 0x10),0x400);\n      }\n      iVar5 = -0x7ffffffd;\n    }\n  }\n  return iVar5;\n}\n\n",
+      "limitations": []
+    },
+    "normalized_result": "\nint __cdecl FUN_09b418b8(int *param_1)\n\n{\n  short sVar1;\n  ushort uVar2;\n  char cVar3;\n  bool bVar4;\n  int iVar5;\n  int iVar6;\n  short *psVar7;\n  uint uVar8;\n  ushort *puVar9;\n  char *pcVar10;\n  int iVar11;\n  char *pcVar12;\n  undefined1 *puVar13;\n  int iVar14;\n  undefined *puVar15;\n  int local_4a0;\n  int iStack_49c;\n  undefined1 *puStack_498;\n  int iStack_494;\n  int iStack_490;\n  uint uStack_48c;\n  undefined1 auStack_488 [4];\n  char cStack_484;\n  char cStack_483;\n  char cStack_482;\n  char cStack_47d;\n  undefined1 uStack_47b;\n  char cStack_47a;\n  char cStack_479;\n  char cStack_478;\n  char cStack_477;\n  char cStack_476;\n  undefined1 uStack_475;\n  uint uStack_474;\n  char cStack_470;\n  char cStack_46f;\n  char cStack_46e;\n  char cStack_46b;\n  byte bStack_468;\n  undefined2 local_408;\n  undefined1 local_406 [1026];\n  \n  local_408 = 0;\n  FUN_09b4234d(local_406,0,0x3fe);\n  iVar5 = (**(code **)(*param_1 + 0x20))(param_1,&DAT_09b423c0,0,0,&local_4a0);\n  if (-1 < iVar5) {\n    iVar11 = *(int *)(local_4a0 + 4);\n    uStack_48c = FUN_09b41ff4(0x10000000);\n    uStack_48c = uStack_48c & 0xffff;\n    iVar5 = FUN_09b420a7((int)auStack_488);\n    if (-1 < iVar5) {\n      FUN_09b42008(&DAT_09b42390,0x3f501,uStack_474);\n      FUN_09b41ff4(0x10000001);\n      iStack_49c = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x36324124);\n      iStack_490 = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x37314124);\n      (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x32314124);\n      (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x35324124);\n      iStack_494 = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x33314124);\n      iVar5 = (**(code **)(local_4a0 + 0x1a8))(local_4a0,0x30314124);\n      iVar6 = FUN_09b41fdb();\n      cVar3 = (**(code **)(iVar6 + 4))(&DAT_09b42380,0x20000008);\n      if (cVar3 == '\\x01') {\n        FUN_09b4185c(iVar5);\n        FUN_09b4181b();\n      }\n      if (bStack_468 < 2) {\n        if (bStack_468 == 1) {\n          uVar8 = (**(code **)(local_4a0 + 0x30))(*(int *)(iVar11 + 0x37) + 0x3e4);\n          (**(code **)(local_4a0 + 0x40))(*(int *)(iVar11 + 0x37) + 0x3e4,uVar8 | 3);\n        }\n      }\n      else if (iVar5 != 0) {\n        psVar7 = (short *)(iVar5 + 0x10);\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0xb) {\n            psVar7[1] = bStack_468 + 0x87e;\n          }\n          psVar7 = psVar7 + 2;\n          sVar1 = *psVar7;\n        }\n      }\n      FUN_09b42024(&DAT_09b423a0,0x4f0a0,81000);\n      FUN_09b42024(&DAT_09b423a0,0x4f0a1,0);\n      FUN_09b42024(&DAT_09b423a0,0x4f0a2,26000);\n      FUN_09b42024(&DAT_09b423a0,0x4f0a3,0);\n      iVar6 = FUN_09b41fdb();\n      uVar8 = (**(code **)(iVar6 + 0xc))(&DAT_09b42390,0x3ff81);\n      FUN_09b42024(&DAT_09b42390,0x3ff81,uVar8 | 0x4001800);\n      if ((iVar5 != 0) && (((uVar8 | 0x4001800) & 0x800) != 0)) {\n        puVar9 = (ushort *)(iVar5 + 0x10);\n        uVar2 = *puVar9;\n        while (uVar2 != 0xff) {\n          uVar2 = *puVar9;\n          if (((0x86 < uVar2) && (uVar2 < 0x91)) &&\n             ((puVar9[1] = 0x888, uVar2 == 0x8c || (uVar2 == 0x8e)))) {\n            puVar9[1] = 0x988;\n          }\n          puVar9 = puVar9 + 2;\n          uVar2 = *puVar9;\n        }\n      }\n      (**(code **)(local_4a0 + 0x38))(*(int *)(iVar11 + 0x37) + 0x400,7);\n      iVar6 = iStack_49c;\n      *(uint *)(iVar11 + 99) =\n           *(uint *)(iVar11 + 99) ^\n           ((uint)(cStack_484 == '\\x04') << 0x12 ^ *(uint *)(iVar11 + 99)) & 0x40000;\n      uVar8 = ((uint)(cStack_484 == '\\x04') << 0x13 ^ *(uint *)(iVar11 + 99)) & 0x80000 ^\n              *(uint *)(iVar11 + 99);\n      *(uint *)(iVar11 + 99) = uVar8;\n      uVar8 = ((uint)(cStack_483 == '\\0') << 10 ^ uVar8) & 0x400 ^ uVar8;\n      *(uint *)(iVar11 + 99) = uVar8;\n      if (((cStack_470 != '\\0') && (*(uint *)(iVar11 + 99) = uVar8 | 0x400000, iStack_494 != 0)) &&\n         (pcVar12 = (char *)(iStack_494 + 0x10), *pcVar12 != -1)) {\n        pcVar10 = (char *)(iStack_494 + 0x12);\n        do {\n          if (((*pcVar12 == '\\x04') && (pcVar10[-1] == '\\x01')) && (*pcVar10 == '\\x01')) {\n            *pcVar10 = '\\x02';\n            pcVar10[1] = -0x60;\n            pcVar10[2] = -0x7a;\n            pcVar10[3] = '\\x01';\n            pcVar10[4] = '\\0';\n          }\n          pcVar12 = pcVar10 + 6;\n          pcVar10 = pcVar10 + 8;\n        } while (*pcVar12 != -1);\n      }\n      *(undefined1 *)(iVar11 + 0x76) = uStack_475;\n      if (cStack_482 == '\\x02') {\n        *(uint *)(iVar11 + 99) = *(uint *)(iVar11 + 99) | 0x100;\n      }\n      if (cStack_46f == '\\0') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        iVar14 = 0;\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0x1f) {\n            *(undefined2 *)(iVar5 + 0x12 + iVar14 * 4) = 0xac0;\n            break;\n          }\n          psVar7 = psVar7 + 2;\n          iVar14 = iVar14 + 1;\n          sVar1 = *psVar7;\n        }\n        *(byte *)(iStack_49c + 0x195e) = *(byte *)(iStack_49c + 0x195e) | 8;\n        *(undefined1 *)(iStack_49c + 0x1958) = 4;\n        bVar4 = FUN_09b417f5();\n        if (bVar4) {\n          puVar15 = &DAT_09b46e48;\n        }\n        else {\n          puVar15 = &DAT_09b46e10;\n        }\n        FUN_09b42024(&DAT_09b42390,0x41040,puVar15);\n      }\n      if (cStack_46e == '\\0') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        iVar14 = 0;\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0x1d) {\n            *(undefined2 *)(iVar5 + 0x12 + iVar14 * 4) = 0x9c0;\n            break;\n          }\n          psVar7 = psVar7 + 2;\n          iVar14 = iVar14 + 1;\n          iVar6 = iStack_49c;\n          sVar1 = *psVar7;\n        }\n        *(byte *)(iVar6 + 0x196a) = *(byte *)(iVar6 + 0x196a) | 8;\n        *(undefined1 *)(iVar6 + 0x1964) = 4;\n        bVar4 = FUN_09b417f5();\n        if (bVar4) {\n          puVar15 = &DAT_09b46e64;\n        }\n        else {\n          puVar15 = &DAT_09b46e2c;\n        }\n        FUN_09b42024(&DAT_09b42390,0x41041,puVar15);\n      }\n      *(undefined1 *)(iVar11 + 0x6a) = uStack_47b;\n      if (7 < (ushort)uStack_48c) {\n        iVar11 = FUN_09b41fdb();\n        (**(code **)(iVar11 + 0x20))(&DAT_09b423a0,0x4f030,0);\n      }\n      iVar11 = FUN_09b41fdb();\n      cVar3 = (**(code **)(iVar11 + 4))(&DAT_09b42390,0x3f601);\n      if (cVar3 != '\\0') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0x56) {\n            iVar11 = FUN_09b41fdb();\n            (**(code **)(iVar11 + 0x20))(&DAT_09b42380,0x10000022,0);\n            psVar7[1] = 0x9c0;\n          }\n          psVar7 = psVar7 + 2;\n          sVar1 = *psVar7;\n        }\n      }\n      if ((cStack_47d != '\\0') && (iStack_494 != 0)) {\n        pcVar12 = (char *)(iStack_494 + 0x10);\n        cVar3 = *pcVar12;\n        while (cVar3 != -1) {\n          if ((*pcVar12 == '\\x04') && (pcVar12[1] == '\\0')) {\n            pcVar12[7] = '\\x01';\n          }\n          pcVar12 = pcVar12 + 8;\n          cVar3 = *pcVar12;\n        }\n      }\n      if (iStack_490 != 0) {\n        if (cStack_47a == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x03') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_479 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x04') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_478 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x02') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_477 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x05') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        if (cStack_476 == '\\0') {\n          pcVar12 = (char *)(iStack_490 + 0x10);\n          iVar11 = 0;\n          cVar3 = *pcVar12;\n          iVar6 = iStack_490;\n          while (cVar3 != -1) {\n            if (*pcVar12 == '\\x06') {\n              *(byte *)(iVar6 + 0x17) = *(byte *)(iVar6 + 0x17) & 0xf3;\n              *(undefined1 *)(iVar6 + 0x11) = 0xff;\n            }\n            iVar11 = iVar11 + 1;\n            iVar6 = iVar11 * 0xc + iStack_490;\n            pcVar12 = (char *)(iVar6 + 0x10);\n            cVar3 = *pcVar12;\n          }\n        }\n        for (pcVar12 = (char *)(iStack_490 + 0x10); *pcVar12 != -1; pcVar12 = pcVar12 + 0xc) {\n        }\n      }\n      if (cStack_46b == '\\x01') {\n        psVar7 = (short *)(iVar5 + 0x10);\n        iVar11 = 0;\n        sVar1 = *psVar7;\n        while (sVar1 != 0xff) {\n          if (*psVar7 == 0xc) {\n            puVar9 = (ushort *)(iVar5 + 0x12 + iVar11 * 4);\n            *puVar9 = *puVar9 | 1;\n            break;\n          }\n          psVar7 = psVar7 + 2;\n          iVar11 = iVar11 + 1;\n          sVar1 = *psVar7;\n        }\n      }\n      FUN_09b42024(&DAT_09b42390,0x41108,&DAT_09b46bb8);\n      bVar4 = FUN_09b417f5();\n      if (!bVar4) {\n        iVar11 = (**(code **)(*param_1 + 0x4c))(param_1,0x32,&puStack_498);\n        puVar13 = puStack_498;\n        if (-1 < iVar11) {\n          iVar11 = FUN_09b41fdb();\n          (**(code **)(iVar11 + 0x20))(&DAT_09b423a0,0x4f072,0xf);\n          iVar11 = FUN_09b41fdb();\n          (**(code **)(iVar11 + 0x20))(&DAT_09b423a0,0x4f073,0);\n          iVar11 = FUN_09b41fdb();\n          (**(code **)(iVar11 + 0x24))(&DAT_09b423a0,0x4f074,5);\n          *puVar13 = 2;\n          *(undefined2 *)(puVar13 + 3) = 0x8000;\n          *(undefined2 *)(puVar13 + 1) = 0x19;\n          puVar13[5] = 8;\n          *(undefined4 *)(puVar13 + 6) = 0x80002934;\n          puVar13[10] = 9;\n          *(undefined4 *)(puVar13 + 0xb) = 0x8000291c;\n          puVar13[0xf] = 0x10;\n          *(undefined4 *)(puVar13 + 0x10) = 0x80004214;\n          puVar13[0x14] = 0x18;\n          *(undefined4 *)(puVar13 + 0x15) = 0x9f004c00;\n          puVar13 = puVar13 + 0x1c;\n          iVar11 = 5;\n          do {\n            puVar13[-3] = 0xff;\n            *(undefined4 *)(puVar13 + -2) = 0;\n            puVar13 = puVar13 + 5;\n            iVar11 = iVar11 + -1;\n          } while (iVar11 != 0);\n        }\n        FUN_09b42024(&DAT_09b423a0,0x4f075,puStack_498);\n        iVar11 = FUN_09b41fdb();\n        (**(code **)(iVar11 + 0x24))(&DAT_09b423a0,0x4f040,0x10);\n      }\n      if ((undefined4 *)&local_408 != (undefined4 *)(iVar5 + 0x10)) {\n        FUN_09b422f0((undefined4 *)&local_408,(undefined4 *)(iVar5 + 0x10),0x400);\n      }\n      iVar5 = -0x7ffffffd;\n    }\n  }\n  return iVar5;\n}\n\n",
+    "confidence": "observed",
+    "authority": "shipped-artifact",
+    "environment": null,
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+      "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+      "macOS sessions require a matching executable Ghidra native decompiler; REA checks for it but does not build native components or change Gatekeeper quarantine state.",
+      "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+    ],
+    "locations": [],
+    "evidence_links": []
+  },
+  "cleanup": "Isolated REA CLI completed and closed its temporary analysis session. Its redundant snapshot/output are removed after embedding the full returned evidence here."
+}

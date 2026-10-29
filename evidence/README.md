@@ -7,7 +7,9 @@ The records distinguish observed bytes and runtime facts from hypotheses and unt
 | Overall findings | [findings.json](findings.json) |
 | CPU-dependent board configuration | [pcie_table_analysis.json](pcie_followup/pcie_table_analysis.json) |
 | DS1525+ comparison | [summary.json](ds1525_comparison/summary.json) |
+| Same-CPU references, including the RS1221+ dual-x1 precedent | [summary.json](same_cpu_reference/summary.json) |
 | Exact lane-split uncertainty | [lane_split_support.json](ds1525_comparison/board/lane_split_support.json) |
+| Additional V1404I model handling | [evidence.json](additional_cpu_support/evidence.json) |
 | Candidate selection experiment | [candidate_emulation.json](boot_enablement/candidate_emulation.json) |
 | Update signatures and raw boot limits | [evidence.json](patch_feasibility/evidence.json) |
 | Authentication-state observation | [live_preflight.json](go_no_go/live_preflight.json) |

@@ -1,0 +1,59 @@
+{
+  "source_bios_rom": "analysis/firmware/DS1621+_7.2.2-72806/bios.ROM",
+  "source_bios_sha256": "b92b4552b2fc16a4208feb79f0a095e675089d713ff62ca4056951e563a018e6",
+  "payload_path": "analysis/firmware/DS1621+_7.2.2-72806/bios_payload.bin",
+  "payload_sha256": "1a1e4dee82a11126d1e6a722ae9c57e2799859d3bdc9d11699f3b3dfd20d95c5",
+  "compressed_entry_offset": "0x750000",
+  "compressed_data_offset": "0x750100",
+  "compressed_bytes": 422587,
+  "expanded_bytes": 3145728,
+  "expanded_sha256": "68cbceee923018b9a3521a5f2b6da635558e56b610eedabb573645cb4d9c7b75",
+  "fv_header_checksum_valid": true,
+  "extraction": "Python zlib + direct FV/FFS/section parsing; original input files unchanged; no whole decompressed image retained",
+  "modules": [
+    {
+      "name": "AmdCpmOemInitPeim",
+      "guid": "d617467b-1ff7-403f-a87d-29f61c80ee7c",
+      "ffs_offset": "0x411e8",
+      "ffs_bytes": 24174,
+      "pe_offset": "0x41240",
+      "pe_bytes": 24032,
+      "sha256": "bfaf933e3dd348fe948aaaba2de70f48432ee0189c07f7676ce019fb7c97d53e",
+      "path": "analysis/same_cpu_reference/ds1621/modules/AmdCpmOemInitPeim_D617467B_early.efi",
+      "ffs_header_checksum_valid": true
+    },
+    {
+      "name": "AmdCpmInitPeim",
+      "guid": "d919136e-865c-4b10-b099-5d897cfede08",
+      "ffs_offset": "0x470e8",
+      "ffs_bytes": 17994,
+      "pe_offset": "0x47120",
+      "pe_bytes": 17888,
+      "sha256": "69371c49a7764280b6d0c551dd1d6e7cb5e6719f003e727e2a8d674e6dfd107a",
+      "path": "analysis/same_cpu_reference/ds1621/modules/AmdCpmInitPeim_D919136E_early.efi",
+      "ffs_header_checksum_valid": true
+    },
+    {
+      "name": "AmdCpmGpioInitPeim",
+      "guid": "de3e049c-a218-4891-7469-4fc0ae853298",
+      "ffs_offset": "0x4b768",
+      "ffs_bytes": 5138,
+      "pe_offset": "0x4b7a0",
+      "pe_bytes": 5024,
+      "sha256": "f25ed77aafcdda948dbf280cb54385a5d73b48e10cc13482acd4bd74214f9983",
+      "path": "analysis/same_cpu_reference/ds1621/modules/AmdCpmGpioInitPeim_DE3E049C_early.efi",
+      "ffs_header_checksum_valid": true
+    },
+    {
+      "name": "AmdCpmPcieInitPeim",
+      "guid": "de3d7a9c-a218-4891-7469-4fc0ae853298",
+      "ffs_offset": "0x4d2e8",
+      "ffs_bytes": 3538,
+      "pe_offset": "0x4d320",
+      "pe_bytes": 3424,
+      "sha256": "1cf36e9423d57461eb68569d2c403286bd30f741147fbc4021ba214c75bb8732",
+      "path": "analysis/same_cpu_reference/ds1621/modules/AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+      "ffs_header_checksum_valid": true
+    }
+  ]
+}

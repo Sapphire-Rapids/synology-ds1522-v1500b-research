@@ -35,6 +35,66 @@
         "reset_vector_hex": "ffffffffffffffffffffffffffffffff"
       },
       "early_bios_sha256": "3e599b302f25eebe75bd8edff4bfc4781c3c59a10c1ea2698044e828b6647784"
+    },
+    {
+      "label": "DS1821+_7.2.2-72806",
+      "official_package_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1821%2B_72806.pat",
+      "package_sha256": "e09d4355114e1e2a05b1f43ea599651dbbfe33b385ac505ac86e91d0e84be055",
+      "bios_container": {
+        "size": 9158376,
+        "sha256": "8630e6dbe37343bc6e5ec1d8492609291039cb5975550ddc05c5ebb8889fb4d4"
+      },
+      "model_dtb": {
+        "size": 3583,
+        "sha256": "66e16f5d7256dc26e9293c04eb618fd8e7e2742cf13ec5f62a69c122f50f7d35"
+      },
+      "payload": {
+        "container_sha256": "8630e6dbe37343bc6e5ec1d8492609291039cb5975550ddc05c5ebb8889fb4d4",
+        "payload_offset": 723152,
+        "payload_size": 8388608,
+        "payload_sha256": "2aaa063822541efec11a3b2560e68257095db59c249205734aea72be006fce1d"
+      },
+      "early_bios_sha256": "65ba7dc9ae089b0d55bc03a2a8b825fa5f0126e5d9f61ca554696bc8e52fa25d"
+    },
+    {
+      "label": "RS1221+_7.2.2-72806",
+      "official_package_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_RS1221%2B_72806.pat",
+      "package_sha256": "54fe800e17f39fcb08ac79212f5cdb72c5d1cd3e4f1a96903af089327c2f0b2f",
+      "bios_container": {
+        "size": 9158376,
+        "sha256": "7415998a3289e52a32ced275b2911732ea2db5d373a55c6f9959fcad1d038d6a"
+      },
+      "model_dtb": {
+        "size": 3980,
+        "sha256": "e84f4a43721c0f342939dcf3f40111767fcc13e1f137310521fbd478c5588da9"
+      },
+      "payload": {
+        "container_sha256": "7415998a3289e52a32ced275b2911732ea2db5d373a55c6f9959fcad1d038d6a",
+        "payload_offset": 723152,
+        "payload_size": 8388608,
+        "payload_sha256": "e7581f601eaecbc3e6486c0ea4106d6a8274f40b6cb67b0c33f69a4dce5fc5f4"
+      },
+      "early_bios_sha256": "84afdd402d7aa9b87dd429ba59f7679f2aac6ff1d56cf578161db5230728244a"
+    },
+    {
+      "label": "DS1621+_7.2.2-72806",
+      "official_package_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1621%2B_72806.pat",
+      "package_sha256": "bc5e0d099b5b75be75ba2b3da757b10d6fbe5b6e35ba5e0a3c73ecad97fdfa9a",
+      "bios_container": {
+        "size": 9158376,
+        "sha256": "b92b4552b2fc16a4208feb79f0a095e675089d713ff62ca4056951e563a018e6",
+        "crc32": 3627977134
+      },
+      "model_dtb": {
+        "size": 2997,
+        "sha256": "30e39a568abf4d148813c5aca07d8ef99677fa4ac938efa80083724bed7d7c70",
+        "crc32": 2350764835
+      },
+      "payload": {
+        "payload_size": 8388608,
+        "payload_sha256": "1a1e4dee82a11126d1e6a722ae9c57e2799859d3bdc9d11699f3b3dfd20d95c5"
+      },
+      "early_bios_sha256": "68cbceee923018b9a3521a5f2b6da635558e56b610eedabb573645cb4d9c7b75"
     }
   ],
   "additional_comparison_source": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1621%2B_72806.pat",

@@ -1,0 +1,86 @@
+{
+  "question": "How do other Synology models using V1500B configure the logical0/1 lanes, and can they validate the proposed DS1522+ split?",
+  "conclusion": "RS1221+ supplies a direct official V1500B firmware precedent for independent PCIe x1 engines on logical lanes0 and1. DS1621+, DS1821+ and DS1525+ use the same pair as one x2 engine in their factory-intended layouts.",
+  "correction_to_prior_state": "The earlier investigation had not found an applicable same-CPU split example. That specific evidence gap is now closed by RS1221+; the complete DS1522 candidate and its resulting port mapping remain untested.",
+  "evidence_level": "Static factory-design evidence from authenticated official packages, registered and selector-reachable board tables, OEM callback review and shipped device-tree corroboration. No donor-model live boot trace was collected.",
+  "models": [
+    {
+      "model": "DS1621+",
+      "cpu": "V1500B",
+      "logical0_1_mode": "one x2 engine",
+      "requested_roots": [
+        "00:01.3"
+      ],
+      "device_tree_role": "NVMe slot1",
+      "evidence": "ds1621/evidence.json",
+      "official_cpu_source": "https://www.synology.com/en-global/products/DS1621%2B"
+    },
+    {
+      "model": "DS1821+",
+      "cpu": "V1500B",
+      "logical0_1_mode": "one x2 engine",
+      "requested_roots": [
+        "00:01.3"
+      ],
+      "device_tree_role": "NVMe slot1",
+      "evidence": "ds1821/inventory.json",
+      "source": "ds1821/source.json",
+      "official_cpu_source": "https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/21-year/DS1821%2B/enu/Synology_DS1821%2B_Data_Sheet_enu.pdf"
+    },
+    {
+      "model": "DS1525+",
+      "cpu": "V1500B",
+      "logical0_1_mode": "one x2 engine",
+      "requested_roots": [
+        "00:01.6"
+      ],
+      "evidence": "../ds1525_comparison/board/evidence.json",
+      "official_cpu_source": "https://www.synology.com/en-global/products/DS1525%2B"
+    },
+    {
+      "model": "RS1221+",
+      "cpu": "V1500B",
+      "logical0_1_mode": "two independent x1 engines",
+      "requested_roots": [
+        "lane0 -> 00:01.2",
+        "lane1 -> 00:01.3"
+      ],
+      "other_layout": "logical2 and3 are also separate x1 engines; logical4..5 and6..7 are x2; logical8..11 is x4. Seven active PCIe roots in total.",
+      "evidence": "rs1221/selection_review.json",
+      "inventory": "rs1221/inventory.json",
+      "source": "rs1221/source.json",
+      "official_cpu_source": "https://www.synology.com/en-global/products/RS1221%2B"
+    }
+  ],
+  "rs1221_applicability": {
+    "module_sha256": "b6bec8e5fd068c5bb2183ad8102c43fd5bc5a9f3b77b6233ec7a1e81574b60b0",
+    "table_signature": "$A26",
+    "table_file_offset": "0x2428",
+    "mask": "0xff",
+    "lane0_descriptor": "0x25d0",
+    "lane1_descriptor": "0x2764",
+    "selector_chain": "CPU class0x0b -> platform0 -> mask0xff table; the table is in the OEM-published pointer list.",
+    "factory_corroboration": "Official model.dtb requires disk controllers behind01.6/01.7 and the expansion slot behind01.1, matching this seven-root path rather than the two-root alternative.",
+    "oem_callback": "No explicit replacement or merge of logical0/1 entries was found in the selected-table callback.",
+    "clock_policy": "The split roots have separate clock rows with request0xff and slot-check0. Their board-specific clock IDs are1 and3.",
+    "independent_integration_check": "selected_verification.json"
+  },
+  "ds1522_candidate_difference": {
+    "logical_lane_pair": "The same two independent x1 engine types.",
+    "requested_roots": [
+      "lane0 -> 00:01.5 (existing JMB585 path)",
+      "lane1 -> 00:01.4 (existing onboard NIC-switch path)"
+    ],
+    "other_links": "The DS1522 candidate also splits logical4/5 and keeps logical2/3 as native SATA; it is not the full RS1221 layout.",
+    "clocks_and_reset": "Retain the DS1522 board definitions; RS1221 values describe different physical connections.",
+    "unknowns": [
+      "Actual V1500B SMU acceptance and trained-link result for the complete DS1522 candidate.",
+      "Final device/function mapping under the DS1522 firmware policy.",
+      "Deployment and boot acceptance of the modified DS1522 image."
+    ]
+  },
+  "practical_decision": "Use RS1221+ as the primary same-CPU split reference. Do not continue treating the absence of any V1500B logical0/1 split precedent as a blocker. Retain the minimal DS1522 board-specific candidate until exact mapping and boot tests justify a change.",
+  "nas_accessed": false,
+  "nas_firmware_written": false,
+  "candidate_modified_in_this_followup": false
+}

@@ -1,0 +1,1059 @@
+{
+  "scope": "DS1621+ official DSM 7.2.2-72806 firmware only, compared with already authorized DS1522 candidate/DS1525 artifacts. No NAS access, hardware observation, target execution or emulation, firmware modification, shared REA session, or private-material access.",
+  "conclusion": {
+    "logical0_1_dual_x1_factory_example_found": false,
+    "factory_intended_design": "Logical lanes 0 and 1 are combined as one PCIe x2 engine requesting 00:01.3, matching the first NVMe slot in the official model.dtb.",
+    "usefulness": "DS1621+ is another same-CPU x2 reference. It does not demonstrate the DS1522 candidate's separate logical0 and logical1 x1 engines or their requested BDF ordering.",
+    "prohibition_established": false,
+    "applicability_strength": "Strong static factory-design corroboration: the registered six-root table, real selector path, OEM consumer and shipped device-tree root assignments agree. Actual DS1621 CPUID/SMU values, selected table and trained links were not measured.",
+    "selection_independent_limit": "Neither of the two registered DXIO tables contains independent logical0/1 PCIe x1 engines. The alternative table uses those lanes as Ethernet engines, so uncertainty about runtime table choice does not create a dual-x1 example."
+  },
+  "extraction_evidence": "extraction.json",
+  "oem_module": {
+    "path": "analysis/same_cpu_reference/ds1621/modules/AmdCpmOemInitPeim_D617467B_early.efi",
+    "sha256": "bfaf933e3dd348fe948aaaba2de70f48432ee0189c07f7676ce019fb7c97d53e",
+    "image_base": "0x9b41240"
+  },
+  "cpm_module": {
+    "path": "analysis/same_cpu_reference/ds1621/modules/AmdCpmInitPeim_D919136E_early.efi",
+    "sha256": "69371c49a7764280b6d0c551dd1d6e7cb5e6719f003e727e2a8d674e6dfd107a",
+    "image_base": "0x9b47120"
+  },
+  "tables": [
+    {
+      "signature": "$A01",
+      "file_offset": "0x1528",
+      "virtual_address": "0x9b42768",
+      "length": 464,
+      "platform_mask": "0x0",
+      "sha256": "31617d137ba82bc48fe668a1e94df13a27a87f9e280302050d6cce908adf65d1",
+      "body_sha256": "f94b590cd5ed17bd174eb38c4f60ba09bd56ea71d3bee7ef809baa856b47fbf2",
+      "header_hex": "24413031d00100000000000001000000",
+      "platform_rows": [
+        {
+          "file_offset": "0x1538",
+          "cpu_class": 11,
+          "board_match_word_raw": 0,
+          "output_platform_id": 0,
+          "raw_hex": "0b1f0000000000"
+        },
+        {
+          "file_offset": "0x153f",
+          "cpu_class": 11,
+          "board_match_word_raw": 4,
+          "output_platform_id": 1,
+          "raw_hex": "0b1f0004000100"
+        },
+        {
+          "file_offset": "0x1546",
+          "cpu_class": 11,
+          "board_match_word_raw": 8,
+          "output_platform_id": 2,
+          "raw_hex": "0b1f0008000200"
+        },
+        {
+          "file_offset": "0x154d",
+          "cpu_class": 11,
+          "board_match_word_raw": 24,
+          "output_platform_id": 3,
+          "raw_hex": "0b1f0018000300"
+        },
+        {
+          "file_offset": "0x1554",
+          "cpu_class": 11,
+          "board_match_word_raw": 16,
+          "output_platform_id": 4,
+          "raw_hex": "0b1f0010000400"
+        },
+        {
+          "file_offset": "0x155b",
+          "cpu_class": 12,
+          "board_match_word_raw": 0,
+          "output_platform_id": 8,
+          "raw_hex": "0c1f0000000800"
+        },
+        {
+          "file_offset": "0x1562",
+          "cpu_class": 12,
+          "board_match_word_raw": 4,
+          "output_platform_id": 9,
+          "raw_hex": "0c1f0004000900"
+        },
+        {
+          "file_offset": "0x1569",
+          "cpu_class": 12,
+          "board_match_word_raw": 8,
+          "output_platform_id": 10,
+          "raw_hex": "0c1f0008000a00"
+        },
+        {
+          "file_offset": "0x1570",
+          "cpu_class": 12,
+          "board_match_word_raw": 24,
+          "output_platform_id": 11,
+          "raw_hex": "0c1f0018000b00"
+        },
+        {
+          "file_offset": "0x1577",
+          "cpu_class": 12,
+          "board_match_word_raw": 16,
+          "output_platform_id": 12,
+          "raw_hex": "0c1f0010000c00"
+        }
+      ]
+    },
+    {
+      "signature": "$A12",
+      "file_offset": "0x1d80",
+      "virtual_address": "0x9b42fc0",
+      "length": 216,
+      "platform_mask": "0x0",
+      "sha256": "5784b8a0f35974faea7397baf35b66fc2985651b1e98fbcf90d905ea87777d37",
+      "body_sha256": "5a19cfb29828cef3ab14df6687f41ea60a2a81fed19d10cfcc8a385dcf1516af",
+      "header_hex": "24413132d8000000000000000f000000",
+      "first_body_byte": 255,
+      "meaning": "0xff terminator at the first record: no explicit reset-table entries."
+    },
+    {
+      "signature": "$A17",
+      "file_offset": "0x2268",
+      "virtual_address": "0x9b434a8",
+      "length": 208,
+      "platform_mask": "0xff",
+      "sha256": "9e162c8284f0a4bb870a9f46bcbf8069dee269dd722b08c87c60a5f0da70cfba",
+      "body_sha256": "4cebb41c6ecaacf0d4db4135e9a687f87b78b0ff28326ef2d8076e020327a6dd",
+      "header_hex": "24413137d0000000ff0000000f000000",
+      "clock_records": [
+        {
+          "file_offset": "0x2278",
+          "clock_id": 0,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 35,
+          "desired_device": 1,
+          "desired_function": 1,
+          "requested_root": "00:01.1",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "00ff00002301010000000000"
+        },
+        {
+          "file_offset": "0x2284",
+          "clock_id": 1,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 39,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "01ff00002701050000000000"
+        },
+        {
+          "file_offset": "0x2290",
+          "clock_id": 3,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 40,
+          "desired_device": 1,
+          "desired_function": 6,
+          "requested_root": "00:01.6",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "03ff00002801060000000000"
+        },
+        {
+          "file_offset": "0x229c",
+          "clock_id": 4,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 36,
+          "desired_device": 1,
+          "desired_function": 2,
+          "requested_root": "00:01.2",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "04ff00002401020000000000"
+        },
+        {
+          "file_offset": "0x22a8",
+          "clock_id": 2,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 37,
+          "desired_device": 1,
+          "desired_function": 3,
+          "requested_root": "00:01.3",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "02ff00002501030000000000"
+        },
+        {
+          "file_offset": "0x22b4",
+          "clock_id": 5,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 38,
+          "desired_device": 1,
+          "desired_function": 4,
+          "requested_root": "00:01.4",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "05ff00002601040000000000"
+        }
+      ]
+    },
+    {
+      "signature": "$A17",
+      "file_offset": "0x2338",
+      "virtual_address": "0x9b43578",
+      "length": 208,
+      "platform_mask": "0x3f001f00",
+      "sha256": "34233acd0a112729b8390df7c8b81c1544f4c0c0ee8e10c9b35d3cdcbd05b43b",
+      "body_sha256": "66b1a4ae0223703de64691320140818ef4c679d0719f047edcd9a07f66d0244d",
+      "header_hex": "24413137d0000000001f003f0f000000",
+      "clock_records": [
+        {
+          "file_offset": "0x2348",
+          "clock_id": 4,
+          "clock_request_raw": 4,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 4,
+          "desired_device": 1,
+          "desired_function": 1,
+          "requested_root": "00:01.1",
+          "slot_check_raw": "0x5",
+          "special_function_raw": "0x0",
+          "raw_hex": "040400000401010500000000"
+        },
+        {
+          "file_offset": "0x2354",
+          "clock_id": 2,
+          "clock_request_raw": 5,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 19,
+          "desired_device": 1,
+          "desired_function": 2,
+          "requested_root": "00:01.2",
+          "slot_check_raw": "0x5",
+          "special_function_raw": "0x0",
+          "raw_hex": "020500001301020500000000"
+        },
+        {
+          "file_offset": "0x2360",
+          "clock_id": 3,
+          "clock_request_raw": 3,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 27,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "slot_check_raw": "0x5",
+          "special_function_raw": "0x0",
+          "raw_hex": "030300001b01050500000000"
+        }
+      ]
+    },
+    {
+      "signature": "$A26",
+      "file_offset": "0x2408",
+      "virtual_address": "0x9b43648",
+      "length": 6532,
+      "platform_mask": "0xff",
+      "sha256": "4a99331755f305154de31065277e147d1f3c7abb148ad688fef134d473078a7d",
+      "body_sha256": "1fbd4ff676aa882d68dbddbc60a97ac447d4d0373904990b1b8a1ae704141b35",
+      "header_hex": "2441323684190000ff0000000f000000",
+      "descriptors": [
+        {
+          "index": 0,
+          "file_offset": "0x241c",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 12,
+          "end_logical_lane": 15,
+          "lane_count": 4,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "requested_root": "00:01.1",
+          "reset_or_device_id_raw": 35,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x10002101",
+          "first24_bytes": "0000000001000c0f23000000012100100000008000000000",
+          "descriptor_sha256": "80012cf123fd47b828ef705f56c2d34bebdebd310ef3b3b7ca28222c1db3a8c6"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x25b0",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 11,
+          "end_logical_lane": 8,
+          "lane_count": 4,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "requested_root": "00:01.2",
+          "reset_or_device_id_raw": 36,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x40004101",
+          "first24_bytes": "0000000001000b0824000000014100400000008000000000",
+          "descriptor_sha256": "0bb52608f6841effdd9a85b101971648170de67e308c8c3c48bb262739b89d31"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x2744",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 3,
+          "requested_root": "00:01.3",
+          "reset_or_device_id_raw": 37,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x50006101",
+          "first24_bytes": "000000000100000125000000016100500000008000000000",
+          "descriptor_sha256": "f757e1ea5dc00d75d5b861d159024011559af7762ab37501bb17d59f32bcd06b"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x28d8",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 2,
+          "end_logical_lane": 3,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 4,
+          "requested_root": "00:01.4",
+          "reset_or_device_id_raw": 38,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x60008101",
+          "first24_bytes": "000000000100020326000000018100600000008000000000",
+          "descriptor_sha256": "3dad38556b9562a407b20b3cb17fc7c8a6a512a2dd6400f027082a573cead8c8"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x2a6c",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "reset_or_device_id_raw": 39,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x2000a101",
+          "first24_bytes": "00000000010004052700000001a100200000008000000000",
+          "descriptor_sha256": "6ea0ec0da3ba48197b7b107fbfe0d7fa48eab621d4a44b5deab678c32b2aaf05"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x2c00",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 6,
+          "end_logical_lane": 7,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 6,
+          "requested_root": "00:01.6",
+          "reset_or_device_id_raw": 40,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x3000c101",
+          "first24_bytes": "00000000010006072800000001c100300000008000000000",
+          "descriptor_sha256": "1d33b56d3fe4f0fdf2367d2907a184cde302054bb4200e4b3a98d804ec20d3ba"
+        }
+      ],
+      "zero_descriptor_count_within_16_slot_array": 10,
+      "active_pcie": [
+        {
+          "index": 0,
+          "file_offset": "0x241c",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 12,
+          "end_logical_lane": 15,
+          "lane_count": 4,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "requested_root": "00:01.1",
+          "reset_or_device_id_raw": 35,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x10002101",
+          "first24_bytes": "0000000001000c0f23000000012100100000008000000000",
+          "descriptor_sha256": "80012cf123fd47b828ef705f56c2d34bebdebd310ef3b3b7ca28222c1db3a8c6"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x25b0",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 11,
+          "end_logical_lane": 8,
+          "lane_count": 4,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "requested_root": "00:01.2",
+          "reset_or_device_id_raw": 36,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x40004101",
+          "first24_bytes": "0000000001000b0824000000014100400000008000000000",
+          "descriptor_sha256": "0bb52608f6841effdd9a85b101971648170de67e308c8c3c48bb262739b89d31"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x2744",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 3,
+          "requested_root": "00:01.3",
+          "reset_or_device_id_raw": 37,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x50006101",
+          "first24_bytes": "000000000100000125000000016100500000008000000000",
+          "descriptor_sha256": "f757e1ea5dc00d75d5b861d159024011559af7762ab37501bb17d59f32bcd06b"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x28d8",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 2,
+          "end_logical_lane": 3,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 4,
+          "requested_root": "00:01.4",
+          "reset_or_device_id_raw": 38,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x60008101",
+          "first24_bytes": "000000000100020326000000018100600000008000000000",
+          "descriptor_sha256": "3dad38556b9562a407b20b3cb17fc7c8a6a512a2dd6400f027082a573cead8c8"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x2a6c",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "reset_or_device_id_raw": 39,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x2000a101",
+          "first24_bytes": "00000000010004052700000001a100200000008000000000",
+          "descriptor_sha256": "6ea0ec0da3ba48197b7b107fbfe0d7fa48eab621d4a44b5deab678c32b2aaf05"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x2c00",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 6,
+          "end_logical_lane": 7,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 6,
+          "requested_root": "00:01.6",
+          "reset_or_device_id_raw": 40,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x3000c101",
+          "first24_bytes": "00000000010006072800000001c100300000008000000000",
+          "descriptor_sha256": "1d33b56d3fe4f0fdf2367d2907a184cde302054bb4200e4b3a98d804ec20d3ba"
+        }
+      ]
+    },
+    {
+      "signature": "$A26",
+      "file_offset": "0x3d90",
+      "virtual_address": "0x9b44fd0",
+      "length": 6532,
+      "platform_mask": "0x3f001f00",
+      "sha256": "7a4862db4700759c0470550797b05516f1da35d0113b75f7139790a81191522a",
+      "body_sha256": "62c55da3d97a1dcd64ecfdb106370c76ba23e1c5432f637cfd3d30aad35cdd0e",
+      "header_hex": "2441323684190000001f003f0f000000",
+      "descriptors": [
+        {
+          "index": 0,
+          "file_offset": "0x3da4",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 11,
+          "end_logical_lane": 8,
+          "lane_count": 4,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "requested_root": "00:01.1",
+          "reset_or_device_id_raw": 4,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x4e002101",
+          "first24_bytes": "0000000001000b08040000000121004e0000008000000000",
+          "descriptor_sha256": "22a2b0ab5ce48a87bd457f9dc998eed153c643ae9b6d8e2b37964c9cd64aafb2"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x3f38",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "requested_root": "00:01.2",
+          "reset_or_device_id_raw": 19,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x5e004101",
+          "first24_bytes": "0000000001000405130000000141005e0000008000000000",
+          "descriptor_sha256": "e8a19f30696ff3256100286b542ceb68e80e4592a7be72b0254743c395b7a2ad"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x40cc",
+          "engine_type": 0,
+          "engine_kind": "unused",
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "reset_or_device_id_raw": 27,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x3200a101",
+          "first24_bytes": "00000000000000011b00000001a100320000008000000000",
+          "descriptor_sha256": "9bf0d5e1a8b7c0adf4f55284e029bdbece7114cf92f0feb153784862e864d736"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x4260",
+          "engine_type": 0,
+          "engine_kind": "unused",
+          "start_logical_lane": 2,
+          "end_logical_lane": 3,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "reset_or_device_id_raw": 27,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x3200a101",
+          "first24_bytes": "00000000000002031b00000001a100320000008000000000",
+          "descriptor_sha256": "6c8e487fdca9dc289e8591f9b0f29c5b4213aeb5a61b45b0fc57b15bbfb91852"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x43f4",
+          "engine_type": 3,
+          "engine_kind": "SATA",
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "lane_count": 1,
+          "port_present": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "requested_root": "00:00.0",
+          "reset_or_device_id_raw": 1,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x1",
+          "first24_bytes": "000000000300030301000000010000000000002000000000",
+          "descriptor_sha256": "4ca6f1ad4456a107cc315753a3b3b901c6a46a2a2055b6e41983baeadfff43a6"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x4588",
+          "engine_type": 3,
+          "engine_kind": "SATA",
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "lane_count": 1,
+          "port_present": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "requested_root": "00:00.0",
+          "reset_or_device_id_raw": 1,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x1",
+          "first24_bytes": "000000000300020201000000010000000000002000000000",
+          "descriptor_sha256": "84d8ee3171f3d1153f68926b9d78cd1bde6d3a464bea70ee905cd1f02b5732cf"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x471c",
+          "engine_type": 16,
+          "engine_kind": "Ethernet",
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "lane_count": 1,
+          "port_present": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "requested_root": "00:00.0",
+          "reset_or_device_id_raw": 1,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x1",
+          "first24_bytes": "000000001000000001000000010000000000000000000000",
+          "descriptor_sha256": "599c2db1d68857dfeee847e2e870a06e8b9e8ab9b706c307de2ec1880a35e364"
+        },
+        {
+          "index": 7,
+          "file_offset": "0x48b0",
+          "engine_type": 16,
+          "engine_kind": "Ethernet",
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "lane_count": 1,
+          "port_present": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "requested_root": "00:00.0",
+          "reset_or_device_id_raw": 1,
+          "descriptor_flags": "0x80000000",
+          "port_configuration_dword": "0x1",
+          "first24_bytes": "000000801000010101000000010000000000000000000000",
+          "descriptor_sha256": "db13baab547f9552f235c753d09b8de803093dd695a611bec19649105f4297f9"
+        }
+      ],
+      "zero_descriptor_count_within_16_slot_array": 0,
+      "active_pcie": [
+        {
+          "index": 0,
+          "file_offset": "0x3da4",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 11,
+          "end_logical_lane": 8,
+          "lane_count": 4,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "requested_root": "00:01.1",
+          "reset_or_device_id_raw": 4,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x4e002101",
+          "first24_bytes": "0000000001000b08040000000121004e0000008000000000",
+          "descriptor_sha256": "22a2b0ab5ce48a87bd457f9dc998eed153c643ae9b6d8e2b37964c9cd64aafb2"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x3f38",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "requested_root": "00:01.2",
+          "reset_or_device_id_raw": 19,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0x5e004101",
+          "first24_bytes": "0000000001000405130000000141005e0000008000000000",
+          "descriptor_sha256": "e8a19f30696ff3256100286b542ceb68e80e4592a7be72b0254743c395b7a2ad"
+        }
+      ]
+    }
+  ],
+  "selection_chain": {
+    "registration": {
+      "oem_entry": "0x9b41480",
+      "registration_callback": "0x9b414d5",
+      "table_list_va": "0x9b46f10",
+      "table_list_file_offset": "0x5cd0",
+      "pointer_store_instruction": "0x9b41548",
+      "ppi_install_instruction": "0x9b4157c",
+      "entries": [
+        {
+          "pointer_file_offset": "0x5cd0",
+          "table_address": "0x9b46e90",
+          "table_file_offset": "0x5c50",
+          "signature": "$CPM"
+        },
+        {
+          "pointer_file_offset": "0x5cd4",
+          "table_address": "0x9b42744",
+          "table_file_offset": "0x1504",
+          "signature": "$A00"
+        },
+        {
+          "pointer_file_offset": "0x5cd8",
+          "table_address": "0x9b42768",
+          "table_file_offset": "0x1528",
+          "signature": "$A01"
+        },
+        {
+          "pointer_file_offset": "0x5cdc",
+          "table_address": "0x9b42938",
+          "table_file_offset": "0x16f8",
+          "signature": "$A02"
+        },
+        {
+          "pointer_file_offset": "0x5ce0",
+          "table_address": "0x9b42b08",
+          "table_file_offset": "0x18c8",
+          "signature": "$A03"
+        },
+        {
+          "pointer_file_offset": "0x5ce4",
+          "table_address": "0x9b42b20",
+          "table_file_offset": "0x18e0",
+          "signature": "$A10"
+        },
+        {
+          "pointer_file_offset": "0x5ce8",
+          "table_address": "0x9b42f30",
+          "table_file_offset": "0x1cf0",
+          "signature": "$A11"
+        },
+        {
+          "pointer_file_offset": "0x5cec",
+          "table_address": "0x9b42fc0",
+          "table_file_offset": "0x1d80",
+          "signature": "$A12"
+        },
+        {
+          "pointer_file_offset": "0x5cf0",
+          "table_address": "0x9b43098",
+          "table_file_offset": "0x1e58",
+          "signature": "$A13"
+        },
+        {
+          "pointer_file_offset": "0x5cf4",
+          "table_address": "0x9b43228",
+          "table_file_offset": "0x1fe8",
+          "signature": "$A14"
+        },
+        {
+          "pointer_file_offset": "0x5cf8",
+          "table_address": "0x9b43398",
+          "table_file_offset": "0x2158",
+          "signature": "$A15"
+        },
+        {
+          "pointer_file_offset": "0x5cfc",
+          "table_address": "0x9b434a8",
+          "table_file_offset": "0x2268",
+          "signature": "$A17"
+        },
+        {
+          "pointer_file_offset": "0x5d00",
+          "table_address": "0x9b43578",
+          "table_file_offset": "0x2338",
+          "signature": "$A17"
+        },
+        {
+          "pointer_file_offset": "0x5d04",
+          "table_address": "0x9b43648",
+          "table_file_offset": "0x2408",
+          "signature": "$A26"
+        },
+        {
+          "pointer_file_offset": "0x5d08",
+          "table_address": "0x9b44fd0",
+          "table_file_offset": "0x3d90",
+          "signature": "$A26"
+        },
+        {
+          "pointer_file_offset": "0x5d0c",
+          "table_address": "0x9b46958",
+          "table_file_offset": "0x5718",
+          "signature": "$A80"
+        },
+        {
+          "pointer_file_offset": "0x5d10",
+          "table_address": "0x9b46b38",
+          "table_file_offset": "0x58f8",
+          "signature": "$A81"
+        }
+      ],
+      "fact": "The OEM callback publishes this table-pointer list through its installed PPI. Both $A17 and both $A26 tables are registered; these are not unreferenced byte patterns."
+    },
+    "cpu_classification": {
+      "procedure": "0x9b4951f",
+      "return_class_wrapper": "0x9b496c5",
+      "evidence_id": "ev_ff593523e96b77ef95dcbd359f38cd1e88b0971b2a84a33196d40dd18f0e65c4",
+      "pcd_token": "0x4f0c4",
+      "rows": [
+        {
+          "file_offset": "0x4090",
+          "virtual_address": "0x9b4b1b0",
+          "mask": "0xfff0f00",
+          "value": "0x810f00",
+          "cpu_class": 11,
+          "secondary_class": 11,
+          "raw_hex": "000fff0f000f81000b0b"
+        },
+        {
+          "file_offset": "0x40f8",
+          "virtual_address": "0x9b4b218",
+          "mask": "0xfff0f00",
+          "value": "0x820f00",
+          "cpu_class": 12,
+          "secondary_class": 12,
+          "raw_hex": "000fff0f000f82000c0c"
+        }
+      ],
+      "logic": "For CPUID masked by 0x0fff0f00 equal to 0x00810f00, SMU/PCD high bits31:30 of 2 or 3 rewrite the comparison key to 0x00820f00. The matching immutable rows yield CPU class0x0b or0x0c."
+    },
+    "platform_selection": {
+      "procedure": "0x9b478b7",
+      "evidence_id": "ev_bc348aea29a93d7bfcddeae6475db1e2e6365c54339022f264b75f9a6b06cf98",
+      "table": "$A01 at OEM file0x1528",
+      "logic": "The actual function searches for a row matching CPU class with its board-match word equal to0. Class0x0b therefore selects platform0; class0x0c selects platform8. It writes token0x10000000 and the current CPM table platform field."
+    },
+    "masked_lookup": {
+      "wrapper": "0x9b47bb0",
+      "procedure": "0x9b47bd4",
+      "mask_checks": "0x9b47c07\u20130x9b47c10",
+      "logic": "A matching signature is accepted when header+8 mask is0 or intersects1<<platform. Platform0 chooses DXIO0x2408/clock0x2268 (mask0xff); platform8 chooses DXIO0x3d90/clock0x2338 (mask0x3f001f00)."
+    },
+    "oem_setup": {
+      "procedure": "0x9b418b8",
+      "evidence_id": "ev_22250ba24fe734bf32bd2370129ce3a314f898a4adc7b0b473cce6036661eb47",
+      "fact": "The OEM callback obtains the selected $A26 and $A17 through the same table service. The inspected callback has no write splitting the populated logical0..1 engine into two PCIe descriptors. Its writes at DXIO+0x1958/+0x1964 and neighboring flags lie beyond the16-port array; clock edits can force requests to0xff, which is already the value of the main table's populated rows. This is a bounded callback check, not an audit of every subsequent AGESA/SMU path."
+    }
+  },
+  "factory_design_corroboration": {
+    "model_dtb_path": "analysis/firmware/DS1621+_7.2.2-72806/model.dtb",
+    "model_dtb_sha256": "30e39a568abf4d148813c5aca07d8ef99677fa4ac938efa80083724bed7d7c70",
+    "pcie_bindings": {
+      "/internal_slot@1/ahci": {
+        "pcie_root": "00:01.5,00.0",
+        "ata_port": 1
+      },
+      "/internal_slot@2/ahci": {
+        "pcie_root": "00:01.5,00.0",
+        "ata_port": 2
+      },
+      "/internal_slot@3/ahci": {
+        "pcie_root": "00:01.5,00.0",
+        "ata_port": 3
+      },
+      "/internal_slot@4/ahci": {
+        "pcie_root": "00:01.6,00.0",
+        "ata_port": 1
+      },
+      "/internal_slot@5/ahci": {
+        "pcie_root": "00:01.6,00.0",
+        "ata_port": 2
+      },
+      "/internal_slot@6/ahci": {
+        "pcie_root": "00:01.6,00.0",
+        "ata_port": 3
+      },
+      "/esata_port@1/ahci": {
+        "pcie_root": "00:01.5,00.0",
+        "ata_port": 0
+      },
+      "/esata_port@2/ahci": {
+        "pcie_root": "00:01.6,00.0",
+        "ata_port": 0
+      },
+      "/nvme_slot@1": {
+        "pcie_root": "00:01.3"
+      },
+      "/nvme_slot@2": {
+        "pcie_root": "00:01.4"
+      },
+      "/pcie_slot@1": {
+        "pcie_root": "00:01.2"
+      }
+    },
+    "inference": "The shipped device tree requires roots01.3/01.4 for NVMe,01.5/01.6 for internal disks and eSATA, and01.2 for the expansion slot. The platform0 table supplies these roots; the two-root platform8 table does not. This strongly supports platform0 as the intended V1500B production configuration without claiming a captured runtime selection."
+  },
+  "clock_reset_notes": {
+    "main_clock_table": "$A17 file0x2268, mask0xff",
+    "logical0_1_engine": {
+      "requested_root": "00:01.3",
+      "reset_or_device_id_raw": 37,
+      "clock_id": 2,
+      "clock_request_raw": 255,
+      "slot_check_raw": 0
+    },
+    "reset_table": "$A12 file0x1d80, length216, mask0; first body byte0xff terminates the explicit map immediately.",
+    "reset_table_identical_to_existing_comparisons": true,
+    "reset_table_sha256": "5784b8a0f35974faea7397baf35b66fc2985651b1e98fbcf90d905ea87777d37",
+    "interpretation": "The descriptor reset/device IDs are logical identifiers, not asserted physical GPIO numbers. No additional explicit reset-table mapping is supplied by this table. This does not mean hardware reset is absent."
+  },
+  "comparisons": [
+    {
+      "model": "DS1522+ offline candidate",
+      "module_path": "analysis/boot_enablement/candidate_module_only/AmdCpmOemInitPeim.board_topology_only.efi",
+      "module_sha256": "19536f87b29917839457311c0acdba61aee96c0bb90054b6a530fb15f97e4e28",
+      "dxio_table_offset": "0x23a8",
+      "clock_table_offset": "0x2208",
+      "logical0_1_pcie_entries": [
+        {
+          "index": 3,
+          "file_offset": "0x2878",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "lane_count": 1,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 4,
+          "requested_root": "00:01.4",
+          "reset_or_device_id_raw": 39,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0xf0008101",
+          "first24_bytes": "000000000100010127000000018100f00000008000000000",
+          "descriptor_sha256": "d4f4bfa45e5992991c280b5cb208d0f286acc84971a5eb8940e2ca87c9447155"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x2a0c",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "lane_count": 1,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "reset_or_device_id_raw": 40,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0xf000a101",
+          "first24_bytes": "00000000010000002800000001a100f00000008000000000",
+          "descriptor_sha256": "dfd64b416252cbd0e3bd9975a512f90da34d5f3a9383c8efbd085b377cb28a51"
+        }
+      ],
+      "matching_clocks": [
+        {
+          "file_offset": "0x223c",
+          "clock_id": 0,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 39,
+          "desired_device": 1,
+          "desired_function": 4,
+          "requested_root": "00:01.4",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "00ff00002701040000000000"
+        },
+        {
+          "file_offset": "0x2248",
+          "clock_id": 1,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 40,
+          "desired_device": 1,
+          "desired_function": 5,
+          "requested_root": "00:01.5",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "01ff00002801050000000000"
+        }
+      ]
+    },
+    {
+      "model": "DS1525+ platform 0",
+      "module_path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemInitPeim_D617467B_early.efi",
+      "module_sha256": "7e41e27054cc5fdd3f7ee484c1a133d32bd34328cfda6d48c2a53e03ccb354a8",
+      "dxio_table_offset": "0x2428",
+      "clock_table_offset": "0x2288",
+      "logical0_1_pcie_entries": [
+        {
+          "index": 5,
+          "file_offset": "0x2c20",
+          "engine_type": 1,
+          "engine_kind": "PCIe",
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "lane_count": 2,
+          "port_present": true,
+          "desired_device": 1,
+          "desired_function": 6,
+          "requested_root": "00:01.6",
+          "reset_or_device_id_raw": 38,
+          "descriptor_flags": "0x0",
+          "port_configuration_dword": "0xf000c101",
+          "first24_bytes": "00000000010000012600000001c100f00000008000000000",
+          "descriptor_sha256": "5c5b3417164d68c41d8b82ff04f79e1d9c535909a6b2248b5539e6d5f10b5ae8"
+        }
+      ],
+      "matching_clocks": [
+        {
+          "file_offset": "0x22d4",
+          "clock_id": 1,
+          "clock_request_raw": 255,
+          "external_clock_id": 0,
+          "external_clock_request": 0,
+          "device_id": 38,
+          "desired_device": 1,
+          "desired_function": 6,
+          "requested_root": "00:01.6",
+          "slot_check_raw": "0x0",
+          "special_function_raw": "0x0",
+          "raw_hex": "01ff00002601060000000000"
+        }
+      ]
+    }
+  ],
+  "exact_differences_that_matter": [
+    "DS1621 platform0 uses six requested roots:12..15 x4->01.1,11..8 reversed x4->01.2,0..1 x2->01.3,2..3 x2->01.4,4..5 x2->01.5,6..7 x2->01.6.",
+    "DS1525 platform0 also combines0..1 asx2, but requests01.6 and uses a different complete lane set.",
+    "The DS1522 candidate instead requests logical1 x1->01.4 and logical0 x1->01.5. Neither reference validates that exact split plus BDF combination."
+  ],
+  "evidence_records": {
+    "selector_cpu_class.json": "ev_ff593523e96b77ef95dcbd359f38cd1e88b0971b2a84a33196d40dd18f0e65c4",
+    "selector_platform.json": "ev_bc348aea29a93d7bfcddeae6475db1e2e6365c54339022f264b75f9a6b06cf98",
+    "oem_selected_table_setup.json": "ev_22250ba24fe734bf32bd2370129ce3a314f898a4adc7b0b473cce6036661eb47"
+  },
+  "assembly_evidence": "selection_and_registration.asm",
+  "limits": [
+    "Factory applicability is inferred from executable selection and the matching shipped device tree, not a DS1621 hardware boot trace.",
+    "All BDF values here are requested descriptor values. Successful lane training and final PCI enumeration were not observed.",
+    "A working x2 use does not prove independent x1+x1 support, and does not establish a prohibition either.",
+    "No physical pin equivalence between DS1621 and DS1522 is inferred, and their GPIO/clock layouts must not be transplanted on this evidence.",
+    "This comparison cannot resolve the failed DS1522 replacement chip's actual classification or the exact candidate's hardware behavior."
+  ],
+  "tools": [
+    "Python standard-library zlib/FV/FFS/PE/FDT parsing",
+    "LLVM objdump",
+    "REA6.4.0 isolated CLI with Ghidra12.1.2"
+  ],
+  "cleanup": "Only extracted target modules, extraction metadata and focused evidence are retained. No decompressed whole-image or generic extraction dump was retained."
+}

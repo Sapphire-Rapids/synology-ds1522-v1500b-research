@@ -50,5 +50,10 @@
     "explicit_prohibition_found": false,
     "same_generation_corroboration": "Official Advantech V1000 board diagram shows separate GPP x1 paths, but it does not publish the exact Raven logical-to-physical mapping or list V1500B.",
     "remaining": "Validate the exact logical0/1 split, full candidate lane set, and resulting root-port assignment under V1500B SMU behavior. The mapper accepting unique requested BDF values is insufficient."
+  },
+  "same_cpu_followup": {
+    "evidence": "../same_cpu_reference/summary.json",
+    "general_split_precedent": "RS1221+ factory-intended V1500B firmware uses independent logical0/1 x1 engines.",
+    "remaining": "The complete DS1522 candidate and requested BDF arrangement still lack hardware validation."
   }
 }

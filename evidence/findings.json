@@ -22,7 +22,7 @@
       "claim": "Official DS1522+ BIOS contains an OPN comparison with V1500B followed by 16000 mW power-limit configuration, rather than a refusal in that branch.",
       "module": "AmdNbioSmuV10Dxe",
       "procedure": "0x2498",
-      "branch": "0x29e5–0x2a45",
+      "branch": "0x29e5\u20130x2a45",
       "evidence_ids": [
         "ev_941d9d88ece40d2ecf14366a8c18d6a14d38c43427fe2a92592495c2d2e7dc64",
         "ev_051970ca8eff617225c28c260bb97c6635a516c98e528c71b87f27bffef1dc80",
@@ -72,7 +72,7 @@
     }
   ],
   "next_diagnostic": [
-    "DS1525 comparison completed: resolve the exact V1500B logical-lane split and root-port allocation, preserving DS1522-specific wiring and current machine configuration.",
+    "Official RS1221+ provides the logical0/1 dual-x1 precedent. Check the complete DS1522 candidate mapping and trained links while retaining board-specific configuration.",
     "Before another CPU rework, establish verified SPI capture/restore and physical serial capture on the current R1600, then test the finalized candidate on R1600.",
     "The current source-backed raw PSP feature read has no valid reporting; boot-time authentication and V1500B fuse state remain unknown.",
     "If V1500B testing becomes justified, require diskless onboard-network reachability and record actual PCIe roots/endpoints alongside the boot-stage trace."
@@ -172,8 +172,14 @@
   "ds1525_comparison": {
     "evidence": "ds1525_comparison/summary.json",
     "judgment": "The official V1500B comparison reinforces a board-policy investigation and does not establish a missing basic CPU-init prerequisite or whole-image compatibility.",
-    "specific_remaining_gap": "V1500B acceptance/training of separate logical0 and1 x1 links and the complete candidate root-port assignment remains unknown.",
+    "specific_remaining_gap": "Same-CPU split precedent now established via RS1221+. The full DS1522 candidate layout and resulting root-port assignment remain untested.",
     "no_proven_impossibility": true,
     "cpu_rework_recommended_now": false
+  },
+  "same_cpu_reference": {
+    "evidence": "same_cpu_reference/summary.json",
+    "general_dual_x1_precedent_found": true,
+    "model": "RS1221+",
+    "exact_ds1522_candidate_validated": false
   }
 }

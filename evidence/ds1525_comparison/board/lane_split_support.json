@@ -4,9 +4,9 @@
   "result": {
     "exact_candidate_split_support": "UNKNOWN",
     "explicit_prohibition_found": false,
-    "exact_raven_or_v1500b_supported_split_example_found": false,
-    "hardware_family_supporting_evidence": "An official Advantech V1000 board diagram documents independent GPP PCIe paths, including a default x4+x1 arrangement on GPP0–4 and a separate GPP5 connection to an Intel I210. This is useful same-generation hardware corroboration, but it does not publish DXIO logical numbering or the candidate's root-port assignment.",
-    "recommendation": "Do not treat logical0/1 split as a proven hardware prohibition. Also do not mark the exact DS1522 candidate combination supported solely from these public sources. Keep this narrow gate UNKNOWN.",
+    "exact_raven_or_v1500b_supported_split_example_found": true,
+    "hardware_family_supporting_evidence": "An official Advantech V1000 board diagram documents independent GPP PCIe paths, including a default x4+x1 arrangement on GPP0\u20134 and a separate GPP5 connection to an Intel I210. This is useful same-generation hardware corroboration, but it does not publish DXIO logical numbering or the candidate's root-port assignment.",
+    "recommendation": "Use the later official RS1221+ precedent for the general logical0/1 split question. Keep the complete DS1522 configuration and resulting mapping unverified until specifically tested.",
     "critical_distinction": "The available explicit mapping GPP[5:4] -> logical[1:0] is labelled Picasso in the primary coreboot descriptor header. No already-read source explicitly establishes that mapping and valid split/root-port combination for full-I/O Raven FP5/V1500B. No physical package pin mapping is inferred here."
   },
   "candidate_under_question": {
@@ -87,9 +87,9 @@
         "GPP #5",
         "I210"
       ],
-      "fact": "The diagram draws the GPP0–4 path to the COM Express connector separately from the GPP5 path through Intel I210. Listed CPUs are V1807B,V1756B,V1605B,V1202B,V1404I.",
-      "inference": "The default x4+x1 allocation on the five-lane GPP0–4 group plus a separate GPP5 endpoint is strong corroboration against a generic claim that this V1000 GPP area must always be used as one x2 link.",
-      "limit": "The diagram does not label which single member of GPP0–4 is the x1 link, does not give firmware logical numbering, and does not list V1500B. Therefore it does not independently prove the exact candidate descriptor pair.",
+      "fact": "The diagram draws the GPP0\u20134 path to the COM Express connector separately from the GPP5 path through Intel I210. Listed CPUs are V1807B,V1756B,V1605B,V1202B,V1404I.",
+      "inference": "The default x4+x1 allocation on the five-lane GPP0\u20134 group plus a separate GPP5 endpoint is strong corroboration against a generic claim that this V1000 GPP area must always be used as one x2 link.",
+      "limit": "The diagram does not label which single member of GPP0\u20134 is the x1 link, does not give firmware logical numbering, and does not list V1500B. Therefore it does not independently prove the exact candidate descriptor pair.",
       "quotation_word_count": 22
     },
     {
@@ -98,7 +98,7 @@
       "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/fsp/picasso/platform_descriptors.h#L132",
       "content_sha256": "3305f6aae3637b8e06ace8c87e81a4eede9c15d03035791ce4f2960699e4af45",
       "local_existing_file": "../../cpu_pcie_sources/vendor_platform_descriptors.h",
-      "location": "Lines132–161",
+      "location": "Lines132\u2013161",
       "fact": "The comment explicitly labels its mapping Picasso: physical GPP[5:4] correspond to logical[1:0], with PCIe/XGBE protocol options. It says GPP lanes can form x4,x2,x1 ports and gives width-alignment rules.",
       "applicability": "This is an explicit mapping and general x1 statement for the documented Picasso contract. It is not directly labelled full-I/O Raven/V1000, so it is supporting context only in this decision."
     },
@@ -157,5 +157,10 @@
     "candidate_observation": "The candidate preserves the working DS1522 mapping: lane1 ->01.4 and lane0 ->01.5, so this pair runs in the opposite order to that published Picasso rule.",
     "limit": "This does not prove a Raven/V1500B prohibition, because the comment is not explicitly scoped to that silicon and the working R1600 configuration already uses these assignments. It means the missing validation must cover the exact BDF assignment/firmware policy as well as x1+x1 widths.",
     "related_existing_evidence": "../../boot_enablement/port_mapping_check.json"
+  },
+  "same_cpu_followup": {
+    "supersedes_no_example_gap": true,
+    "evidence": "../../same_cpu_reference/summary.json",
+    "result": "Official RS1221+ V1500B firmware contains a registered factory-intended logical0/1 dual-x1 configuration. Exact DS1522 complete layout/BDF/training remains unknown."
   }
 }

@@ -49,6 +49,11 @@
       "item": "DS1525 official V1500B comparison",
       "result": "No exact missing basic CPU-init prerequisite or mandatory extra reset/clock change was identified. The precise logical0/1 dual-x1 candidate combination remains unverified; no explicit prohibition was found.",
       "evidence": "../ds1525_comparison/summary.json"
+    },
+    {
+      "item": "Same-CPU split precedent",
+      "result": "Official RS1221+ factory-intended firmware uses separate logical0/1 PCIe x1 engines. Registered table, original selector and shipped device tree corroborate applicability.",
+      "evidence": "../same_cpu_reference/summary.json"
     }
   ],
   "blocking_gaps_before_recommending_rework": [
@@ -62,14 +67,14 @@
     },
     {
       "item": "Complete board adaptation",
-      "needed": "Donor comparison completed without a demonstrated additional mandatory patch. Still validate the exact candidate lane allocation/root-port behavior under full-I/O V1500B; public sources and selector emulation do not close that silicon-specific gap."
+      "needed": "The generic logical0/1 dual-x1 precedent is established by official RS1221+ firmware. Still validate the complete DS1522 layout, its requested device/function mapping and actual link training; donor clock/reset values cannot establish the DS1522 board wiring."
     },
     {
       "item": "Useful failure observation",
       "needed": "Before CPU rework, verify physical serial capture on the working R1600 and have a recoverable diagnostic boot path with known PCI/NIC/SATA output. Current serial settings alone do not test the external capture chain."
     }
   ],
-  "residual_uncertainty_after_r1600_preparation": "An R1600 boot cannot prove replacement V1500B silicon/fuse state, its exact logical0/1 dual-x1 and full-lane-set training, or solder/electrical behavior. If primary silicon evidence cannot close the lane question first, any eventual rework remains an explicitly experimental test, not a verified upgrade.",
+  "residual_uncertainty_after_r1600_preparation": "The same-CPU split now has a factory firmware precedent. An R1600 test still cannot prove the full DS1522 candidate trained links or final mapping on V1500B, replacement-chip fuse state, or electrical/rework outcome.",
   "first_v1500b_acceptance_milestone": "A diskless V1500B boot reaches a working recovery environment and obtains an IP via an onboard DS1522+ port; verify actual PCI endpoints and then normal DSM boot.",
   "hard_stop_evidence_if_observed": [
     "A documented, applicable electrical/package incompatibility that cannot be corrected by board configuration.",
@@ -79,5 +84,6 @@
   "limits_on_hard_stop_interpretation": "None of these hard-stop conditions has been established. Missing logs, absent security sysfs files, a raw capability register without its valid bit, and static code differences are not proof of impossibility.",
   "nas_firmware_or_boot_configuration_changed": false,
   "nas_temporary_preflight_files_removed": true,
-  "donor_comparison": "../ds1525_comparison/"
+  "donor_comparison": "../ds1525_comparison/",
+  "same_cpu_reference": "../same_cpu_reference/summary.json"
 }

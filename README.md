@@ -10,7 +10,7 @@ The firmware already contains executable V1500B handling. The strongest hypothes
 
 - The candidate changes **130 table-data bytes** for PCIe topology and clocks. Eight synthetic selector cases passed: two constructed CPUID inputs × four SMU high-bit values. These checks do not test physical link training.
 - Comparison with the V1500B-based DS1525+ found the same family/package gate, eight identical PMU firmware entries, and common table interpreters. The complete firmware stacks differ.
-- The candidate's exact logical-lane 0/1 split and resulting port mapping on V1500B remain **unknown**. No applicable prohibition was established.
+- **RS1221+ supplies a same-CPU split precedent:** its official V1500B firmware configures logical lanes 0 and 1 as independent x1 links. The complete DS1522+ layout and resulting port mapping remain untested. [Comparison](evidence/same_cpu_reference/summary.json)
 - Editing the firmware invalidates vendor update signatures. Acceptance of a modified raw image remains unknown.
 
 Start with the [findings](docs/findings.md) and [reproduction guide](docs/reproduce.md). Further CPU rework remains on hold pending a qualified deployment/restore path and useful boot diagnostics.

@@ -25,9 +25,18 @@ The candidate reuses the DS1522+ board's topology and clock settings in the alte
 
 Eight selector cases passed, covering two constructed CPUID inputs (`0x00810f10` and `0x00810f81`) and all four values of SMU response bits 31:30. The original selector machine code chose the expected candidate tables. These are synthetic cases: the replacement chip's CPUID and SMU response were not measured. PCIe training, electrical routing, resets, and clock behavior were not emulated. Rebuilding and checking the compressed code region establishes structural consistency only. [Candidate evidence](../evidence/boot_enablement/candidate_emulation.json)
 
-**The exact lane configuration remains unknown.** The candidate gives logical lanes 0 and 1 separate x1 PCIe engines; the DS1525+ reference combines them into x2. Neither that reference nor the available public examples validates the candidate's complete lane set and resulting port assignments on V1500B.
+**An official same-CPU split precedent has now been found.** The RS1221+ V1500B firmware configures logical lanes 0 and 1 as independent x1 engines. The board table is registered and reachable through the original CPU-class/platform selector. Its seven-port layout also matches the disk-controller and expansion-slot roots required by the shipped device tree. The reviewed OEM callback does not explicitly replace or merge those two descriptors.
 
-A published Picasso descriptor rule relates lane order to root-port order. Its applicability to full-I/O Raven/V1500B has not been established. It cannot be used as a proven Raven prohibition. Conversely, the actual target mapper accepting unique requested bus/device/function assignments does not prove that the earlier SMU initialization will accept and train those links. No applicable explicit prohibition was found; successful support also remains unproven. [Lane investigation](../evidence/ds1525_comparison/board/lane_split_support.json), [mapper check](../evidence/boot_enablement/port_mapping_check.json)
+| Official V1500B model | Logical lanes 0 and 1 | Requested roots |
+| --- | --- | --- |
+| DS1621+ | One x2 engine, assigned to NVMe slot 1 | `00:01.3` |
+| DS1821+ | One x2 engine, assigned to NVMe slot 1 | `00:01.3` |
+| DS1525+ | One x2 engine | `00:01.6` |
+| RS1221+ | Two independent x1 engines | lane 0 → `00:01.2`; lane 1 → `00:01.3` |
+
+This closes the earlier lack of an applicable V1500B split example. It is static factory-design evidence; no donor-model trained-link trace was collected. The DS1522+ candidate requests lane 0 → `00:01.5` and lane 1 → `00:01.4`, preserves native SATA on lanes 2/3, and uses different clock/reset definitions. Its complete combination and final mapping remain untested. [Same-CPU comparison](../evidence/same_cpu_reference/summary.json), [RS1221+ selection review](../evidence/same_cpu_reference/rs1221/selection_review.json)
+
+A published Picasso descriptor rule relates lane order to root-port order. Its applicability to full-I/O Raven/V1500B has not been established. The actual target mapper accepts unique requested bus/device/function assignments, but it depends on the earlier SMU initialization producing valid engines. The RS1221+ precedent narrows the remaining question to the DS1522+ combination, mapping and hardware behavior. [Earlier lane investigation and follow-up](../evidence/ds1525_comparison/board/lane_split_support.json), [mapper check](../evidence/boot_enablement/port_mapping_check.json)
 
 The absence of an IP address on both onboard and expansion ports does not identify a single boot stage. The studied diskless recovery environment can start onboard networking, so missing system disks alone do not explain loss of an onboard IP. If the onboard PCIe path is unavailable, however, those ports cannot work.
 
@@ -36,5 +45,7 @@ The same recovery kernel and ramdisk lack the Atlantic driver needed by the stud
 Firmware acceptance is a separate unresolved issue. Editing the covered payload invalidates the vendor's BIOSCER and outer PE Authenticode signatures. Repairing ordinary checksums does not restore those signatures. Whether this platform would boot the modified raw payload remains unknown. A read-only status attempt returned raw `0x2`, but the register's validity bit was unset. That value proves neither acceptance nor rejection. [Signature analysis](../evidence/patch_feasibility/evidence.json), [readiness decision](../evidence/go_no_go/decision.json)
 
 Further CPU rework remains on hold. Preparation still needs a qualified image-write/restore path that preserves board-specific data, acceptance and boot verification of the candidate on R1600, and a working capture path that can reveal a later failure. Any eventual V1500B test must observe classification, table selection, PCIe endpoints, and recovery networking. The offline checks do not replace those observations.
+
+An additional model-specific branch recognizes V1404I during early initialization, sets token `0x4140d`, and passes the resulting byte into the later SMU power table's `itemp` field. This identifies another handled SKU; DS1522+ operation with that CPU has not been tested. [V1404I evidence](../evidence/additional_cpu_support/evidence.json)
 
 This public repository excludes proprietary firmware binaries and machine-specific captures. [sources.json](../sources.json) identifies official inputs and their hashes. The [reproduction guide](reproduce.md) describes the supported offline workflow. The included evidence records state their scope and limits so that another researcher can distinguish a repeatable static result from an unresolved hardware question.
