@@ -1,0 +1,12 @@
+{
+  "pci_device": "0000:0a:00.2",
+  "vendor": "0x1022",
+  "device": "0x15df",
+  "driver": null,
+  "boot_integrity": {
+    "available": false
+  },
+  "fused_part": {
+    "available": false
+  }
+}

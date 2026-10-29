@@ -1,0 +1,376 @@
+{
+  "scope": "Static offline CLI/call-chain audit. H2OFFT was never executed; the NAS was not accessed.",
+  "checked_on": "2026-10-28",
+  "target": {
+    "path": "analysis/firmware/DS1522+_7.2.2-72806/H2OFFT-Lx64",
+    "sha256": "7f59e7915cd82e12c771374d650515655d594ea68561957626855f59221be0a8",
+    "format": "ELF x86-64, not stripped"
+  },
+  "judgment": {
+    "explicit_bios_export_mode_confirmed": true,
+    "normal_flash_programming_stages_skipped": true,
+    "shutdown_or_reboot_requested_by_normal_export_completion": false,
+    "free_of_all_system_side_effects": false,
+    "runtime_compatibility_with_current_dsm_verified": false,
+    "complete_unmasked_spi_dump_guaranteed": false
+  },
+  "cli": {
+    "argument_vector": [
+      "H2OFFT-Lx64",
+      "OUTPUT_FILE",
+      "-G"
+    ],
+    "equivalent_vector": [
+      "H2OFFT-Lx64",
+      "OUTPUT_FILE",
+      "-O"
+    ],
+    "output_selection": "Standalone ProcessArgv consumes argv[1] as filename when it does not start with a hyphen, then parses options from argv[2]. An absolute output path is accepted in this first position. It is copied via g_sArgumentFlag+0x2b47 to g_sIniValue+0xa4ca and passed to fopen(wb).",
+    "flag_mapping": "Exact case-insensitive G/g and O/o both set g_sArgumentFlag[6]=1. These are aliases in this binary.",
+    "wrong_forms": "A filename after -G/-O is not selected as output. G: is a GUID-related option, not output syntax.",
+    "evidence_ids": [
+      "ev_2361310b7120a5b9109c1c36f4cf52b510278f51bbf77b0d10b9ef94844e009d",
+      "ev_f2c4a581dbfff3ff789fe3bf01e763327f2863d8eb1b3a310dac59fa9cb9fcbc",
+      "ev_438416ce86ed30a5ab735ea7804693d0002d8e90e6135e69970cb8e9fcf2356a",
+      "ev_54f52c5a0f467f1e7e1aa6a0547aac50d682d30751948132951d90692635152d",
+      "ev_96de29b709797c99cfec34d1cbb050ca4e8c5f0e21618250ae651116fdce811e",
+      "ev_bcc5300b8daf0c109441a2ddc6e72b71470d41cc37d27396884458d1a5bd51d9"
+    ]
+  },
+  "control_flow": [
+    {
+      "claim": "main -> MainFlow -> IhisiInit -> H2OInitDriver occurs before command-line parsing.",
+      "evidence_ids": [
+        "ev_145543b5ff5cab56461ffc9db213d0e08160bf8827d84b51b0fe2aad1d2f9e75",
+        "ev_d471040010402e3960ac17853f5ed38c573a6715cf2842b4bfcdf65dfbc2f59a",
+        "ev_bf1c1040ae352f9d2e3d0c02c45762e3a03a383844d7284a819a6b4688bbcafe"
+      ]
+    },
+    {
+      "claim": "MainFlow1 parses arguments/configuration; MainFlow2 sets up IHISI and calls CheckOtherFunctions. The flag[6] branch calls SaveToFile or SaveBIOSRegionToFile and returns0/-1; MainFlow2 then returns1, causing MainFlow to exit before MainFlow3/4/5 flash stages.",
+      "evidence_ids": [
+        "ev_cff8942ca14446f2f129f90b61b264d116f81392b261a4bdfb3842e8a0670c1e",
+        "ev_b1301c558e6ed530c1d886666d686b8ef280535b16e822733dacf000124d9320",
+        "ev_8dde1bd0523eeac317ea3e14258c004f97911d9a218b5741355f0261af15f197",
+        "ev_d471040010402e3960ac17853f5ed38c573a6715cf2842b4bfcdf65dfbc2f59a"
+      ]
+    },
+    {
+      "claim": "SaveToFile -> ReadCurrentROM -> SMI_ReadRom -> H2ODumpBiosRomFromAddr issues IHISI function0x14 for reads, then writes the output file. The alternate region path uses the same reader. The choice is platform-dependent, not G versus O.",
+      "evidence_ids": [
+        "ev_96de29b709797c99cfec34d1cbb050ca4e8c5f0e21618250ae651116fdce811e",
+        "ev_f3a7b29335463ec0701b28b2967879b26d6fde87f0bef2bb07299aa8dc50e6c1",
+        "ev_9857319cfc7ba9ecd44681a068c53a594cac59170c4ee0fb5ec9b520ed2f82ad",
+        "ev_bef85a78dcb232c11c38bb1ef812f1939faeda406c2dca391440c6a63ee4ca37",
+        "ev_bcc5300b8daf0c109441a2ddc6e72b71470d41cc37d27396884458d1a5bd51d9",
+        "ev_eff88ce0be88ab61c6e5aaf1e2e0227501adbea9bd7071150d0083a5da25478a"
+      ]
+    }
+  ],
+  "completion": {
+    "action": "Export completion calls FlashComplete_FFT with first argument1, forcing action0. SystemCtrlAfterFlashComplete only shuts down for1 or resets for2;0 does neither.",
+    "clear_cmos": "A separate ClearCMOS flag is still passed to IHISI completion: argument flag[7] or g_sIniValue+0x1615b. ProcessPlatformIni reads [Others] ClearCMOS into that field. Official platform.ini has0; G/O do not set flag[7].",
+    "notifications": "The path still sends APStart/read/APTerminate notifications and IHISI function0x16 completion. Live firmware behavior for every callback was not traced.",
+    "evidence_ids": [
+      "ev_d07ed0112a906b61c05ce46af5453c00f38767c541f6252046fe2ae5a8bfdd4f",
+      "ev_0d62e83a4bd643d115c5378b23f51a94f73b96ba729d5d9d1956758caee383d2",
+      "ev_d03be869cd259884bcd3581898794edf7c54556fe9b7fcbfce4ce1cddfe73e67",
+      "ev_c2398379baab2faa6bd9c0a52c63090208df13ac2f9465939018ddc5686798d1",
+      "ev_c6a329ca8e777b4991f7db20fbf0714b1b93d0668337658db6f3729ed74bc80b",
+      "ev_69aaff5ca01e386222a79fdbdbb64f48ea7e364286d24419cac28f0e78509653",
+      "ev_9517708c961c7e80c39874237c943a745970b5e624ba5e3c2dd178433f5d5b21"
+    ]
+  },
+  "side_effects": [
+    {
+      "claim": "_InsmodDriver checks /dev/phy_alloc; if absent, it searches configured paths and invokes /sbin/insmod through popen. H2OInitDriver can unload/reload an existing driver below version6.",
+      "evidence_ids": [
+        "ev_1853cd3175135ed2848cdb4d74d66407aa597e6d5dd131b68e2ad6db0276a72f",
+        "ev_bf1c1040ae352f9d2e3d0c02c45762e3a03a383844d7284a819a6b4688bbcafe"
+      ]
+    },
+    {
+      "claim": "A conditional initialization branch temporarily writes1 to /proc/sys/kernel/sysrq, writes x to /proc/sysrq-trigger, and restores the old sysrq value. Its detector reads an efivars filename containing SecureBootEnforce, skipping4 attribute bytes; absence defaults0. The kernel-specific effect of x was not established here.",
+      "instruction_addresses": [
+        "0x457658",
+        "0x4576aa",
+        "0x4576e1",
+        "0x45772b"
+      ],
+      "literal_addresses": {
+        "sysrq": "0x4e36a5",
+        "sysrq-trigger": "0x4e36bc",
+        "1": "0x4e3bc2",
+        "x": "0x4e349b"
+      },
+      "evidence_ids": [
+        "ev_bf1c1040ae352f9d2e3d0c02c45762e3a03a383844d7284a819a6b4688bbcafe",
+        "ev_6cdfd1770393396be01fdb0282e3008d1a0a71d7087218b99cb4b5cc51b141c6"
+      ]
+    },
+    {
+      "claim": "EndProgram -> IhisiRelease -> H2OReleaseDriver closes the device and calls _RmmodDriver when the allocation list is empty. It does not remember whether phy_alloc was already loaded, so cleanup can unload a preexisting module.",
+      "evidence_ids": [
+        "ev_061f08e0e9e0d5457cb78f7e2c9d371c8afb4d0797914c42ba48bea37851904d",
+        "ev_05837fc0f6f89d3b53be780ef29a7aadcd9fdb52b0f3db9383f3f5c4a7cdb087",
+        "ev_3014ed98fc0d49d0194cd6bbb63c306772d4117cbd81c6941ee0d846d5a00401",
+        "ev_7cbc45e6e34afde55e323de5cc7d2cfae8fdc7a0249661fe57a2dd0d71dd5426"
+      ]
+    },
+    {
+      "claim": "InitialWorkingDir may select the executable directory when it differs from cwd. An isolated cwd alone does not ensure isolation from platform.ini located beside the executable.",
+      "evidence_ids": [
+        "ev_feeaa864a3087c0c15d8e0b3aff4909300a12d6944bf248057d5c27b9c634824",
+        "ev_cff8942ca14446f2f129f90b61b264d116f81392b261a4bdfb3842e8a0670c1e"
+      ]
+    }
+  ],
+  "dump_limits": [
+    {
+      "claim": "SMI_ReadRom treats0xc2 as success-with-protection and does not copy the block. ReadCurrentROM initially zeros the destination, leaving protected blocks zero-filled; the full-ROM reader tracks this condition for a completion warning. A successful exit and correct file size do not prove a complete dump.",
+      "evidence_ids": [
+        "ev_9857319cfc7ba9ecd44681a068c53a594cac59170c4ee0fb5ec9b520ed2f82ad",
+        "ev_f3a7b29335463ec0701b28b2967879b26d6fde87f0bef2bb07299aa8dc50e6c1"
+      ]
+    },
+    {
+      "claim": "ReadBiosRegionBuffer calls SMI_ReadRom with a null protected-block status pointer, so it lacks that warning flag while also allowing zero-filled protected blocks.",
+      "evidence_ids": [
+        "ev_eff88ce0be88ab61c6e5aaf1e2e0227501adbea9bd7071150d0083a5da25478a",
+        "ev_9857319cfc7ba9ecd44681a068c53a594cac59170c4ee0fb5ec9b520ed2f82ad"
+      ]
+    },
+    {
+      "claim": "Extent comes from firmware-provided flash/region tables. Static analysis does not establish an8MiB result, capture of every SPI region, or compatibility with the installed kernel."
+    }
+  ],
+  "configuration": {
+    "path": "../firmware/DS1522+_7.2.2-72806/platform.ini",
+    "sha256": "cfca7dff28462eb7f9588fd5dc4741ce025b87bf6c26d625f169dd41e204177e",
+    "clear_cmos_line": 709,
+    "clear_cmos_value": 0,
+    "update_ec_flag": 0,
+    "scope": "Provided package configuration, not current NAS configuration."
+  },
+  "functions": [
+    {
+      "name": "CheckOtherFunctions",
+      "address": "0x4214c5",
+      "size": 2954,
+      "evidence_id": "ev_8dde1bd0523eeac317ea3e14258c004f97911d9a218b5741355f0261af15f197"
+    },
+    {
+      "name": "DoFuncBeforeIhisi",
+      "address": "0x42acbf",
+      "size": 104,
+      "evidence_id": "ev_78e989b7d49a908279e7fd176116db49e3a6a83b54647eeb524564a7f68c5e94"
+    },
+    {
+      "name": "EndProgram",
+      "address": "0x41d734",
+      "size": 101,
+      "evidence_id": "ev_061f08e0e9e0d5457cb78f7e2c9d371c8afb4d0797914c42ba48bea37851904d"
+    },
+    {
+      "name": "FlashComplete_FFT",
+      "address": "0x43c206",
+      "size": 513,
+      "evidence_id": "ev_d07ed0112a906b61c05ce46af5453c00f38767c541f6252046fe2ae5a8bfdd4f"
+    },
+    {
+      "name": "H2ODumpBiosRomFromAddr",
+      "address": "0x4562a0",
+      "size": 361,
+      "evidence_id": "ev_bef85a78dcb232c11c38bb1ef812f1939faeda406c2dca391440c6a63ee4ca37"
+    },
+    {
+      "name": "H2OFlashComplete",
+      "address": "0x4530e0",
+      "size": 370,
+      "evidence_id": "ev_c2398379baab2faa6bd9c0a52c63090208df13ac2f9465939018ddc5686798d1"
+    },
+    {
+      "name": "H2OInitDriver",
+      "address": "0x457550",
+      "size": 492,
+      "evidence_id": "ev_bf1c1040ae352f9d2e3d0c02c45762e3a03a383844d7284a819a6b4688bbcafe"
+    },
+    {
+      "name": "H2OReleaseDriver",
+      "address": "0x451930",
+      "size": 5,
+      "evidence_id": "ev_3014ed98fc0d49d0194cd6bbb63c306772d4117cbd81c6941ee0d846d5a00401"
+    },
+    {
+      "name": "IhisiRelease",
+      "address": "0x4489a0",
+      "size": 16,
+      "evidence_id": "ev_05837fc0f6f89d3b53be780ef29a7aadcd9fdb52b0f3db9383f3f5c4a7cdb087"
+    },
+    {
+      "name": "InitialIniValue",
+      "address": "0x433b0d",
+      "size": 642,
+      "evidence_id": "ev_28bc3b22b738818aefb1548f13903a006816d490b45277a5a8da9f305cc520bc"
+    },
+    {
+      "name": "InitialWorkingDir",
+      "address": "0x42b440",
+      "size": 179,
+      "evidence_id": "ev_feeaa864a3087c0c15d8e0b3aff4909300a12d6944bf248057d5c27b9c634824"
+    },
+    {
+      "name": "_InsmodDriver",
+      "address": "0x4519c0",
+      "size": 225,
+      "evidence_id": "ev_1853cd3175135ed2848cdb4d74d66407aa597e6d5dd131b68e2ad6db0276a72f"
+    },
+    {
+      "name": "IsStringMatch",
+      "address": "0x41dd5b",
+      "size": 119,
+      "evidence_id": "ev_438416ce86ed30a5ab735ea7804693d0002d8e90e6135e69970cb8e9fcf2356a"
+    },
+    {
+      "name": "MainFlow",
+      "address": "0x41d148",
+      "size": 748,
+      "evidence_id": "ev_d471040010402e3960ac17853f5ed38c573a6715cf2842b4bfcdf65dfbc2f59a"
+    },
+    {
+      "name": "MainFlow1_InitAndFunctionWithoutIHISI",
+      "address": "0x42b4f3",
+      "size": 1256,
+      "evidence_id": "ev_cff8942ca14446f2f129f90b61b264d116f81392b261a4bdfb3842e8a0670c1e"
+    },
+    {
+      "name": "MainFlow2_InitAndFunctionWithIHISI",
+      "address": "0x42b9db",
+      "size": 2253,
+      "evidence_id": "ev_b1301c558e6ed530c1d886666d686b8ef280535b16e822733dacf000124d9320"
+    },
+    {
+      "name": "OpenDriver",
+      "address": "0x41238b",
+      "size": 438,
+      "evidence_id": "ev_5ab6559a8b2d61e9bc82cf54e4802986a6e1110df77a2a91694836d069906dbd"
+    },
+    {
+      "name": "ParseArg",
+      "address": "0x41df05",
+      "size": 11082,
+      "evidence_id": "ev_f2c4a581dbfff3ff789fe3bf01e763327f2863d8eb1b3a310dac59fa9cb9fcbc"
+    },
+    {
+      "name": "ProcessArgv",
+      "address": "0x42973f",
+      "size": 783,
+      "evidence_id": "ev_2361310b7120a5b9109c1c36f4cf52b510278f51bbf77b0d10b9ef94844e009d"
+    },
+    {
+      "name": "ProcessIniBasedOnArgument",
+      "address": "0x432f14",
+      "size": 2178,
+      "evidence_id": "ev_54f52c5a0f467f1e7e1aa6a0547aac50d682d30751948132951d90692635152d"
+    },
+    {
+      "name": "ProcessPlatformIni",
+      "address": "0x42f09c",
+      "size": 12815,
+      "evidence_id": "ev_c6a329ca8e777b4991f7db20fbf0714b1b93d0668337658db6f3729ed74bc80b"
+    },
+    {
+      "name": "ReadBiosRegionBuffer",
+      "address": "0x43c9d9",
+      "size": 1033,
+      "evidence_id": "ev_eff88ce0be88ab61c6e5aaf1e2e0227501adbea9bd7071150d0083a5da25478a"
+    },
+    {
+      "name": "ReadBiosRom",
+      "address": "0x44b0d0",
+      "size": 1159,
+      "evidence_id": "ev_c44f5215e6cfa228fac7dd710db3c4dfa4489ca69f2a00a1ade9a0ecca8c53e9"
+    },
+    {
+      "name": "ReadCurrentROM",
+      "address": "0x43c6fb",
+      "size": 734,
+      "evidence_id": "ev_f3a7b29335463ec0701b28b2967879b26d6fde87f0bef2bb07299aa8dc50e6c1"
+    },
+    {
+      "name": "_RmmodDriver",
+      "address": "0x451b00",
+      "size": 105,
+      "evidence_id": "ev_7cbc45e6e34afde55e323de5cc7d2cfae8fdc7a0249661fe57a2dd0d71dd5426"
+    },
+    {
+      "name": "SMI_FlashComplete",
+      "address": "0x443c60",
+      "size": 972,
+      "evidence_id": "ev_0d62e83a4bd643d115c5378b23f51a94f73b96ba729d5d9d1956758caee383d2"
+    },
+    {
+      "name": "SMI_ReadRom",
+      "address": "0x443668",
+      "size": 448,
+      "evidence_id": "ev_9857319cfc7ba9ecd44681a068c53a594cac59170c4ee0fb5ec9b520ed2f82ad"
+    },
+    {
+      "name": "SaveBIOSRegionToFile",
+      "address": "0x43cf7c",
+      "size": 281,
+      "evidence_id": "ev_bcc5300b8daf0c109441a2ddc6e72b71470d41cc37d27396884458d1a5bd51d9"
+    },
+    {
+      "name": "SaveToFile",
+      "address": "0x43cde2",
+      "size": 410,
+      "evidence_id": "ev_96de29b709797c99cfec34d1cbb050ca4e8c5f0e21618250ae651116fdce811e"
+    },
+    {
+      "name": "SmiHookPoint_APStart",
+      "address": "0x447eb1",
+      "size": 21,
+      "evidence_id": "ev_69aaff5ca01e386222a79fdbdbb64f48ea7e364286d24419cac28f0e78509653"
+    },
+    {
+      "name": "SmiHookPoint_ReadRom",
+      "address": "0x447ec6",
+      "size": 21,
+      "evidence_id": "ev_9517708c961c7e80c39874237c943a745970b5e624ba5e3c2dd178433f5d5b21"
+    },
+    {
+      "name": "SystemCtrlAfterFlashComplete",
+      "address": "0x418c8b",
+      "size": 68,
+      "evidence_id": "ev_d03be869cd259884bcd3581898794edf7c54556fe9b7fcbfce4ce1cddfe73e67"
+    },
+    {
+      "name": "isSecureBootEnabled",
+      "address": "0x464030",
+      "size": 416,
+      "evidence_id": "ev_6cdfd1770393396be01fdb0282e3008d1a0a71d7087218b99cb4b5cc51b141c6"
+    },
+    {
+      "name": "main",
+      "address": "0x448840",
+      "size": 96,
+      "evidence_id": "ev_145543b5ff5cab56461ffc9db213d0e08160bf8827d84b51b0fe2aad1d2f9e75"
+    }
+  ],
+  "evidence_archive": "h2offt_rea_evidence.json.gz",
+  "record_count": 35,
+  "uncompressed_evidence_sha256": "43d42faca2c1de4dfb680ecabb43cba71b3760899205afe7dd3d54957775e250",
+  "verification": {
+    "method": "REA6.4.0/Ghidra12.1.2 static decompilation plus LLVM disassembly and source ELF symbol/string checks.",
+    "target_executed": false,
+    "input_hash_unchanged": true,
+    "analysis_session_closed": true
+  },
+  "remaining_unknowns": [
+    "Current kernel/module compatibility and SecureBootEnforce value.",
+    "Live IHISI callback behavior/read permissions.",
+    "Selected full-ROM versus BIOS-region path and protected-block coverage."
+  ],
+  "recommendation": "An explicit export mode is confirmed, but do not call it a side-effect-free read or use output existence as proof of a complete SPI backup. A narrower capture method is preferable if driver/module and conditional sysrq effects exceed the intended diagnostic scope."
+}

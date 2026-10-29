@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "scope": "Focused offline comparison of DS1522+ and DS1525+ OEM CPM board initialization, to assess the existing 130-byte DS1522 platform0 topology/clock candidate before expensive V1500B rework. No NAS access, firmware execution or firmware writes by this worker.",
+  "conclusion": {
+    "judgment": "The DS1525 reference corroborates the direction of the candidate: V1500B has a board-specific platform0 topology using normal PCIe engines, disabled ASPM, always-enabled clock requests, and native SATA flags matching the candidate. It does not corroborate copying the DS1525 lane/BDF/GPIO layout onto DS1522.",
+    "mandatory_candidate_change_demonstrated": false,
+    "recommendation": "Keep the current DS1522 board topology/clock candidate unchanged on the strength of this comparison alone. No missing mandatory reset mapping or clock policy was demonstrated. This is corroboration, not hardware validation or GO authorization.",
+    "remaining_concrete_gap": "The candidate's five-port lane combination, especially separate x1 PCIe engines on logical lanes0 and1, has not been observed on V1500B. DS1525 instead uses a combined x2 engine on0..1 and a different board layout. Static comparison alone cannot show successful link training on the DS1522 wiring."
+  },
+  "artifacts": {
+    "direct_binary_inventory": "table_inventory.json",
+    "relocation_normalized_code_inventory": "module_inventory.json",
+    "ds1525_oem_callback": "ds1525_oem_callback.json",
+    "target_reset_consumer": "reset_consumer.json",
+    "earlier_target_selector_and_dispatch": "../../pcie_followup/pcie_table_analysis.json",
+    "board_os_path_evidence": "../../os/evidence.json",
+    "current_r1600_endpoints": "../../pcie_followup/current_r1600_topology.json",
+    "original_candidate_validation": "../../boot_enablement/candidate_emulation.json",
+    "focused_static_disassembly": "focused_disassembly.json"
+  },
+  "identities": {
+    "ds1522_oem_sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf",
+    "ds1525_oem_sha256": "7e41e27054cc5fdd3f7ee484c1a133d32bd34328cfda6d48c2a53e03ccb354a8",
+    "ds1522_candidate_sha256": "19536f87b29917839457311c0acdba61aee96c0bb90054b6a530fb15f97e4e28",
+    "module_guid": "D617467B-1FF7-403F-A87D-29F61C80EE7C"
+  },
+  "observations": [
+    {
+      "id": "BOARD-001",
+      "kind": "Direct byte observation",
+      "claim": "Eleven OEM CPM table bodies match exactly across the two firmwares: $A00,$A01,$A02,$A03,$A11,$A12,$A13,$A14,$A15,$A80,$A81. Differences are concentrated in $A10 GPIO initialization, both $A17 clock tables, and both $A26 DXIO tables.",
+      "evidence": "table_inventory.json",
+      "implication": "The comparison is not merely a similarity of product specifications; the class/platform conversion tables and several board policy tables are identical."
+    },
+    {
+      "id": "BOARD-002",
+      "kind": "Static code byte identity after explicit relocation normalization",
+      "claim": "AmdCpmInitPeim, AmdCpmGpioInitPeim and AmdCpmPcieInitPeim have identical complete .text bytes after subtracting image base only at PE IMAGE_REL_BASED_HIGHLOW locations. Their .text sizes are14656,4064 and2656 bytes respectively.",
+      "evidence": "module_inventory.json",
+      "implication": "Both OEM datasets are interpreted by the same CPM class selector, GPIO/reset consumer and PCIe publisher code. This does not establish that all AGESA/SMU code is identical."
+    },
+    {
+      "id": "BOARD-003",
+      "kind": "Direct table decode, corroborated by the existing actual consumer",
+      "table_comparison": [
+        {
+          "model": "DS1522 original platform0",
+          "offset": "0x23a8",
+          "mask": "0x000000ff",
+          "pcie": [
+            {
+              "root": "00:01.1",
+              "logical_lanes": [
+                15,
+                8
+              ],
+              "direction": "reverse",
+              "width": 8,
+              "group_id": 4,
+              "port_word": "0x4e002101"
+            },
+            {
+              "root": "00:01.2",
+              "logical_lanes": [
+                4,
+                7
+              ],
+              "direction": "forward",
+              "width": 4,
+              "group_id": 19,
+              "port_word": "0x5e004101"
+            }
+          ],
+          "other_active_engines": "SATA on logical3 and2 with descriptor byte+5=0; Ethernet engines on0 and1."
+        },
+        {
+          "model": "DS1522 original platform8; candidate platform0 uses its body",
+          "original_offset": "0x3d30",
+          "original_mask": "0x3f001f00",
+          "candidate_offset": "0x23a8",
+          "candidate_mask": "0x000000ff",
+          "pcie": [
+            {
+              "root": "00:01.1",
+              "logical_lanes": [
+                8,
+                11
+              ],
+              "width": 4,
+              "group_id": 35,
+              "port_word": "0xf0002101",
+              "existing_ds1522_role": "Expansion NIC"
+            },
+            {
+              "root": "00:01.2",
+              "logical_lanes": [
+                4,
+                4
+              ],
+              "width": 1,
+              "group_id": 37,
+              "port_word": "0xf0004101",
+              "existing_ds1522_role": "NVMe slot1"
+            },
+            {
+              "root": "00:01.3",
+              "logical_lanes": [
+                5,
+                5
+              ],
+              "width": 1,
+              "group_id": 38,
+              "port_word": "0xf0006101",
+              "existing_ds1522_role": "NVMe slot2"
+            },
+            {
+              "root": "00:01.4",
+              "logical_lanes": [
+                1,
+                1
+              ],
+              "width": 1,
+              "group_id": 39,
+              "port_word": "0xf0008101",
+              "existing_ds1522_role": "Onboard NIC switch"
+            },
+            {
+              "root": "00:01.5",
+              "logical_lanes": [
+                0,
+                0
+              ],
+              "width": 1,
+              "group_id": 40,
+              "port_word": "0xf000a101",
+              "existing_ds1522_role": "JMB585"
+            }
+          ],
+          "other_active_engines": "SATA on logical3 and2 with descriptor byte+5=1; no Ethernet engine."
+        },
+        {
+          "model": "DS1525 platform0",
+          "offset": "0x2428",
+          "mask": "0x000000ff",
+          "pcie": [
+            {
+              "root": "00:01.1",
+              "logical_lanes": [
+                12,
+                15
+              ],
+              "width": 4,
+              "group_id": 35,
+              "port_word": "0xf0002101"
+            },
+            {
+              "root": "00:01.2",
+              "logical_lanes": [
+                8,
+                11
+              ],
+              "width": 4,
+              "group_id": 36,
+              "port_word": "0xf0004101"
+            },
+            {
+              "root": "00:01.3",
+              "logical_lanes": [
+                4,
+                4
+              ],
+              "width": 1,
+              "group_id": 41,
+              "port_word": "0xf0006101",
+              "role_from_official_dtb": "NVMe slot1"
+            },
+            {
+              "root": "00:01.4",
+              "logical_lanes": [
+                5,
+                5
+              ],
+              "width": 1,
+              "group_id": 42,
+              "port_word": "0xf0008101",
+              "role_from_official_dtb": "NVMe slot2"
+            },
+            {
+              "root": "00:01.5",
+              "logical_lanes": [
+                6,
+                7
+              ],
+              "width": 2,
+              "group_id": 37,
+              "port_word": "0xf000a101"
+            },
+            {
+              "root": "00:01.6",
+              "logical_lanes": [
+                0,
+                1
+              ],
+              "width": 2,
+              "group_id": 38,
+              "port_word": "0xf000c101",
+              "role_from_official_dtb": "First three SATA bays"
+            }
+          ],
+          "other_active_engines": "SATA on logical3 and2 with descriptor byte+5=1; no Ethernet engine.",
+          "endpoint_limit": "No live DS1525 endpoint inventory was supplied. The role of each unlabelled root is not inferred solely from port order."
+        },
+        {
+          "model": "DS1525 platform8/reference branch",
+          "offset": "0x3db0",
+          "mask": "0x3f001f00",
+          "pcie": [
+            {
+              "root": "00:01.1",
+              "logical_lanes": [
+                11,
+                8
+              ],
+              "direction": "reverse",
+              "width": 4,
+              "group_id": 4,
+              "port_word": "0x4e002101"
+            },
+            {
+              "root": "00:01.2",
+              "logical_lanes": [
+                4,
+                5
+              ],
+              "direction": "forward",
+              "width": 2,
+              "group_id": 19,
+              "port_word": "0x5e004101"
+            }
+          ],
+          "other_active_engines": "SATA with descriptor byte+5=0 and Ethernet engines0/1."
+        }
+      ],
+      "implication": "DS1525's production-oriented topology is in platform0 while DS1522's is in platform8. The DS1525 data directly contradicts treating the DS1522 two-PCIe/Ethernet platform0 template as a universal V1500B requirement.",
+      "evidence": "table_inventory.json",
+      "limitation": "Selection of platform0 in the historical failed V1500B boot remains an inference, not a captured value."
+    },
+    {
+      "id": "BOARD-004",
+      "kind": "Direct table decode",
+      "claim": "All active PCIe ports in DS1525 platform0 and the DS1522 candidate have the same non-address policy bits: ASPM0, L1.1=0, L1.2=0, clock-request nibble0xf. Their $A17 clock rows have clock request0xff, slot-check0 and special-function0.",
+      "clock_rows": [
+        {
+          "model": "DS1522 platform8",
+          "table_offset": "0x22d8",
+          "records": [
+            {
+              "offset": "0x22e8",
+              "root": "00:01.1",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 35,
+              "raw": "00ff00002301010000000000"
+            },
+            {
+              "offset": "0x22f4",
+              "root": "00:01.2",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 37,
+              "raw": "00ff00002501020000000000"
+            },
+            {
+              "offset": "0x2300",
+              "root": "00:01.3",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 38,
+              "raw": "00ff00002601030000000000"
+            },
+            {
+              "offset": "0x230c",
+              "root": "00:01.4",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 39,
+              "raw": "00ff00002701040000000000"
+            },
+            {
+              "offset": "0x2318",
+              "root": "00:01.5",
+              "clock_id": 1,
+              "clock_request": 255,
+              "device_id": 40,
+              "raw": "01ff00002801050000000000"
+            }
+          ]
+        },
+        {
+          "model": "DS1525 platform0",
+          "table_offset": "0x2288",
+          "records": [
+            {
+              "offset": "0x2298",
+              "root": "00:01.1",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 35,
+              "raw": "00ff00002301010000000000"
+            },
+            {
+              "offset": "0x22a4",
+              "root": "00:01.2",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 36,
+              "raw": "00ff00002401020000000000"
+            },
+            {
+              "offset": "0x22b0",
+              "root": "00:01.3",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 41,
+              "raw": "00ff00002901030000000000"
+            },
+            {
+              "offset": "0x22bc",
+              "root": "00:01.4",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 42,
+              "raw": "00ff00002a01040000000000"
+            },
+            {
+              "offset": "0x22c8",
+              "root": "00:01.5",
+              "clock_id": 0,
+              "clock_request": 255,
+              "device_id": 37,
+              "raw": "00ff00002501050000000000"
+            },
+            {
+              "offset": "0x22d4",
+              "root": "00:01.6",
+              "clock_id": 1,
+              "clock_request": 255,
+              "device_id": 38,
+              "raw": "01ff00002601060000000000"
+            }
+          ]
+        }
+      ],
+      "candidate": "These DS1522 clock rows are already copied into candidate platform0, preserving the header/platform mask. No further DS1525 clock row is needed to match this policy.",
+      "evidence": "table_inventory.json",
+      "context_sources": [
+        "legacy_amd_cpm_common",
+        "../../cpu_pcie_sources/vendor_platform_descriptors.h"
+      ]
+    },
+    {
+      "id": "BOARD-005",
+      "kind": "Actual target decompilation plus direct data comparison",
+      "reset_callback": {
+        "ds1522": "0x09b4c150",
+        "ds1525_same_rva": "0x09b49d50",
+        "ppi_slot": "0x1c8",
+        "pcie_wrapper_ds1522": "0x09b4d67c"
+      },
+      "claim": "The callback requests $A15 and $A06, then searches $A15 for an exact DeviceId and Mode. It executes or queues a reset operation only on a matching record. It does not treat any supplied group ID as a physical GPIO number.",
+      "reset_table": {
+        "signature": "$A15",
+        "ds1522_offset": "0x20f8",
+        "ds1525_offset": "0x2178",
+        "identical": true,
+        "rows": [
+          {
+            "device_id": 4,
+            "mode": 0,
+            "type_raw": 0,
+            "config_raw": "0x00000006",
+            "init_flag": 3,
+            "raw": "0400000600000003"
+          },
+          {
+            "device_id": 4,
+            "mode": 1,
+            "type_raw": 0,
+            "config_raw": "0x00010006",
+            "init_flag": 3,
+            "raw": "0401000600010003"
+          }
+        ],
+        "terminated_by": "0xff",
+        "contains_group_ids_35_through_42": false
+      },
+      "implication": "The working DS1525 configuration itself does not add reset-table mappings for IDs35–42. Their absence in the candidate is not a demonstrated omission. Physical reset-net assignments remain outside this table; group IDs must not be relabelled as GPIO numbers.",
+      "rea_evidence": {
+        "file": "reset_consumer.json",
+        "evidence_id": "ev_cbf42dd89c7a6e981a3293c4530d2c2d931dd5372bbd0c53a795375f1bf2d1f9"
+      },
+      "wrapper_and_registration_evidence": "focused_disassembly.json"
+    },
+    {
+      "id": "BOARD-006",
+      "kind": "Board-specific GPIO table differences",
+      "claim": "The GPIO initialization tables have16 pin-keyed differences. These include changed settings for21,22,24,84,85,87,132; removed records30,70,75,88,108; and added records136,138,141,143. The current candidate retains the complete DS1522 GPIO table.",
+      "specific_mux_changes": [
+        {
+          "pin": 84,
+          "ds1522": "0x09a8 (IOMUX1)",
+          "ds1525": "0x08a8 (IOMUX0)"
+        },
+        {
+          "pin": 85,
+          "ds1522": "0x09a8 (IOMUX1)",
+          "ds1525": "0x08a8 (IOMUX0)"
+        }
+      ],
+      "implication": "There are concrete pin-policy differences, so the DS1525 GPIO table is not a valid generic V1500B transplant. None was demonstrated to be mandatory for a V1500B installed on the DS1522 board.",
+      "evidence": "table_inventory.json"
+    },
+    {
+      "id": "BOARD-007",
+      "kind": "New OEM callback difference with a bounded source interpretation",
+      "callback_ds1525": "0x09b3f4b8",
+      "callback_ds1522": "0x09b41938",
+      "claim": "DS1525 adds a scan for GPIO0x57. If its setting has bit11 set and a nonzero IOMUX field, it calls CPM+0x68 on ACPI-MMIO-base+0x354 with AND0x7f and OR0. The common CPM code sets the base to0xfed80000 for classes11/12 and CPM+0x68 is the 8-bit AND/OR helper.",
+      "interpretation": "Picasso definitions identify PMIO0x54 bit7 as SERIRQ_ENABLE and GPIO87 IOMUX0 as SERIRQ/IOMUX2 as GPIO. This supports interpretation as disabling serial-IRQ signaling when the pin is repurposed. It is not an identified PCIe reset/clock operation.",
+      "candidate_implication": "A concrete newer callback difference exists, but no evidence establishes it as a mandatory addition to the DS1522 topology candidate.",
+      "rea_evidence": {
+        "file": "ds1525_oem_callback.json",
+        "evidence_id": "ev_8ecf3230bc3584a089096f86382c24a9dd1f0fb624e977524678c620f35e51af"
+      },
+      "source_context": [
+        "picasso_southbridge",
+        "picasso_gpio"
+      ],
+      "other_observed_difference_delegated_to_cpu_worker": "PCD0x4f0a0 changes from0xf0b7 to72000; PCD0x4f0a2 from0x6065 to40000. These constants were sent to the main agent for the independent CPU-policy comparison; their meaning is not established by this board-only subtask.",
+      "helper_registration_and_base_evidence": "focused_disassembly.json"
+    },
+    {
+      "id": "BOARD-008",
+      "kind": "Native SATA and USB scope",
+      "claim": "Candidate and DS1525 platform0 both use SATA engines on logical3 and2 with descriptor byte+5=1. The official DTBs retain native SATA at root00:08.2, while the external first-three-bay path differs00:01.5 versus00:01.6.",
+      "usb": "No USB-engine descriptor occurs in either model's selected $A26 table. This focused CPM table comparison therefore demonstrates no mandatory native-USB change; it is not a complete audit of FCH USB configuration.",
+      "evidence": [
+        "table_inventory.json",
+        "../../os/evidence.json"
+      ]
+    },
+    {
+      "id": "BOARD-009",
+      "kind": "Candidate containment verification",
+      "claim": "Direct comparison reconfirms exactly130 changed bytes, all inside platform0 $A17/$A26 bodies. Candidate clock and DXIO bodies equal original DS1522 platform8 bodies exactly; $A10 GPIO and $A15 reset tables remain identical to original.",
+      "evidence": "table_inventory.json"
+    }
+  ],
+  "sources": [
+    {
+      "id": "legacy_amd_cpm_common",
+      "url": "https://github.com/fishbaoz/KaveriPI/blob/0a3956fdc4f35a20825138e06e260cec1c5d3c22/CPM/Include/AmdCpmCommon.h",
+      "git_blob_sha": "a034ebfcdae94c05c81986d59bff248146eb136e",
+      "scope": "Older vendor CPM source supplies structure names as context; actual target code/table bytes are the controlling evidence."
+    },
+    {
+      "id": "legacy_amd_cpm_gpio",
+      "url": "https://github.com/fishbaoz/KaveriPI/blob/0a3956fdc4f35a20825138e06e260cec1c5d3c22/CPM/Features/GpioInit/Pei/AmdCpmGpioInitPeim.c",
+      "git_blob_sha": "5f3c98fdcc105c3bb3017afbc8f9b20f41624464",
+      "scope": "Older vendor CPM source supplies structure names as context; actual target code/table bytes are the controlling evidence."
+    },
+    {
+      "id": "picasso_southbridge",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/include/soc/southbridge.h",
+      "git_blob_sha": "9085aea656bfddf19414e2474e0af15f2d6051dd",
+      "scope": "Coreboot Picasso register/pin definitions provide interpretation; not a DS1522 board-net schematic."
+    },
+    {
+      "id": "picasso_gpio",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/include/soc/gpio.h",
+      "git_blob_sha": "01a997daa8a118bf5e297b120c33c72331809f52",
+      "scope": "Coreboot Picasso register/pin definitions provide interpretation; not a DS1522 board-net schematic."
+    }
+  ],
+  "limits": [
+    "DS1525 is a working V1500B product by task context, but its actual runtime selected table and endpoint PCI inventory were not measured here.",
+    "The same physical FP5 pins/lane routing on the DS1522 after the CPU swap are not established by model names or by these descriptor comparisons.",
+    "No successful link-training or boot observation of the130-byte candidate exists.",
+    "Authentication and CPU early-initialization gates remain owned by the main agent and the other comparison worker."
+  ],
+  "lifecycle": "Two successful REA CLI decompile invocations created separate ephemeral Ghidra analysis sessions and exited. No shared REA session was used or mutated. All firmware input bytes were read-only. No temporary scripts, copied firmware images or downloaded full source trees were retained."
+}

@@ -1,0 +1,37 @@
+
+analysis/modules/DS1522+_7.2.2-72806/AmdNbioSmuV10Dxe.efi:	file format coff-x86-64
+
+Disassembly of section .text:
+
+00000000000002c0 <.text>:
+    29d0: ba 00 12 04 00               	movl	$0x41200, %edx          # imm = 0x41200
+    29d5: 49 8b cf                     	movq	%r15, %rcx
+    29d8: e8 df 1a 00 00               	callq	0x44bc <.text+0x41fc>
+    29dd: 84 c0                        	testb	%al, %al
+    29df: 0f 88 f9 00 00 00            	js	0x2ade <.text+0x281e>
+    29e5: 48 8d 4d c7                  	leaq	-0x39(%rbp), %rcx
+    29e9: e8 6e da ff ff               	callq	0x45c <.text+0x19c>
+    29ee: 48 8d 15 23 73 00 00         	leaq	0x7323(%rip), %rdx      # 0x9d18
+    29f5: 48 8d 4d c7                  	leaq	-0x39(%rbp), %rcx
+    29f9: e8 e2 1c 00 00               	callq	0x46e0 <.text+0x4420>
+    29fe: 48 85 c0                     	testq	%rax, %rax
+    2a01: 75 44                        	jne	0x2a47 <.text+0x2787>
+    2a03: 48 8b 44 24 40               	movq	0x40(%rsp), %rax
+    2a08: bb 80 3e 00 00               	movl	$0x3e80, %ebx           # imm = 0x3E80
+    2a0d: 41 b0 02                     	movb	$0x2, %r8b
+    2a10: 48 8b d7                     	movq	%rdi, %rdx
+    2a13: 49 8b cc                     	movq	%r12, %rcx
+    2a16: 89 58 04                     	movl	%ebx, 0x4(%rax)
+    2a19: e8 22 1b 00 00               	callq	0x4540 <.text+0x4280>
+    2a1e: 4c 8b 5c 24 40               	movq	0x40(%rsp), %r11
+    2a23: 48 8d 15 de 72 00 00         	leaq	0x72de(%rip), %rdx      # 0x9d08
+    2a2a: 41 89 5b 0c                  	movl	%ebx, 0xc(%r11)
+    2a2e: 48 8b 44 24 40               	movq	0x40(%rsp), %rax
+    2a33: 48 b9 00 00 00 00 00 00 04 00	movabsq	$0x4000000000000, %rcx  # imm = 0x4000000000000
+    2a3d: 89 58 08                     	movl	%ebx, 0x8(%rax)
+    2a40: e8 ab 21 00 00               	callq	0x4bf0 <.text+0x4930>
+    2a45: eb 74                        	jmp	0x2abb <.text+0x27fb>
+    2a47: 83 fb 06                     	cmpl	$0x6, %ebx
+    2a4a: 0f 84 ac 04 00 00            	je	0x2efc <.text+0x2c3c>
+    2a50: 83 fb 08                     	cmpl	$0x8, %ebx
+    2a53: 0f 84 68 04 00 00            	je	0x2ec1 <.text+0x2c01>

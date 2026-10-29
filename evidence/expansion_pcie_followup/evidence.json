@@ -1,0 +1,124 @@
+{
+  "scope": "Limited static primary-source corroboration for the expansion NIC descriptor differences. No NAS access, no shared REA session, no firmware execution or patch.",
+  "checked_on": "2026-10-28",
+  "new_observation_supplied_by_root": "User reports no router IP via four onboard ports or the expansion10GbE port after the V1500B swap. This reports lack of IP, not PCIe enumeration or physical-link status.",
+  "current_machine_fact_supplied_by_root": "With R1600, expansion NIC1d6a:04c0 is downstream of00:01.1.",
+  "module": {
+    "path": "../modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+    "sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf"
+  },
+  "descriptor_comparison": {
+    "normal_platform8": {
+      "first24_hex": "000000000100080b23000000012100f00000008000000000",
+      "length": 24,
+      "matching_module_offsets": [
+        "0x3d44"
+      ],
+      "start_logical_lane": 8,
+      "end_logical_lane": 11,
+      "range_width": 4,
+      "reset_or_gpio_group_value": 35,
+      "port_word": "0xf0002101",
+      "port_fields_if_public_fsp_layout_applies": {
+        "port_present": 1,
+        "device": 1,
+        "function": 1,
+        "link_speed_cap": 0,
+        "auto_speed": 0,
+        "equalization_preset": 0,
+        "aspm": 0,
+        "aspm_l1_1": 0,
+        "aspm_l1_2": 0,
+        "clk_req": 15
+      }
+    },
+    "alternative_platform0": {
+      "first24_hex": "0000000001000f08040000000121004e0000008000000000",
+      "length": 24,
+      "matching_module_offsets": [
+        "0x23bc"
+      ],
+      "start_logical_lane": 15,
+      "end_logical_lane": 8,
+      "range_width": 8,
+      "reset_or_gpio_group_value": 4,
+      "port_word": "0x4e002101",
+      "port_fields_if_public_fsp_layout_applies": {
+        "port_present": 1,
+        "device": 1,
+        "function": 1,
+        "link_speed_cap": 0,
+        "auto_speed": 0,
+        "equalization_preset": 0,
+        "aspm": 2,
+        "aspm_l1_1": 1,
+        "aspm_l1_2": 1,
+        "clk_req": 4
+      }
+    }
+  },
+  "observations": [
+    {
+      "id": "EXP-SRC-001",
+      "claim": "AMD AGESA explicitly documents StartLane greater than EndLane as reversed configuration. The15->8 pair therefore has a documented lane-reversal interpretation, pending confirmation in this BIOS consumer. The8->11 pair describes a forward4-lane range;15->8 spans8 lanes in reverse order.",
+      "source": "https://chromium.googlesource.com/chromiumos/third_party/coreboot/blobs/+/612cd24575ab8bb77260e22f3665f46b77794ffe/pi/amd/00660F01/AGESA.h",
+      "source_lines": [
+        580,
+        584
+      ],
+      "limit": "The public AGESA header is older and has different field widths. It corroborates semantics; it does not independently prove the layout/behavior of the Synology-specific DXIO consumer."
+    },
+    {
+      "id": "EXP-SRC-002",
+      "claim": "The public AMD Picasso DXIO header maps logical8..15 to GFX0..7 and warns that logical lane IDs are not physical lane numbers. It supports x8 or split x4 GFX configurations.",
+      "source": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/fsp/picasso/platform_descriptors.h#L132",
+      "source_lines": [
+        132,
+        161
+      ],
+      "source_sha256": "3305f6aae3637b8e06ace8c87e81a4eede9c15d03035791ce4f2960699e4af45",
+      "limit": "Physical board connectivity and the exact V1500B mapping still require board evidence or its actual lane-mapping consumer."
+    },
+    {
+      "id": "EXP-SRC-003",
+      "claim": "Using the public FSP port bitfield layout, both descriptors decode to enabled device1/function1. The normal word0xf0002101 yields clk_req15, ASPM disabled, L1.1/L1.2 off. The alternative0x4e002101 yields clk_req4, ASPM L1, L1.1/L1.2 on. The public enum names4 as CLK_REQ3; CLK_ENABLE is0xff, which narrows to0xf in the4-bit field.",
+      "source": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/fsp/picasso/platform_descriptors.h",
+      "source_lines": [
+        46,
+        69,
+        176,
+        186
+      ],
+      "limit": "The values fit the known BDF, but reuse of this exact bitfield layout by this BIOS is an inference until its consumer is checked. A changed request selector does not by itself prove clock loss."
+    },
+    {
+      "id": "EXP-SRC-004",
+      "claim": "AMD AGESA describes ResetId as a platform-assigned identifier for a reset-control GPIO; ports sharing a reset GPIO share the identifier. Therefore35 versus4 cannot be read directly as physical GPIO35 versusGPIO4.",
+      "source": "https://chromium.googlesource.com/chromiumos/third_party/coreboot/blobs/+/612cd24575ab8bb77260e22f3665f46b77794ffe/pi/amd/00660F01/AGESA.h",
+      "source_lines": [
+        494,
+        499
+      ],
+      "limit": "Mapping of the target descriptor field through the DS1522 reset callback/table remains to be established."
+    },
+    {
+      "id": "EXP-SRC-005",
+      "claim": "AMD documents a concrete PCIe implementation where a reversed x8 link downshifted to x4 can leave the partner lane0 unconnected and fail training. This shows why width negotiation does not universally cure a reversal/topology mismatch.",
+      "source": "https://docs.amd.com/r/en-US/pg346-cpm-pcie/Lane-Reversal",
+      "product": "Versal Adaptive SoC CPM, PG346",
+      "limit": "This is NOT a Raven/V1500B specification. It supports only the general mechanism and must not be used to assert that V1500B cannot negotiate this configuration."
+    }
+  ],
+  "conditional_mechanism": "If this BIOS interprets15->8 as a reversed8-lane port and the DS1522 connector only carries the lanes used by the working8->11 setup, the effective lane0/active-lane subset could be different. A link may then fail even though the root-port BDF remains01.1. Whether automatic reversal/downtraining remaps it successfully depends on this controller, the endpoint and actual wiring; none was observed with V1500B.",
+  "clock_reset_boundary": "The clock-request, ASPM and reset/group settings differ as well. They warrant checking the existing board-specific clock/reset mapping, but do not establish a clock/reset failure without that mapping and the failed boot state.",
+  "priority": "Secondary unresolved point. The other agent is checking the no-disk/recovery environment for atlantic driver availability. A NIC with no driver/DHCP can have a functioning PCIe link, so the report of no IP cannot distinguish these cases.",
+  "not_established": [
+    "Actual physical routing of the expansion connector.",
+    "Whether V1500B selected the alternative table in the failed boot.",
+    "Whether00:01.1 existed, its negotiated width, or whether endpoint1d6a:04c0 enumerated.",
+    "Meaning of reset/group4 versus35 on this board.",
+    "Whether alternative clock settings disabled or misrouted the actual expansion clock."
+  ],
+  "required_discriminating_observation": "When a V1500B boot can eventually be observed, the presence of the expansion endpoint and its PCIe link state distinguishes a hardware/topology issue from the independent missing-driver/network-configuration path.",
+  "cleanup": "Only this evidence JSON and a short upstream AGESA excerpt retained. No downloaded full header, firmware derivative, or temporary program created."
+}

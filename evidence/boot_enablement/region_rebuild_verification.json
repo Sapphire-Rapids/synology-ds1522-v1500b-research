@@ -1,0 +1,23 @@
+{
+  "kind": "Offline compressed-code region rebuild; not a deployable BIOS or SPI image",
+  "not_a_flash_image": true,
+  "fragment": "build/candidate_region_only/early_bios_topology.analysis_fragment.bin",
+  "fragment_sha256": "e8c8fc302b8491d092d5b79426f159533db5ef341b48803664da5960a8f38f69",
+  "payload_offset": "0x750000",
+  "mapped_code_address": "0xfff50000",
+  "fragment_size": 427393,
+  "original_packed_size": 427137,
+  "candidate_packed_size": 425325,
+  "expanded_size": 3145728,
+  "candidate_expanded_sha256": "f8a72eff02448c583646a2d95b91be8b4b6e6c298b3a2a204d6e2892003022c1",
+  "changed_expanded_bytes": 130,
+  "ffs_header_checksum_valid": true,
+  "ffs_body_checksum_present": false,
+  "fv_header_checksum_valid": true,
+  "compression_round_trip_exact": true,
+  "amd_directory_entries_unchanged": true,
+  "bytes_outside_target_region_unchanged": true,
+  "hypothetical_payload_sha256": "c7d5e45d716432e0a810e374e3514bd86baa3c92c09c389cc43cb0885c4ce3fe",
+  "vendor_update_signatures": "Existing BIOSCER and Authenticode signatures would be invalid; no valid replacement signature was generated.",
+  "live_boot_acceptance": "Untested and unknown."
+}

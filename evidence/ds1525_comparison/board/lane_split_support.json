@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded primary-source follow-up: whether full-I/O Raven/FP5 Ryzen Embedded V1000, particularly V1500B, permits two independent PCIe x1 engines on firmware logical lanes0 and1 for the existing DS1522 candidate. No NAS access, runtime probing, firmware execution, patching, or REA session.",
+  "result": {
+    "exact_candidate_split_support": "UNKNOWN",
+    "explicit_prohibition_found": false,
+    "exact_raven_or_v1500b_supported_split_example_found": false,
+    "hardware_family_supporting_evidence": "An official Advantech V1000 board diagram documents independent GPP PCIe paths, including a default x4+x1 arrangement on GPP0–4 and a separate GPP5 connection to an Intel I210. This is useful same-generation hardware corroboration, but it does not publish DXIO logical numbering or the candidate's root-port assignment.",
+    "recommendation": "Do not treat logical0/1 split as a proven hardware prohibition. Also do not mark the exact DS1522 candidate combination supported solely from these public sources. Keep this narrow gate UNKNOWN.",
+    "critical_distinction": "The available explicit mapping GPP[5:4] -> logical[1:0] is labelled Picasso in the primary coreboot descriptor header. No already-read source explicitly establishes that mapping and valid split/root-port combination for full-I/O Raven FP5/V1500B. No physical package pin mapping is inferred here."
+  },
+  "candidate_under_question": {
+    "file": "../../boot_enablement/candidate_module_only/AmdCpmOemInitPeim.board_topology_only.efi",
+    "sha256": "19536f87b29917839457311c0acdba61aee96c0bb90054b6a530fb15f97e4e28",
+    "platform0_table_offset": "0x23a8",
+    "pcie": [
+      {
+        "root": "00:01.1",
+        "logical_lanes": [
+          8,
+          11
+        ]
+      },
+      {
+        "root": "00:01.2",
+        "logical_lanes": [
+          4,
+          4
+        ]
+      },
+      {
+        "root": "00:01.3",
+        "logical_lanes": [
+          5,
+          5
+        ]
+      },
+      {
+        "root": "00:01.4",
+        "logical_lanes": [
+          1,
+          1
+        ]
+      },
+      {
+        "root": "00:01.5",
+        "logical_lanes": [
+          0,
+          0
+        ]
+      }
+    ],
+    "native_sata_logical_lanes": [
+      3,
+      2
+    ],
+    "context_evidence": [
+      "evidence.json",
+      "table_inventory.json",
+      "../../cpu_pcie_sources/evidence.json",
+      "../../boot_enablement/port_mapping_check.json"
+    ],
+    "note": "The existing mapper allowlist establishes that the requested device/function values are allowed and unique; it is not a proof that this lane allocation is valid for Raven."
+  },
+  "source_findings": [
+    {
+      "id": "LANE-AMD-001",
+      "source": "AMD Ryzen Embedded V1000 family product brief",
+      "url": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/v1000-family-product-brief.pdf",
+      "location": "Page4, Enhanced I/O and model table, as retained in earlier research",
+      "fact": "The family advertises16 PCIe Gen3 lanes, divided into8 GFX and8 GPP, with7 links maximum. The model table includes V1500B.",
+      "limit": "Total lane/link counts do not enumerate legal simultaneous lane splits and do not identify firmware logical lanes0/1.",
+      "existing_record": "../../cpu_pcie_sources/evidence.json"
+    },
+    {
+      "id": "LANE-OEM-001",
+      "source": "Advantech SOM-5871 official datasheet",
+      "url": "https://advdownload.advantech.com/productfile/PIS/SOM-5871/file/SOM-5871_DS%28041423%2920230419154936.pdf",
+      "resolved_url": "https://advdownload.advantech.com/productfile/PIS/SOM-5871/file/SOM-5871_DS(041423)20230419154936.pdf",
+      "pdf_sha256": "bdbdd58a3c9a208415414dfa582192023c1b517cc89b7d41571592f0bf389e93",
+      "pdf_bytes": 573502,
+      "location": "PDF page2, Block Diagram and Ordering Information",
+      "inspection": "Downloaded from the official vendor host using system curl with certificate verification, hashed, rendered page2 with pdftoppm and visually inspected. Temporary PDF/PNG removed afterward.",
+      "exact_short_labels": [
+        "GPP #0-4",
+        "Default 1 PCIe x4 & 1 PCIe x1",
+        "GPP #5",
+        "I210"
+      ],
+      "fact": "The diagram draws the GPP0–4 path to the COM Express connector separately from the GPP5 path through Intel I210. Listed CPUs are V1807B,V1756B,V1605B,V1202B,V1404I.",
+      "inference": "The default x4+x1 allocation on the five-lane GPP0–4 group plus a separate GPP5 endpoint is strong corroboration against a generic claim that this V1000 GPP area must always be used as one x2 link.",
+      "limit": "The diagram does not label which single member of GPP0–4 is the x1 link, does not give firmware logical numbering, and does not list V1500B. Therefore it does not independently prove the exact candidate descriptor pair.",
+      "quotation_word_count": 22
+    },
+    {
+      "id": "LANE-MAP-001",
+      "source": "coreboot AMD FSP Picasso platform_descriptors.h",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/fsp/picasso/platform_descriptors.h#L132",
+      "content_sha256": "3305f6aae3637b8e06ace8c87e81a4eede9c15d03035791ce4f2960699e4af45",
+      "local_existing_file": "../../cpu_pcie_sources/vendor_platform_descriptors.h",
+      "location": "Lines132–161",
+      "fact": "The comment explicitly labels its mapping Picasso: physical GPP[5:4] correspond to logical[1:0], with PCIe/XGBE protocol options. It says GPP lanes can form x4,x2,x1 ports and gives width-alignment rules.",
+      "applicability": "This is an explicit mapping and general x1 statement for the documented Picasso contract. It is not directly labelled full-I/O Raven/V1000, so it is supporting context only in this decision."
+    },
+    {
+      "id": "LANE-RV1-001",
+      "source": "coreboot Picasso soc_util.c",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/soc_util.c",
+      "git_blob_sha": "3e0bcbf5f3824e7249a4c97ebfdec8ec3ed097b4",
+      "fact": "The identification code recognizes RV1,PCO,RV2 separately; its FP5 family17h-model1x non-reduced-I/O path uses the broad SOC_PICASSO category.",
+      "limit": "A shared identification category is not a silicon lane-allocation validator. It does not explicitly extend every Picasso lane-mapping statement to V1500B."
+    },
+    {
+      "id": "LANE-BOARD-001",
+      "source": "coreboot AMD Mandolin full-I/O descriptor table",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/mainboard/amd/mandolin/variants/mandolin/port_descriptors.c",
+      "git_blob_sha": "5cc09de8cc2ea70dca3e5025c45ba1e4a0aed74b",
+      "fact": "The full-I/O/default descriptor set combines logical0 and1 into one x2 SSD port at01.7. It splits logical4,5,6,7 into independent x1 ports.",
+      "limit": "It does not exercise the exact logical0/1 dual-x1 case and does not explicitly identify an Embedded V1000 SKU."
+    },
+    {
+      "id": "LANE-EXCLUDED-001",
+      "source": "coreboot AMD Cereme descriptor table",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/mainboard/amd/mandolin/variants/cereme/port_descriptors.c",
+      "git_blob_sha": "694fecce61abdb160002b4fc120399adffbe8127",
+      "fact": "This table does contain separate logical0 and1 x1 descriptors, assigned01.3 and01.4.",
+      "exclusion_reason": "The table is explicitly named pollock_dxio_descriptors. Pollock uses FT5/RV2 and a different physical-to-logical map; it cannot settle the Raven FP5 question."
+    }
+  ],
+  "targeted_search_boundary": {
+    "reviewed": [
+      "Existing analysis/cpu_pcie_sources evidence and pinned FSP descriptor/classification sources",
+      "Existing DS1522/DS1525 board inventories and candidate mapper evidence",
+      "AMD V1000 family product brief",
+      "Official Advantech SOM-5871 V1000 product datasheet and its block diagram",
+      "coreboot Mandolin/Cereme descriptor tables and their declared platform scope",
+      "Targeted primary-code searches for PcieComplexDataRV,DxioUserConfig,PciePortLaneConfiguration,PciePortConfigurationCheck"
+    ],
+    "not_found": "No publicly located Raven/V1000-specific lane-allocation validator or explicitly applicable dual-x1 logical0/1 board table in these targeted checks.",
+    "exclusions": [
+      "Generic PCIe bifurcation capability and unrelated later Zen/Versal sources",
+      "DS1525's logical0..1 x2 example as proof of independent x1 support",
+      "Pollock's explicit0/1 split",
+      "Third-party copies labelled confidential and forum claims as decisive sources",
+      "Protectli V1000-series search hits, which refer to Intel-based products rather than AMD Embedded V1000"
+    ]
+  },
+  "exact_missing_evidence": [
+    "An AMD/OEM Raven FP5/V1000 logical-to-physical DXIO map explicitly covering logical0 and1, plus a legal-configuration rule or table allowing both as simultaneous PCIe x1 engines.",
+    "Or a verified full-I/O Raven/V1500B AGESA/DXIO validation path or board descriptor set that accepts separate0..0 and1..1 engines with the candidate's other active links. BDF-order constraints must be included, not only width support.",
+    "A SKU/fuse applicability statement for the actual V1500B if the supporting source only covers other V1000 SKUs."
+  ],
+  "cleanup": "Only lane_split_support.json is retained for this follow-up. Temporary PDF and rendered PNG are deleted; no new source tree, software installation, analysis session, hardware action or patch was created.",
+  "already_read_ordering_constraint_context": {
+    "source_id": "LANE-MAP-001",
+    "fact": "The same Picasso descriptor comment states that among equal-width ports, a higher starting logical lane must use a higher root-port number.",
+    "candidate_observation": "The candidate preserves the working DS1522 mapping: lane1 ->01.4 and lane0 ->01.5, so this pair runs in the opposite order to that published Picasso rule.",
+    "limit": "This does not prove a Raven/V1500B prohibition, because the comment is not explicitly scoped to that silicon and the working R1600 configuration already uses these assignments. It means the missing validation must cover the exact BDF assignment/firmware policy as well as x1+x1 widths.",
+    "related_existing_evidence": "../../boot_enablement/port_mapping_check.json"
+  }
+}

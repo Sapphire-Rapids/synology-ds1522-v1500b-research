@@ -1,0 +1,22 @@
+# Locally supplied firmware and generated candidates
+/inputs/
+/build/
+/vendor/
+/downloads/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+# Never add device captures, firmware packages, or executable modules
+*.bin
+*.ROM
+*.rom
+*.pat
+*.efi
+*.ko
+*.gz
+*.tar
+*.zip
+*.pem
+*.key
+.env

@@ -1,0 +1,17 @@
+{
+  "url": "https://chromium.googlesource.com/chromiumos/third_party/coreboot/blobs/+/612cd24575ab8bb77260e22f3665f46b77794ffe/pi/amd/00660F01/AGESA.h",
+  "sha256": "15f347d0ab2f1d25a3d1bbad8efcee50a07896a6fa7dd200436fa488c43526a7",
+  "scope": "Older AMD AGESA/PI public header; corroborates naming convention, not DS1522 binary layout.",
+  "excerpts": [
+    {
+      "line_start": 492,
+      "line_end": 501,
+      "text": "                                                               *  @li @b 3 - Enhanced\n                                                               */\n  IN       UINT8                   ResetId;                  /**< Arbitrary number greater than 0 assigned by platform firmware for GPIO\n                                                               *   identification which control reset for given port.\n                                                               *   Each port with unique GPIO should have unique ResetId assigned.\n                                                               *   All ports use same GPIO to control reset should have same ResetId assigned.\n                                                               *   see AgesaPcieSlotResetContol.\n                                                               */\n  IN       PCIe_PORT_MISC_CONTROL  MiscControls;             ///< Misc extended controls\n  IN       APIC_DEVICE_INFO        ApicDeviceInfo;           ///< IOAPIC device programming info"
+    },
+    {
+      "line_start": 578,
+      "line_end": 587,
+      "text": "                                                           *  @li @b 2 -  DDI\n                                                           */\n  IN       UINT16               StartLane;                /**< Start Lane ID (in reversed configuration StartLane > EndLane)\n                                                           * Refer to lane descriptions and supported configurations in BKDG\n                                                           */\n  IN       UINT16               EndLane;                  /**< End lane ID (in reversed configuration StartLane > EndLane)\n                                                           * Refer to lane descriptions and supported configurations in BKDG\n                                                           */\n\n} PCIe_ENGINE_DATA;"
+    }
+  ]
+}

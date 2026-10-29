@@ -1,0 +1,130 @@
+
+analysis/modules/DS1522+_7.2.2-72806/SynoServiceDxe.efi:	file format coff-x86-64
+
+Disassembly of section .text:
+
+00000000000002a0 <.text>:
+     3c0: 48 89 5c 24 08               	movq	%rbx, 0x8(%rsp)
+     3c5: 48 89 6c 24 10               	movq	%rbp, 0x10(%rsp)
+     3ca: 48 89 74 24 20               	movq	%rsi, 0x20(%rsp)
+     3cf: 57                           	pushq	%rdi
+     3d0: 41 54                        	pushq	%r12
+     3d2: 41 56                        	pushq	%r14
+     3d4: 48 83 ec 40                  	subq	$0x40, %rsp
+     3d8: 48 8d 0d 49 1a 00 00         	leaq	0x1a49(%rip), %rcx      # 0x1e28
+     3df: e8 34 03 00 00               	callq	0x718 <.text+0x478>
+     3e4: 48 8d 4c 24 70               	leaq	0x70(%rsp), %rcx
+     3e9: e8 7a 03 00 00               	callq	0x768 <.text+0x4c8>
+     3ee: 33 ed                        	xorl	%ebp, %ebp
+     3f0: 48 8b f8                     	movq	%rax, %rdi
+     3f3: 48 85 c0                     	testq	%rax, %rax
+     3f6: 79 14                        	jns	0x40c <.text+0x16c>
+     3f8: 48 8d 0d f1 19 00 00         	leaq	0x19f1(%rip), %rcx      # 0x1df0
+     3ff: 48 8b d0                     	movq	%rax, %rdx
+     402: e8 11 03 00 00               	callq	0x718 <.text+0x478>
+     407: e9 75 01 00 00               	jmp	0x581 <.text+0x2e1>
+     40c: b9 19 d0 00 00               	movl	$0xd019, %ecx           # imm = 0xD019
+     411: e8 d6 02 00 00               	callq	0x6ec <.text+0x44c>
+     416: 44 0f b6 e0                  	movzbl	%al, %r12d
+     41a: 41 8b c4                     	movl	%r12d, %eax
+     41d: c1 e0 14                     	shll	$0x14, %eax
+     420: 48 63 f0                     	movslq	%eax, %rsi
+     423: 48 8b ce                     	movq	%rsi, %rcx
+     426: e8 cd 02 00 00               	callq	0x6f8 <.text+0x458>
+     42b: 48 8b ce                     	movq	%rsi, %rcx
+     42e: 48 83 c9 02                  	orq	$0x2, %rcx
+     432: 0f b7 d8                     	movzwl	%ax, %ebx
+     435: e8 be 02 00 00               	callq	0x6f8 <.text+0x458>
+     43a: b9 7b 19 00 00               	movl	$0x197b, %ecx           # imm = 0x197B
+     43f: 66 3b cb                     	cmpw	%bx, %cx
+     442: 0f 85 e4 00 00 00            	jne	0x52c <.text+0x28c>
+     448: b9 85 05 00 00               	movl	$0x585, %ecx            # imm = 0x585
+     44d: 66 3b c8                     	cmpw	%ax, %cx
+     450: 0f 85 d6 00 00 00            	jne	0x52c <.text+0x28c>
+     456: 48 8b ce                     	movq	%rsi, %rcx
+     459: 48 83 c9 34                  	orq	$0x34, %rcx
+     45d: e8 8a 02 00 00               	callq	0x6ec <.text+0x44c>
+     462: 41 be ff 0f 00 00            	movl	$0xfff, %r14d           # imm = 0xFFF
+     468: 0f b6 d8                     	movzbl	%al, %ebx
+     46b: 8b cb                        	movl	%ebx, %ecx
+     46d: 49 23 ce                     	andq	%r14, %rcx
+     470: 48 0b ce                     	orq	%rsi, %rcx
+     473: e8 80 02 00 00               	callq	0x6f8 <.text+0x458>
+     478: 8a c8                        	movb	%al, %cl
+     47a: eb 1d                        	jmp	0x499 <.text+0x1f9>
+     47c: 41 0f b7 cb                  	movzwl	%r11w, %ecx
+     480: 66 c1 e9 08                  	shrw	$0x8, %cx
+     484: 66 3b e9                     	cmpw	%cx, %bp
+     487: 74 18                        	je	0x4a1 <.text+0x201>
+     489: 0f b6 d9                     	movzbl	%cl, %ebx
+     48c: 8b cb                        	movl	%ebx, %ecx
+     48e: 49 23 ce                     	andq	%r14, %rcx
+     491: 48 0b ce                     	orq	%rsi, %rcx
+     494: e8 5f 02 00 00               	callq	0x6f8 <.text+0x458>
+     499: 44 0f b7 d8                  	movzwl	%ax, %r11d
+     49d: 3c 10                        	cmpb	$0x10, %al
+     49f: 75 db                        	jne	0x47c <.text+0x1dc>
+     4a1: 41 80 fb 10                  	cmpb	$0x10, %r11b
+     4a5: 0f 85 ca 00 00 00            	jne	0x575 <.text+0x2d5>
+     4ab: 0f b6 cb                     	movzbl	%bl, %ecx
+     4ae: 83 c1 12                     	addl	$0x12, %ecx
+     4b1: 49 23 ce                     	andq	%r14, %rcx
+     4b4: 48 0b ce                     	orq	%rsi, %rcx
+     4b7: e8 30 02 00 00               	callq	0x6ec <.text+0x44c>
+     4bc: 8a c8                        	movb	%al, %cl
+     4be: 80 e1 f0                     	andb	$-0x10, %cl
+     4c1: 80 f9 10                     	cmpb	$0x10, %cl
+     4c4: 0f 84 ab 00 00 00            	je	0x575 <.text+0x2d5>
+     4ca: be 05 00 00 00               	movl	$0x5, %esi
+     4cf: 0f b6 d8                     	movzbl	%al, %ebx
+     4d2: 48 8d 0d d7 18 00 00         	leaq	0x18d7(%rip), %rcx      # 0x1db0
+     4d9: 8d 6e fc                     	leal	-0x4(%rsi), %ebp
+     4dc: 44 8b ce                     	movl	%esi, %r9d
+     4df: 33 d2                        	xorl	%edx, %edx
+     4e1: 44 8b c5                     	movl	%ebp, %r8d
+     4e4: 89 5c 24 28                  	movl	%ebx, 0x28(%rsp)
+     4e8: 44 89 64 24 20               	movl	%r12d, 0x20(%rsp)
+     4ed: e8 26 02 00 00               	callq	0x718 <.text+0x478>
+     4f2: 48 8b 4c 24 70               	movq	0x70(%rsp), %rcx
+     4f7: 89 5c 24 38                  	movl	%ebx, 0x38(%rsp)
+     4fb: 44 89 64 24 30               	movl	%r12d, 0x30(%rsp)
+     500: 4c 8d 05 71 18 00 00         	leaq	0x1871(%rip), %r8       # 0x1d78
+     507: 48 8d 15 5a 18 00 00         	leaq	0x185a(%rip), %rdx      # 0x1d68
+     50e: 45 33 c9                     	xorl	%r9d, %r9d
+     511: 89 74 24 28                  	movl	%esi, 0x28(%rsp)
+     515: 89 6c 24 20                  	movl	%ebp, 0x20(%rsp)
+     519: e8 96 03 00 00               	callq	0x8b4 <.text+0x614>
+     51e: b2 0e                        	movb	$0xe, %dl
+     520: b9 f9 0c 00 00               	movl	$0xcf9, %ecx            # imm = 0xCF9
+     525: e8 9a 00 00 00               	callq	0x5c4 <.text+0x324>
+     52a: eb 49                        	jmp	0x575 <.text+0x2d5>
+     52c: be 05 00 00 00               	movl	$0x5, %esi
+     531: 48 8d 0d 00 18 00 00         	leaq	0x1800(%rip), %rcx      # 0x1d38
+     538: 33 d2                        	xorl	%edx, %edx
+     53a: 8d 6e fc                     	leal	-0x4(%rsi), %ebp
+     53d: 44 8b ce                     	movl	%esi, %r9d
+     540: 44 89 64 24 20               	movl	%r12d, 0x20(%rsp)
+     545: 44 8b c5                     	movl	%ebp, %r8d
+     548: e8 cb 01 00 00               	callq	0x718 <.text+0x478>
+     54d: 48 8b 4c 24 70               	movq	0x70(%rsp), %rcx
+     552: 44 89 64 24 30               	movl	%r12d, 0x30(%rsp)
+     557: 4c 8d 05 da 17 00 00         	leaq	0x17da(%rip), %r8       # 0x1d38
+     55e: 48 8d 15 03 18 00 00         	leaq	0x1803(%rip), %rdx      # 0x1d68
+     565: 45 33 c9                     	xorl	%r9d, %r9d
+     568: 89 74 24 28                  	movl	%esi, 0x28(%rsp)
+     56c: 89 6c 24 20                  	movl	%ebp, 0x20(%rsp)
+     570: e8 3f 03 00 00               	callq	0x8b4 <.text+0x614>
+     575: 48 8d 0d 94 17 00 00         	leaq	0x1794(%rip), %rcx      # 0x1d10
+     57c: e8 97 01 00 00               	callq	0x718 <.text+0x478>
+     581: 48 8b 5c 24 60               	movq	0x60(%rsp), %rbx
+     586: 48 8b 6c 24 68               	movq	0x68(%rsp), %rbp
+     58b: 48 8b 74 24 78               	movq	0x78(%rsp), %rsi
+     590: 48 8b c7                     	movq	%rdi, %rax
+     593: 48 83 c4 40                  	addq	$0x40, %rsp
+     597: 41 5e                        	popq	%r14
+     599: 41 5c                        	popq	%r12
+     59b: 5f                           	popq	%rdi
+     59c: c3                           	retq
+     59d: cc                           	int3
+     59e: cc                           	int3
+     59f: cc                           	int3

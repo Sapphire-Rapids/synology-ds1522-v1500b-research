@@ -1,0 +1,1308 @@
+
+analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi:	file format coff-i386
+
+Disassembly of section .text:
+
+09b41500 <.text>:
+ 9b41500: 56                           	pushl	%esi
+ 9b41501: e8 aa 0b 00 00               	calll	0x9b420b0 <.text+0xbb0>
+ 9b41506: e8 66 0b 00 00               	calll	0x9b42071 <.text+0xb71>
+ 9b4150b: 68 90 01 00 00               	pushl	$0x190                  # imm = 0x190
+ 9b41510: 68 72 12 04 00               	pushl	$0x41272                # imm = 0x41272
+ 9b41515: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b4151a: e8 12 0b 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b4151f: 8b 74 24 18                  	movl	0x18(%esp), %esi
+ 9b41523: 8b 06                        	movl	(%esi), %eax
+ 9b41525: 68 80 6e b4 09               	pushl	$0x9b46e80              # imm = 0x9B46E80
+ 9b4152a: 56                           	pushl	%esi
+ 9b4152b: ff 50 24                     	calll	*0x24(%eax)
+ 9b4152e: 83 c4 14                     	addl	$0x14, %esp
+ 9b41531: 85 c0                        	testl	%eax, %eax
+ 9b41533: 78 1e                        	js	0x9b41553 <.text+0x53>
+ 9b41535: 8b 06                        	movl	(%esi), %eax
+ 9b41537: 68 8c 6e b4 09               	pushl	$0x9b46e8c              # imm = 0x9B46E8C
+ 9b4153c: 56                           	pushl	%esi
+ 9b4153d: ff 50 24                     	calll	*0x24(%eax)
+ 9b41540: 59                           	popl	%ecx
+ 9b41541: 59                           	popl	%ecx
+ 9b41542: 85 c0                        	testl	%eax, %eax
+ 9b41544: 78 0d                        	js	0x9b41553 <.text+0x53>
+ 9b41546: 8b 06                        	movl	(%esi), %eax
+ 9b41548: 68 98 6e b4 09               	pushl	$0x9b46e98              # imm = 0x9B46E98
+ 9b4154d: 56                           	pushl	%esi
+ 9b4154e: ff 50 24                     	calll	*0x24(%eax)
+ 9b41551: 59                           	popl	%ecx
+ 9b41552: 59                           	popl	%ecx
+ 9b41553: 5e                           	popl	%esi
+ 9b41554: c3                           	retl
+ 9b41555: 55                           	pushl	%ebp
+ 9b41556: 8b ec                        	movl	%esp, %ebp
+ 9b41558: 51                           	pushl	%ecx
+ 9b41559: 51                           	pushl	%ecx
+ 9b4155a: e8 89 0a 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b4155f: 68 01 f0 03 00               	pushl	$0x3f001                # imm = 0x3F001
+ 9b41564: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41569: ff 50 18                     	calll	*0x18(%eax)
+ 9b4156c: 59                           	popl	%ecx
+ 9b4156d: 59                           	popl	%ecx
+ 9b4156e: 84 c0                        	testb	%al, %al
+ 9b41570: 74 07                        	je	0x9b41579 <.text+0x79>
+ 9b41572: b8 44 30 0a f8               	movl	$0xf80a3044, %eax       # imm = 0xF80A3044
+ 9b41577: 8b 00                        	movl	(%eax), %eax
+ 9b41579: 56                           	pushl	%esi
+ 9b4157a: 8b 75 08                     	movl	0x8(%ebp), %esi
+ 9b4157d: 8b 06                        	movl	(%esi), %eax
+ 9b4157f: 57                           	pushl	%edi
+ 9b41580: 8d 4d fc                     	leal	-0x4(%ebp), %ecx
+ 9b41583: 51                           	pushl	%ecx
+ 9b41584: 6a 00                        	pushl	$0x0
+ 9b41586: 6a 00                        	pushl	$0x0
+ 9b41588: bf d0 23 b4 09               	movl	$0x9b423d0, %edi        # imm = 0x9B423D0
+ 9b4158d: 57                           	pushl	%edi
+ 9b4158e: 56                           	pushl	%esi
+ 9b4158f: ff 50 20                     	calll	*0x20(%eax)
+ 9b41592: 83 c4 14                     	addl	$0x14, %esp
+ 9b41595: 85 c0                        	testl	%eax, %eax
+ 9b41597: 79 79                        	jns	0x9b41612 <.text+0x112>
+ 9b41599: 8b 06                        	movl	(%esi), %eax
+ 9b4159b: 8d 4d fc                     	leal	-0x4(%ebp), %ecx
+ 9b4159e: 51                           	pushl	%ecx
+ 9b4159f: 6a 0c                        	pushl	$0xc
+ 9b415a1: 56                           	pushl	%esi
+ 9b415a2: ff 50 4c                     	calll	*0x4c(%eax)
+ 9b415a5: 83 c4 0c                     	addl	$0xc, %esp
+ 9b415a8: 85 c0                        	testl	%eax, %eax
+ 9b415aa: 78 66                        	js	0x9b41612 <.text+0x112>
+ 9b415ac: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b415af: c7 00 80 10 00 00            	movl	$0x1080, (%eax)         # imm = 0x1080
+ 9b415b5: 8b 4d fc                     	movl	-0x4(%ebp), %ecx
+ 9b415b8: b8 ff ff 00 00               	movl	$0xffff, %eax           # imm = 0xFFFF
+ 9b415bd: 66 89 41 04                  	movw	%ax, 0x4(%ecx)
+ 9b415c1: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b415c4: 8d 4d f8                     	leal	-0x8(%ebp), %ecx
+ 9b415c7: 51                           	pushl	%ecx
+ 9b415c8: c7 40 08 38 6f b4 09         	movl	$0x9b46f38, 0x8(%eax)   # imm = 0x9B46F38
+ 9b415cf: 8b 06                        	movl	(%esi), %eax
+ 9b415d1: 6a 0c                        	pushl	$0xc
+ 9b415d3: 56                           	pushl	%esi
+ 9b415d4: ff 50 4c                     	calll	*0x4c(%eax)
+ 9b415d7: 83 c4 0c                     	addl	$0xc, %esp
+ 9b415da: 85 c0                        	testl	%eax, %eax
+ 9b415dc: 78 34                        	js	0x9b41612 <.text+0x112>
+ 9b415de: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+ 9b415e1: c7 00 10 00 00 80            	movl	$0x80000010, (%eax)     # imm = 0x80000010
+ 9b415e7: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+ 9b415ea: 89 78 04                     	movl	%edi, 0x4(%eax)
+ 9b415ed: 8b 45 f8                     	movl	-0x8(%ebp), %eax
+ 9b415f0: 8b 4d fc                     	movl	-0x4(%ebp), %ecx
+ 9b415f3: 89 48 08                     	movl	%ecx, 0x8(%eax)
+ 9b415f6: ff 75 f8                     	pushl	-0x8(%ebp)
+ 9b415f9: 8b 06                        	movl	(%esi), %eax
+ 9b415fb: 56                           	pushl	%esi
+ 9b415fc: ff 50 18                     	calll	*0x18(%eax)
+ 9b415ff: 59                           	popl	%ecx
+ 9b41600: 59                           	popl	%ecx
+ 9b41601: 85 c0                        	testl	%eax, %eax
+ 9b41603: 78 0d                        	js	0x9b41612 <.text+0x112>
+ 9b41605: 8b 06                        	movl	(%esi), %eax
+ 9b41607: 68 a4 6e b4 09               	pushl	$0x9b46ea4              # imm = 0x9B46EA4
+ 9b4160c: 56                           	pushl	%esi
+ 9b4160d: ff 50 24                     	calll	*0x24(%eax)
+ 9b41610: 59                           	popl	%ecx
+ 9b41611: 59                           	popl	%ecx
+ 9b41612: 5f                           	popl	%edi
+ 9b41613: 5e                           	popl	%esi
+ 9b41614: c9                           	leave
+ 9b41615: c3                           	retl
+ 9b41616: 55                           	pushl	%ebp
+ 9b41617: 8b ec                        	movl	%esp, %ebp
+ 9b41619: 51                           	pushl	%ecx
+ 9b4161a: 56                           	pushl	%esi
+ 9b4161b: 8b 75 08                     	movl	0x8(%ebp), %esi
+ 9b4161e: 56                           	pushl	%esi
+ 9b4161f: e8 14 03 00 00               	calll	0x9b41938 <.text+0x438>
+ 9b41624: 8b 06                        	movl	(%esi), %eax
+ 9b41626: 8d 4d fc                     	leal	-0x4(%ebp), %ecx
+ 9b41629: 51                           	pushl	%ecx
+ 9b4162a: 6a 04                        	pushl	$0x4
+ 9b4162c: 56                           	pushl	%esi
+ 9b4162d: ff 50 4c                     	calll	*0x4c(%eax)
+ 9b41630: 83 c4 10                     	addl	$0x10, %esp
+ 9b41633: 85 c0                        	testl	%eax, %eax
+ 9b41635: 78 3a                        	js	0x9b41671 <.text+0x171>
+ 9b41637: 8b 06                        	movl	(%esi), %eax
+ 9b41639: 8d 4d 08                     	leal	0x8(%ebp), %ecx
+ 9b4163c: 51                           	pushl	%ecx
+ 9b4163d: 6a 0c                        	pushl	$0xc
+ 9b4163f: 56                           	pushl	%esi
+ 9b41640: ff 50 4c                     	calll	*0x4c(%eax)
+ 9b41643: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41646: 85 c0                        	testl	%eax, %eax
+ 9b41648: 78 27                        	js	0x9b41671 <.text+0x171>
+ 9b4164a: 8b 45 08                     	movl	0x8(%ebp), %eax
+ 9b4164d: c7 00 10 00 00 80            	movl	$0x80000010, (%eax)     # imm = 0x80000010
+ 9b41653: 8b 45 08                     	movl	0x8(%ebp), %eax
+ 9b41656: c7 40 04 00 24 b4 09         	movl	$0x9b42400, 0x4(%eax)   # imm = 0x9B42400
+ 9b4165d: 8b 45 08                     	movl	0x8(%ebp), %eax
+ 9b41660: 8b 4d fc                     	movl	-0x4(%ebp), %ecx
+ 9b41663: 89 48 08                     	movl	%ecx, 0x8(%eax)
+ 9b41666: ff 75 08                     	pushl	0x8(%ebp)
+ 9b41669: 8b 06                        	movl	(%esi), %eax
+ 9b4166b: 56                           	pushl	%esi
+ 9b4166c: ff 50 18                     	calll	*0x18(%eax)
+ 9b4166f: 59                           	popl	%ecx
+ 9b41670: 59                           	popl	%ecx
+ 9b41671: 5e                           	popl	%esi
+ 9b41672: c9                           	leave
+ 9b41673: c3                           	retl
+ 9b41674: 55                           	pushl	%ebp
+ 9b41675: 8b ec                        	movl	%esp, %ebp
+ 9b41677: 83 e4 f8                     	andl	$-0x8, %esp
+ 9b4167a: 83 ec 28                     	subl	$0x28, %esp
+ 9b4167d: 56                           	pushl	%esi
+ 9b4167e: 8b f0                        	movl	%eax, %esi
+ 9b41680: 57                           	pushl	%edi
+ 9b41681: b8 13 0d d8 fe               	movl	$0xfed80d13, %eax       # imm = 0xFED80D13
+ 9b41686: 8a 00                        	movb	(%eax), %al
+ 9b41688: 8d 4c 24 14                  	leal	0x14(%esp), %ecx
+ 9b4168c: 51                           	pushl	%ecx
+ 9b4168d: 88 44 24 12                  	movb	%al, 0x12(%esp)
+ 9b41691: 6a 00                        	pushl	$0x0
+ 9b41693: b8 14 0d d8 fe               	movl	$0xfed80d14, %eax       # imm = 0xFED80D14
+ 9b41698: 8a 00                        	movb	(%eax), %al
+ 9b4169a: 6a 00                        	pushl	$0x0
+ 9b4169c: c6 05 13 0d d8 fe 01         	movb	$0x1, -0x127f2ed
+ 9b416a3: 88 44 24 1b                  	movb	%al, 0x1b(%esp)
+ 9b416a7: c6 05 14 0d d8 fe 01         	movb	$0x1, -0x127f2ec
+ 9b416ae: 8b 06                        	movl	(%esi), %eax
+ 9b416b0: 68 10 24 b4 09               	pushl	$0x9b42410              # imm = 0x9B42410
+ 9b416b5: 56                           	pushl	%esi
+ 9b416b6: ff 50 20                     	calll	*0x20(%eax)
+ 9b416b9: 83 c4 14                     	addl	$0x14, %esp
+ 9b416bc: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+ 9b416c0: 85 c0                        	testl	%eax, %eax
+ 9b416c2: 0f 88 b3 00 00 00            	js	0x9b4177b <.text+0x27b>
+ 9b416c8: 8d 44 24 20                  	leal	0x20(%esp), %eax
+ 9b416cc: 50                           	pushl	%eax
+ 9b416cd: 8b 44 24 18                  	movl	0x18(%esp), %eax
+ 9b416d1: 6a 0c                        	pushl	$0xc
+ 9b416d3: 6a 4d                        	pushl	$0x4d
+ 9b416d5: 6a 50                        	pushl	$0x50
+ 9b416d7: 6a 03                        	pushl	$0x3
+ 9b416d9: 56                           	pushl	%esi
+ 9b416da: ff 50 08                     	calll	*0x8(%eax)
+ 9b416dd: 8b 06                        	movl	(%esi), %eax
+ 9b416df: 8d 4c 24 30                  	leal	0x30(%esp), %ecx
+ 9b416e3: 51                           	pushl	%ecx
+ 9b416e4: 6a 00                        	pushl	$0x0
+ 9b416e6: 6a 00                        	pushl	$0x0
+ 9b416e8: 68 20 24 b4 09               	pushl	$0x9b42420              # imm = 0x9B42420
+ 9b416ed: 56                           	pushl	%esi
+ 9b416ee: 8d 7c 24 4c                  	leal	0x4c(%esp), %edi
+ 9b416f2: ff 50 20                     	calll	*0x20(%eax)
+ 9b416f5: 83 c4 2c                     	addl	$0x2c, %esp
+ 9b416f8: 89 44 24 10                  	movl	%eax, 0x10(%esp)
+ 9b416fc: 85 c0                        	testl	%eax, %eax
+ 9b416fe: 78 7b                        	js	0x9b4177b <.text+0x27b>
+ 9b41700: 8d 44 24 1c                  	leal	0x1c(%esp), %eax
+ 9b41704: 50                           	pushl	%eax
+ 9b41705: 8b 44 24 1c                  	movl	0x1c(%esp), %eax
+ 9b41709: 50                           	pushl	%eax
+ 9b4170a: ff 50 04                     	calll	*0x4(%eax)
+ 9b4170d: 8b 44 24 24                  	movl	0x24(%esp), %eax
+ 9b41711: 8b 40 08                     	movl	0x8(%eax), %eax
+ 9b41714: 59                           	popl	%ecx
+ 9b41715: 59                           	popl	%ecx
+ 9b41716: 85 c0                        	testl	%eax, %eax
+ 9b41718: 74 27                        	je	0x9b41741 <.text+0x241>
+ 9b4171a: b9 00 00 00 80               	movl	$0x80000000, %ecx       # imm = 0x80000000
+ 9b4171f: 80 78 04 10                  	cmpb	$0x10, 0x4(%eax)
+ 9b41723: 75 11                        	jne	0x9b41736 <.text+0x236>
+ 9b41725: 8b 17                        	movl	(%edi), %edx
+ 9b41727: 89 50 30                     	movl	%edx, 0x30(%eax)
+ 9b4172a: 0f b7 57 04                  	movzwl	0x4(%edi), %edx
+ 9b4172e: 0b d1                        	orl	%ecx, %edx
+ 9b41730: 89 50 34                     	movl	%edx, 0x34(%eax)
+ 9b41733: 83 c7 06                     	addl	$0x6, %edi
+ 9b41736: 85 08                        	testl	%ecx, (%eax)
+ 9b41738: 75 07                        	jne	0x9b41741 <.text+0x241>
+ 9b4173a: 05 94 01 00 00               	addl	$0x194, %eax            # imm = 0x194
+ 9b4173f: 75 de                        	jne	0x9b4171f <.text+0x21f>
+ 9b41741: 0f b7 44 24 24               	movzwl	0x24(%esp), %eax
+ 9b41746: 33 c9                        	xorl	%ecx, %ecx
+ 9b41748: 0b 4c 24 20                  	orl	0x20(%esp), %ecx
+ 9b4174c: 33 f6                        	xorl	%esi, %esi
+ 9b4174e: 0b c6                        	orl	%esi, %eax
+ 9b41750: 50                           	pushl	%eax
+ 9b41751: 51                           	pushl	%ecx
+ 9b41752: 68 20 f7 03 00               	pushl	$0x3f720                # imm = 0x3F720
+ 9b41757: e8 f1 08 00 00               	calll	0x9b4204d <.text+0xb4d>
+ 9b4175c: 0f b7 44 24 36               	movzwl	0x36(%esp), %eax
+ 9b41761: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41764: 33 c9                        	xorl	%ecx, %ecx
+ 9b41766: 0b 4c 24 26                  	orl	0x26(%esp), %ecx
+ 9b4176a: 0b c6                        	orl	%esi, %eax
+ 9b4176c: 50                           	pushl	%eax
+ 9b4176d: 51                           	pushl	%ecx
+ 9b4176e: 68 21 f7 03 00               	pushl	$0x3f721                # imm = 0x3F721
+ 9b41773: e8 d5 08 00 00               	calll	0x9b4204d <.text+0xb4d>
+ 9b41778: 83 c4 0c                     	addl	$0xc, %esp
+ 9b4177b: 8a 44 24 0e                  	movb	0xe(%esp), %al
+ 9b4177f: a2 13 0d d8 fe               	movb	%al, 0xfed80d13
+ 9b41784: 8a 44 24 0f                  	movb	0xf(%esp), %al
+ 9b41788: 5f                           	popl	%edi
+ 9b41789: a2 14 0d d8 fe               	movb	%al, 0xfed80d14
+ 9b4178e: 8b 44 24 0c                  	movl	0xc(%esp), %eax
+ 9b41792: 5e                           	popl	%esi
+ 9b41793: 8b e5                        	movl	%ebp, %esp
+ 9b41795: 5d                           	popl	%ebp
+ 9b41796: c3                           	retl
+ 9b41797: 55                           	pushl	%ebp
+ 9b41798: 8b ec                        	movl	%esp, %ebp
+ 9b4179a: 51                           	pushl	%ecx
+ 9b4179b: 8b 08                        	movl	(%eax), %ecx
+ 9b4179d: 53                           	pushl	%ebx
+ 9b4179e: 56                           	pushl	%esi
+ 9b4179f: 8d 55 fc                     	leal	-0x4(%ebp), %edx
+ 9b417a2: 52                           	pushl	%edx
+ 9b417a3: 33 f6                        	xorl	%esi, %esi
+ 9b417a5: 56                           	pushl	%esi
+ 9b417a6: 56                           	pushl	%esi
+ 9b417a7: 68 c0 23 b4 09               	pushl	$0x9b423c0              # imm = 0x9B423C0
+ 9b417ac: 50                           	pushl	%eax
+ 9b417ad: 89 75 fc                     	movl	%esi, -0x4(%ebp)
+ 9b417b0: ff 51 20                     	calll	*0x20(%ecx)
+ 9b417b3: 8b d8                        	movl	%eax, %ebx
+ 9b417b5: 83 c4 14                     	addl	$0x14, %esp
+ 9b417b8: 3b de                        	cmpl	%esi, %ebx
+ 9b417ba: 7c 3c                        	jl	0x9b417f8 <.text+0x2f8>
+ 9b417bc: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b417bf: 57                           	pushl	%edi
+ 9b417c0: be 00 66 dc fe               	movl	$0xfedc6600, %esi       # imm = 0xFEDC6600
+ 9b417c5: 56                           	pushl	%esi
+ 9b417c6: ff 50 30                     	calll	*0x30(%eax)
+ 9b417c9: 83 e0 fc                     	andl	$-0x4, %eax
+ 9b417cc: bf 0c 01 00 00               	movl	$0x10c, %edi            # imm = 0x10C
+ 9b417d1: 0b c7                        	orl	%edi, %eax
+ 9b417d3: 50                           	pushl	%eax
+ 9b417d4: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b417d7: 56                           	pushl	%esi
+ 9b417d8: ff 50 40                     	calll	*0x40(%eax)
+ 9b417db: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b417de: 83 c6 10                     	addl	$0x10, %esi
+ 9b417e1: 56                           	pushl	%esi
+ 9b417e2: ff 50 30                     	calll	*0x30(%eax)
+ 9b417e5: 83 e0 fc                     	andl	$-0x4, %eax
+ 9b417e8: 0b c7                        	orl	%edi, %eax
+ 9b417ea: 50                           	pushl	%eax
+ 9b417eb: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b417ee: 56                           	pushl	%esi
+ 9b417ef: ff 50 40                     	calll	*0x40(%eax)
+ 9b417f2: 83 c4 18                     	addl	$0x18, %esp
+ 9b417f5: 8b c3                        	movl	%ebx, %eax
+ 9b417f7: 5f                           	popl	%edi
+ 9b417f8: 5e                           	popl	%esi
+ 9b417f9: 5b                           	popl	%ebx
+ 9b417fa: c9                           	leave
+ 9b417fb: c3                           	retl
+ 9b417fc: 8b 44 24 04                  	movl	0x4(%esp), %eax
+ 9b41800: e9 6f fe ff ff               	jmp	0x9b41674 <.text+0x174>
+ 9b41805: 55                           	pushl	%ebp
+ 9b41806: 8b ec                        	movl	%esp, %ebp
+ 9b41808: 51                           	pushl	%ecx
+ 9b41809: 83 65 fc 00                  	andl	$0x0, -0x4(%ebp)
+ 9b4180d: 56                           	pushl	%esi
+ 9b4180e: 8b 75 08                     	movl	0x8(%ebp), %esi
+ 9b41811: 8b 06                        	movl	(%esi), %eax
+ 9b41813: 57                           	pushl	%edi
+ 9b41814: 8d 4d fc                     	leal	-0x4(%ebp), %ecx
+ 9b41817: 51                           	pushl	%ecx
+ 9b41818: 6a 00                        	pushl	$0x0
+ 9b4181a: 6a 00                        	pushl	$0x0
+ 9b4181c: 68 c0 23 b4 09               	pushl	$0x9b423c0              # imm = 0x9B423C0
+ 9b41821: 56                           	pushl	%esi
+ 9b41822: ff 50 20                     	calll	*0x20(%eax)
+ 9b41825: 8b f8                        	movl	%eax, %edi
+ 9b41827: 83 c4 14                     	addl	$0x14, %esp
+ 9b4182a: 85 ff                        	testl	%edi, %edi
+ 9b4182c: 78 38                        	js	0x9b41866 <.text+0x366>
+ 9b4182e: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b41831: 68 80 08 00 00               	pushl	$0x880                  # imm = 0x880
+ 9b41836: 6a 1b                        	pushl	$0x1b
+ 9b41838: 50                           	pushl	%eax
+ 9b41839: ff 90 4c 01 00 00            	calll	*0x14c(%eax)
+ 9b4183f: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b41842: 68 10 27 00 00               	pushl	$0x2710                 # imm = 0x2710
+ 9b41847: 50                           	pushl	%eax
+ 9b41848: ff 90 70 01 00 00            	calll	*0x170(%eax)
+ 9b4184e: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b41851: 68 81 08 00 00               	pushl	$0x881                  # imm = 0x881
+ 9b41856: 6a 1b                        	pushl	$0x1b
+ 9b41858: 50                           	pushl	%eax
+ 9b41859: ff 90 4c 01 00 00            	calll	*0x14c(%eax)
+ 9b4185f: 83 c4 20                     	addl	$0x20, %esp
+ 9b41862: 85 ff                        	testl	%edi, %edi
+ 9b41864: 79 04                        	jns	0x9b4186a <.text+0x36a>
+ 9b41866: 8b c7                        	movl	%edi, %eax
+ 9b41868: eb 07                        	jmp	0x9b41871 <.text+0x371>
+ 9b4186a: 8b c6                        	movl	%esi, %eax
+ 9b4186c: e8 26 ff ff ff               	calll	0x9b41797 <.text+0x297>
+ 9b41871: 5f                           	popl	%edi
+ 9b41872: 5e                           	popl	%esi
+ 9b41873: c9                           	leave
+ 9b41874: c3                           	retl
+ 9b41875: e8 6e 07 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b4187a: 68 c4 f0 04 00               	pushl	$0x4f0c4                # imm = 0x4F0C4
+ 9b4187f: 68 a0 23 b4 09               	pushl	$0x9b423a0              # imm = 0x9B423A0
+ 9b41884: ff 50 0c                     	calll	*0xc(%eax)
+ 9b41887: c1 e8 1e                     	shrl	$0x1e, %eax
+ 9b4188a: 59                           	popl	%ecx
+ 9b4188b: 59                           	popl	%ecx
+ 9b4188c: 83 f8 01                     	cmpl	$0x1, %eax
+ 9b4188f: 75 03                        	jne	0x9b41894 <.text+0x394>
+ 9b41891: 32 c0                        	xorb	%al, %al
+ 9b41893: c3                           	retl
+ 9b41894: 83 f8 03                     	cmpl	$0x3, %eax
+ 9b41897: 0f 95 c0                     	setne	%al
+ 9b4189a: c3                           	retl
+ 9b4189b: 8a 48 23                     	movb	0x23(%eax), %cl
+ 9b4189e: 8a 90 4b 03 00 00            	movb	0x34b(%eax), %dl
+ 9b418a4: 80 e1 0f                     	andb	$0xf, %cl
+ 9b418a7: 80 c9 70                     	orb	$0x70, %cl
+ 9b418aa: 88 48 23                     	movb	%cl, 0x23(%eax)
+ 9b418ad: 8a 88 df 04 00 00            	movb	0x4df(%eax), %cl
+ 9b418b3: 80 e2 0f                     	andb	$0xf, %dl
+ 9b418b6: 80 e1 0f                     	andb	$0xf, %cl
+ 9b418b9: 80 ca 60                     	orb	$0x60, %dl
+ 9b418bc: 80 c9 60                     	orb	$0x60, %cl
+ 9b418bf: 88 90 4b 03 00 00            	movb	%dl, 0x34b(%eax)
+ 9b418c5: 88 88 df 04 00 00            	movb	%cl, 0x4df(%eax)
+ 9b418cb: 85 f6                        	testl	%esi, %esi
+ 9b418cd: 74 0c                        	je	0x9b418db <.text+0x3db>
+ 9b418cf: 66 c7 46 10 06 07            	movw	$0x706, 0x10(%esi)      # imm = 0x706
+ 9b418d5: 66 c7 46 28 05 06            	movw	$0x605, 0x28(%esi)      # imm = 0x605
+ 9b418db: c3                           	retl
+ 9b418dc: 56                           	pushl	%esi
+ 9b418dd: 8d 51 10                     	leal	0x10(%ecx), %edx
+ 9b418e0: b8 ff 00 00 00               	movl	$0xff, %eax
+ 9b418e5: 33 f6                        	xorl	%esi, %esi
+ 9b418e7: 66 39 02                     	cmpw	%ax, (%edx)
+ 9b418ea: 74 4a                        	je	0x9b41936 <.text+0x436>
+ 9b418ec: 33 c0                        	xorl	%eax, %eax
+ 9b418ee: 53                           	pushl	%ebx
+ 9b418ef: 0f b7 12                     	movzwl	(%edx), %edx
+ 9b418f2: 83 ea 74                     	subl	$0x74, %edx
+ 9b418f5: 74 22                        	je	0x9b41919 <.text+0x419>
+ 9b418f7: 83 ea 04                     	subl	$0x4, %edx
+ 9b418fa: 74 16                        	je	0x9b41912 <.text+0x412>
+ 9b418fc: 4a                           	decl	%edx
+ 9b418fd: 74 0c                        	je	0x9b4190b <.text+0x40b>
+ 9b418ff: 83 ea 0a                     	subl	$0xa, %edx
+ 9b41902: 75 1f                        	jne	0x9b41923 <.text+0x423>
+ 9b41904: ba a2 0b 00 00               	movl	$0xba2, %edx            # imm = 0xBA2
+ 9b41909: eb 13                        	jmp	0x9b4191e <.text+0x41e>
+ 9b4190b: ba c2 08 00 00               	movl	$0x8c2, %edx            # imm = 0x8C2
+ 9b41910: eb 0c                        	jmp	0x9b4191e <.text+0x41e>
+ 9b41912: ba 82 09 00 00               	movl	$0x982, %edx            # imm = 0x982
+ 9b41917: eb 05                        	jmp	0x9b4191e <.text+0x41e>
+ 9b41919: ba a2 09 00 00               	movl	$0x9a2, %edx            # imm = 0x9A2
+ 9b4191e: 66 89 54 81 12               	movw	%dx, 0x12(%ecx,%eax,4)
+ 9b41923: 46                           	incl	%esi
+ 9b41924: 0f b7 c6                     	movzwl	%si, %eax
+ 9b41927: 8d 54 81 10                  	leal	0x10(%ecx,%eax,4), %edx
+ 9b4192b: bb ff 00 00 00               	movl	$0xff, %ebx
+ 9b41930: 66 39 1a                     	cmpw	%bx, (%edx)
+ 9b41933: 75 ba                        	jne	0x9b418ef <.text+0x3ef>
+ 9b41935: 5b                           	popl	%ebx
+ 9b41936: 5e                           	popl	%esi
+ 9b41937: c3                           	retl
+ 9b41938: 55                           	pushl	%ebp
+ 9b41939: 8d 6c 24 8c                  	leal	-0x74(%esp), %ebp
+ 9b4193d: 81 ec a0 04 00 00            	subl	$0x4a0, %esp            # imm = 0x4A0
+ 9b41943: 53                           	pushl	%ebx
+ 9b41944: 56                           	pushl	%esi
+ 9b41945: 8b 75 7c                     	movl	0x7c(%ebp), %esi
+ 9b41948: 33 c0                        	xorl	%eax, %eax
+ 9b4194a: 68 fe 03 00 00               	pushl	$0x3fe                  # imm = 0x3FE
+ 9b4194f: 66 89 85 d4 fb ff ff         	movw	%ax, -0x42c(%ebp)
+ 9b41956: 33 db                        	xorl	%ebx, %ebx
+ 9b41958: 8d 85 d6 fb ff ff            	leal	-0x42a(%ebp), %eax
+ 9b4195e: 53                           	pushl	%ebx
+ 9b4195f: 50                           	pushl	%eax
+ 9b41960: e8 e8 09 00 00               	calll	0x9b4234d <.text+0xe4d>
+ 9b41965: 8b 06                        	movl	(%esi), %eax
+ 9b41967: 8d 4d 6c                     	leal	0x6c(%ebp), %ecx
+ 9b4196a: 51                           	pushl	%ecx
+ 9b4196b: 53                           	pushl	%ebx
+ 9b4196c: 53                           	pushl	%ebx
+ 9b4196d: 68 c0 23 b4 09               	pushl	$0x9b423c0              # imm = 0x9B423C0
+ 9b41972: 56                           	pushl	%esi
+ 9b41973: ff 50 20                     	calll	*0x20(%eax)
+ 9b41976: 83 c4 20                     	addl	$0x20, %esp
+ 9b41979: 3b c3                        	cmpl	%ebx, %eax
+ 9b4197b: 0f 8c 60 06 00 00            	jl	0x9b41fe1 <.text+0xae1>
+ 9b41981: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b41984: 57                           	pushl	%edi
+ 9b41985: 8b 78 04                     	movl	0x4(%eax), %edi
+ 9b41988: 68 00 00 00 10               	pushl	$0x10000000             # imm = 0x10000000
+ 9b4198d: e8 6f 06 00 00               	calll	0x9b42001 <.text+0xb01>
+ 9b41992: 0f b7 c0                     	movzwl	%ax, %eax
+ 9b41995: 89 45 58                     	movl	%eax, 0x58(%ebp)
+ 9b41998: 8d 45 d4                     	leal	-0x2c(%ebp), %eax
+ 9b4199b: 50                           	pushl	%eax
+ 9b4199c: e8 16 07 00 00               	calll	0x9b420b7 <.text+0xbb7>
+ 9b419a1: 59                           	popl	%ecx
+ 9b419a2: 59                           	popl	%ecx
+ 9b419a3: 3b c3                        	cmpl	%ebx, %eax
+ 9b419a5: 0f 8c 35 06 00 00            	jl	0x9b41fe0 <.text+0xae0>
+ 9b419ab: ff 75 e8                     	pushl	-0x18(%ebp)
+ 9b419ae: 68 01 f5 03 00               	pushl	$0x3f501                # imm = 0x3F501
+ 9b419b3: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b419b8: e8 58 06 00 00               	calll	0x9b42015 <.text+0xb15>
+ 9b419bd: 68 01 00 00 10               	pushl	$0x10000001             # imm = 0x10000001
+ 9b419c2: e8 3a 06 00 00               	calll	0x9b42001 <.text+0xb01>
+ 9b419c7: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b419ca: 68 24 41 32 36               	pushl	$0x36324124             # imm = 0x36324124
+ 9b419cf: 50                           	pushl	%eax
+ 9b419d0: ff 90 a8 01 00 00            	calll	*0x1a8(%eax)
+ 9b419d6: 89 45 68                     	movl	%eax, 0x68(%ebp)
+ 9b419d9: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b419dc: 68 24 41 31 37               	pushl	$0x37314124             # imm = 0x37314124
+ 9b419e1: 50                           	pushl	%eax
+ 9b419e2: ff 90 a8 01 00 00            	calll	*0x1a8(%eax)
+ 9b419e8: 8b f0                        	movl	%eax, %esi
+ 9b419ea: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b419ed: 68 24 41 31 32               	pushl	$0x32314124             # imm = 0x32314124
+ 9b419f2: 50                           	pushl	%eax
+ 9b419f3: 89 75 5c                     	movl	%esi, 0x5c(%ebp)
+ 9b419f6: ff 90 a8 01 00 00            	calll	*0x1a8(%eax)
+ 9b419fc: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b419ff: 68 24 41 32 35               	pushl	$0x35324124             # imm = 0x35324124
+ 9b41a04: 50                           	pushl	%eax
+ 9b41a05: ff 90 a8 01 00 00            	calll	*0x1a8(%eax)
+ 9b41a0b: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b41a0e: 68 24 41 31 33               	pushl	$0x33314124             # imm = 0x33314124
+ 9b41a13: 50                           	pushl	%eax
+ 9b41a14: ff 90 a8 01 00 00            	calll	*0x1a8(%eax)
+ 9b41a1a: 89 45 60                     	movl	%eax, 0x60(%ebp)
+ 9b41a1d: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b41a20: 68 24 41 31 30               	pushl	$0x30314124             # imm = 0x30314124
+ 9b41a25: 50                           	pushl	%eax
+ 9b41a26: ff 90 a8 01 00 00            	calll	*0x1a8(%eax)
+ 9b41a2c: 83 c4 40                     	addl	$0x40, %esp
+ 9b41a2f: 89 45 70                     	movl	%eax, 0x70(%ebp)
+ 9b41a32: e8 b1 05 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41a37: 68 08 00 00 20               	pushl	$0x20000008             # imm = 0x20000008
+ 9b41a3c: 68 80 23 b4 09               	pushl	$0x9b42380              # imm = 0x9B42380
+ 9b41a41: ff 50 04                     	calll	*0x4(%eax)
+ 9b41a44: 59                           	popl	%ecx
+ 9b41a45: 59                           	popl	%ecx
+ 9b41a46: 3c 01                        	cmpb	$0x1, %al
+ 9b41a48: 75 10                        	jne	0x9b41a5a <.text+0x55a>
+ 9b41a4a: 8b 4d 70                     	movl	0x70(%ebp), %ecx
+ 9b41a4d: e8 8a fe ff ff               	calll	0x9b418dc <.text+0x3dc>
+ 9b41a52: 8b 45 68                     	movl	0x68(%ebp), %eax
+ 9b41a55: e8 41 fe ff ff               	calll	0x9b4189b <.text+0x39b>
+ 9b41a5a: 80 7d f4 02                  	cmpb	$0x2, -0xc(%ebp)
+ 9b41a5e: bb ff 00 00 00               	movl	$0xff, %ebx
+ 9b41a63: 72 33                        	jb	0x9b41a98 <.text+0x598>
+ 9b41a65: 8b 45 70                     	movl	0x70(%ebp), %eax
+ 9b41a68: 85 c0                        	testl	%eax, %eax
+ 9b41a6a: 74 56                        	je	0x9b41ac2 <.text+0x5c2>
+ 9b41a6c: 83 c0 10                     	addl	$0x10, %eax
+ 9b41a6f: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41a72: 74 4e                        	je	0x9b41ac2 <.text+0x5c2>
+ 9b41a74: 8b c8                        	movl	%eax, %ecx
+ 9b41a76: 66 83 39 0b                  	cmpw	$0xb, (%ecx)
+ 9b41a7a: 75 10                        	jne	0x9b41a8c <.text+0x58c>
+ 9b41a7c: 0f b6 4d f4                  	movzbl	-0xc(%ebp), %ecx
+ 9b41a80: ba 7e 08 00 00               	movl	$0x87e, %edx            # imm = 0x87E
+ 9b41a85: 66 03 ca                     	addw	%dx, %cx
+ 9b41a88: 66 89 48 02                  	movw	%cx, 0x2(%eax)
+ 9b41a8c: 83 c0 04                     	addl	$0x4, %eax
+ 9b41a8f: 8b c8                        	movl	%eax, %ecx
+ 9b41a91: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41a94: 75 e0                        	jne	0x9b41a76 <.text+0x576>
+ 9b41a96: eb 2a                        	jmp	0x9b41ac2 <.text+0x5c2>
+ 9b41a98: 80 7d f4 01                  	cmpb	$0x1, -0xc(%ebp)
+ 9b41a9c: 75 24                        	jne	0x9b41ac2 <.text+0x5c2>
+ 9b41a9e: 8b 47 37                     	movl	0x37(%edi), %eax
+ 9b41aa1: be e4 03 00 00               	movl	$0x3e4, %esi            # imm = 0x3E4
+ 9b41aa6: 03 c6                        	addl	%esi, %eax
+ 9b41aa8: 50                           	pushl	%eax
+ 9b41aa9: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b41aac: ff 50 30                     	calll	*0x30(%eax)
+ 9b41aaf: 83 c8 03                     	orl	$0x3, %eax
+ 9b41ab2: 50                           	pushl	%eax
+ 9b41ab3: 8b 47 37                     	movl	0x37(%edi), %eax
+ 9b41ab6: 03 c6                        	addl	%esi, %eax
+ 9b41ab8: 50                           	pushl	%eax
+ 9b41ab9: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b41abc: ff 50 40                     	calll	*0x40(%eax)
+ 9b41abf: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41ac2: 68 b7 f0 00 00               	pushl	$0xf0b7                 # imm = 0xF0B7
+ 9b41ac7: 68 a0 f0 04 00               	pushl	$0x4f0a0                # imm = 0x4F0A0
+ 9b41acc: be a0 23 b4 09               	movl	$0x9b423a0, %esi        # imm = 0x9B423A0
+ 9b41ad1: 56                           	pushl	%esi
+ 9b41ad2: e8 5a 05 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41ad7: 6a 00                        	pushl	$0x0
+ 9b41ad9: 68 a1 f0 04 00               	pushl	$0x4f0a1                # imm = 0x4F0A1
+ 9b41ade: 56                           	pushl	%esi
+ 9b41adf: e8 4d 05 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41ae4: 68 65 60 00 00               	pushl	$0x6065                 # imm = 0x6065
+ 9b41ae9: 68 a2 f0 04 00               	pushl	$0x4f0a2                # imm = 0x4F0A2
+ 9b41aee: 56                           	pushl	%esi
+ 9b41aef: e8 3d 05 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41af4: 6a 00                        	pushl	$0x0
+ 9b41af6: 68 a3 f0 04 00               	pushl	$0x4f0a3                # imm = 0x4F0A3
+ 9b41afb: 56                           	pushl	%esi
+ 9b41afc: e8 30 05 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41b01: e8 e2 04 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41b06: 68 81 ff 03 00               	pushl	$0x3ff81                # imm = 0x3FF81
+ 9b41b0b: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41b10: ff 50 0c                     	calll	*0xc(%eax)
+ 9b41b13: 8b f0                        	movl	%eax, %esi
+ 9b41b15: 81 ce 00 18 00 00            	orl	$0x1800, %esi           # imm = 0x1800
+ 9b41b1b: 56                           	pushl	%esi
+ 9b41b1c: 68 81 ff 03 00               	pushl	$0x3ff81                # imm = 0x3FF81
+ 9b41b21: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41b26: e8 06 05 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41b2b: 83 c4 44                     	addl	$0x44, %esp
+ 9b41b2e: 83 7d 70 00                  	cmpl	$0x0, 0x70(%ebp)
+ 9b41b32: 74 3d                        	je	0x9b41b71 <.text+0x671>
+ 9b41b34: f7 c6 00 08 00 00            	testl	$0x800, %esi            # imm = 0x800
+ 9b41b3a: 74 35                        	je	0x9b41b71 <.text+0x671>
+ 9b41b3c: 8b 45 70                     	movl	0x70(%ebp), %eax
+ 9b41b3f: 83 c0 10                     	addl	$0x10, %eax
+ 9b41b42: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41b45: 74 2a                        	je	0x9b41b71 <.text+0x671>
+ 9b41b47: 8b c8                        	movl	%eax, %ecx
+ 9b41b49: 0f b7 09                     	movzwl	(%ecx), %ecx
+ 9b41b4c: ba 87 00 00 00               	movl	$0x87, %edx
+ 9b41b51: 66 3b ca                     	cmpw	%dx, %cx
+ 9b41b54: 72 11                        	jb	0x9b41b67 <.text+0x667>
+ 9b41b56: 83 c2 09                     	addl	$0x9, %edx
+ 9b41b59: 66 3b ca                     	cmpw	%dx, %cx
+ 9b41b5c: 77 09                        	ja	0x9b41b67 <.text+0x667>
+ 9b41b5e: b9 88 08 00 00               	movl	$0x888, %ecx            # imm = 0x888
+ 9b41b63: 66 89 48 02                  	movw	%cx, 0x2(%eax)
+ 9b41b67: 83 c0 04                     	addl	$0x4, %eax
+ 9b41b6a: 8b c8                        	movl	%eax, %ecx
+ 9b41b6c: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41b6f: 75 d8                        	jne	0x9b41b49 <.text+0x649>
+ 9b41b71: 8b 47 37                     	movl	0x37(%edi), %eax
+ 9b41b74: be 00 04 00 00               	movl	$0x400, %esi            # imm = 0x400
+ 9b41b79: 03 c6                        	addl	%esi, %eax
+ 9b41b7b: 6a 07                        	pushl	$0x7
+ 9b41b7d: 50                           	pushl	%eax
+ 9b41b7e: 8b 45 6c                     	movl	0x6c(%ebp), %eax
+ 9b41b81: ff 50 38                     	calll	*0x38(%eax)
+ 9b41b84: 33 c0                        	xorl	%eax, %eax
+ 9b41b86: 80 7d d8 04                  	cmpb	$0x4, -0x28(%ebp)
+ 9b41b8a: 59                           	popl	%ecx
+ 9b41b8b: 0f 94 c0                     	sete	%al
+ 9b41b8e: 59                           	popl	%ecx
+ 9b41b8f: 33 c9                        	xorl	%ecx, %ecx
+ 9b41b91: c1 e0 12                     	shll	$0x12, %eax
+ 9b41b94: 33 47 63                     	xorl	0x63(%edi), %eax
+ 9b41b97: 25 00 00 04 00               	andl	$0x40000, %eax          # imm = 0x40000
+ 9b41b9c: 31 47 63                     	xorl	%eax, 0x63(%edi)
+ 9b41b9f: 80 7d d8 04                  	cmpb	$0x4, -0x28(%ebp)
+ 9b41ba3: 8b 47 63                     	movl	0x63(%edi), %eax
+ 9b41ba6: 0f 94 c1                     	sete	%cl
+ 9b41ba9: c1 e1 13                     	shll	$0x13, %ecx
+ 9b41bac: 33 c8                        	xorl	%eax, %ecx
+ 9b41bae: 81 e1 00 00 08 00            	andl	$0x80000, %ecx          # imm = 0x80000
+ 9b41bb4: 33 c8                        	xorl	%eax, %ecx
+ 9b41bb6: 33 c0                        	xorl	%eax, %eax
+ 9b41bb8: 89 4f 63                     	movl	%ecx, 0x63(%edi)
+ 9b41bbb: 38 45 d9                     	cmpb	%al, -0x27(%ebp)
+ 9b41bbe: 0f 94 c0                     	sete	%al
+ 9b41bc1: c1 e0 0a                     	shll	$0xa, %eax
+ 9b41bc4: 33 c1                        	xorl	%ecx, %eax
+ 9b41bc6: 23 c6                        	andl	%esi, %eax
+ 9b41bc8: 33 c1                        	xorl	%ecx, %eax
+ 9b41bca: 89 47 63                     	movl	%eax, 0x63(%edi)
+ 9b41bcd: 80 7d ec 00                  	cmpb	$0x0, -0x14(%ebp)
+ 9b41bd1: 74 3d                        	je	0x9b41c10 <.text+0x710>
+ 9b41bd3: 0d 00 00 40 00               	orl	$0x400000, %eax         # imm = 0x400000
+ 9b41bd8: 89 47 63                     	movl	%eax, 0x63(%edi)
+ 9b41bdb: 8b 45 60                     	movl	0x60(%ebp), %eax
+ 9b41bde: 85 c0                        	testl	%eax, %eax
+ 9b41be0: 74 2e                        	je	0x9b41c10 <.text+0x710>
+ 9b41be2: 8d 48 10                     	leal	0x10(%eax), %ecx
+ 9b41be5: 38 19                        	cmpb	%bl, (%ecx)
+ 9b41be7: 74 27                        	je	0x9b41c10 <.text+0x710>
+ 9b41be9: 83 c0 12                     	addl	$0x12, %eax
+ 9b41bec: 80 39 04                     	cmpb	$0x4, (%ecx)
+ 9b41bef: 75 15                        	jne	0x9b41c06 <.text+0x706>
+ 9b41bf1: 80 78 ff 01                  	cmpb	$0x1, -0x1(%eax)
+ 9b41bf5: 75 0f                        	jne	0x9b41c06 <.text+0x706>
+ 9b41bf7: 80 38 01                     	cmpb	$0x1, (%eax)
+ 9b41bfa: 75 0a                        	jne	0x9b41c06 <.text+0x706>
+ 9b41bfc: c6 00 02                     	movb	$0x2, (%eax)
+ 9b41bff: c7 40 01 a0 86 01 00         	movl	$0x186a0, 0x1(%eax)     # imm = 0x186A0
+ 9b41c06: 83 c0 08                     	addl	$0x8, %eax
+ 9b41c09: 8d 48 fe                     	leal	-0x2(%eax), %ecx
+ 9b41c0c: 38 19                        	cmpb	%bl, (%ecx)
+ 9b41c0e: 75 dc                        	jne	0x9b41bec <.text+0x6ec>
+ 9b41c10: 8a 45 e7                     	movb	-0x19(%ebp), %al
+ 9b41c13: 88 47 76                     	movb	%al, 0x76(%edi)
+ 9b41c16: 80 7d da 02                  	cmpb	$0x2, -0x26(%ebp)
+ 9b41c1a: 75 07                        	jne	0x9b41c23 <.text+0x723>
+ 9b41c1c: 81 4f 63 00 01 00 00         	orl	$0x100, 0x63(%edi)      # imm = 0x100
+ 9b41c23: 80 7d ed 00                  	cmpb	$0x0, -0x13(%ebp)
+ 9b41c27: 75 69                        	jne	0x9b41c92 <.text+0x792>
+ 9b41c29: 8b 45 70                     	movl	0x70(%ebp), %eax
+ 9b41c2c: 83 c0 10                     	addl	$0x10, %eax
+ 9b41c2f: 33 c9                        	xorl	%ecx, %ecx
+ 9b41c31: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41c34: 74 22                        	je	0x9b41c58 <.text+0x758>
+ 9b41c36: 8b d0                        	movl	%eax, %edx
+ 9b41c38: 66 83 3a 1f                  	cmpw	$0x1f, (%edx)
+ 9b41c3c: 74 0d                        	je	0x9b41c4b <.text+0x74b>
+ 9b41c3e: 83 c0 04                     	addl	$0x4, %eax
+ 9b41c41: 41                           	incl	%ecx
+ 9b41c42: 8b d0                        	movl	%eax, %edx
+ 9b41c44: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41c47: 75 ef                        	jne	0x9b41c38 <.text+0x738>
+ 9b41c49: eb 0d                        	jmp	0x9b41c58 <.text+0x758>
+ 9b41c4b: 8b 55 70                     	movl	0x70(%ebp), %edx
+ 9b41c4e: b8 c0 0a 00 00               	movl	$0xac0, %eax            # imm = 0xAC0
+ 9b41c53: 66 89 44 8a 12               	movw	%ax, 0x12(%edx,%ecx,4)
+ 9b41c58: 8b 75 68                     	movl	0x68(%ebp), %esi
+ 9b41c5b: 80 8e 5e 19 00 00 08         	orb	$0x8, 0x195e(%esi)
+ 9b41c62: c6 86 58 19 00 00 04         	movb	$0x4, 0x1958(%esi)
+ 9b41c69: e8 07 fc ff ff               	calll	0x9b41875 <.text+0x375>
+ 9b41c6e: 84 c0                        	testb	%al, %al
+ 9b41c70: 74 19                        	je	0x9b41c8b <.text+0x78b>
+ 9b41c72: 68 48 6e b4 09               	pushl	$0x9b46e48              # imm = 0x9B46E48
+ 9b41c77: 68 40 10 04 00               	pushl	$0x41040                # imm = 0x41040
+ 9b41c7c: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41c81: e8 ab 03 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41c86: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41c89: eb 0a                        	jmp	0x9b41c95 <.text+0x795>
+ 9b41c8b: 68 10 6e b4 09               	pushl	$0x9b46e10              # imm = 0x9B46E10
+ 9b41c90: eb e5                        	jmp	0x9b41c77 <.text+0x777>
+ 9b41c92: 8b 75 68                     	movl	0x68(%ebp), %esi
+ 9b41c95: 80 7d ee 00                  	cmpb	$0x0, -0x12(%ebp)
+ 9b41c99: 75 67                        	jne	0x9b41d02 <.text+0x802>
+ 9b41c9b: 8b 45 70                     	movl	0x70(%ebp), %eax
+ 9b41c9e: 83 c0 10                     	addl	$0x10, %eax
+ 9b41ca1: 33 c9                        	xorl	%ecx, %ecx
+ 9b41ca3: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41ca6: 74 25                        	je	0x9b41ccd <.text+0x7cd>
+ 9b41ca8: 8b d0                        	movl	%eax, %edx
+ 9b41caa: 66 83 3a 1d                  	cmpw	$0x1d, (%edx)
+ 9b41cae: 74 10                        	je	0x9b41cc0 <.text+0x7c0>
+ 9b41cb0: 8b 75 68                     	movl	0x68(%ebp), %esi
+ 9b41cb3: 83 c0 04                     	addl	$0x4, %eax
+ 9b41cb6: 41                           	incl	%ecx
+ 9b41cb7: 8b d0                        	movl	%eax, %edx
+ 9b41cb9: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41cbc: 75 ec                        	jne	0x9b41caa <.text+0x7aa>
+ 9b41cbe: eb 0d                        	jmp	0x9b41ccd <.text+0x7cd>
+ 9b41cc0: 8b 55 70                     	movl	0x70(%ebp), %edx
+ 9b41cc3: b8 c0 09 00 00               	movl	$0x9c0, %eax            # imm = 0x9C0
+ 9b41cc8: 66 89 44 8a 12               	movw	%ax, 0x12(%edx,%ecx,4)
+ 9b41ccd: 80 8e 6a 19 00 00 08         	orb	$0x8, 0x196a(%esi)
+ 9b41cd4: c6 86 64 19 00 00 04         	movb	$0x4, 0x1964(%esi)
+ 9b41cdb: e8 95 fb ff ff               	calll	0x9b41875 <.text+0x375>
+ 9b41ce0: 84 c0                        	testb	%al, %al
+ 9b41ce2: 74 07                        	je	0x9b41ceb <.text+0x7eb>
+ 9b41ce4: 68 64 6e b4 09               	pushl	$0x9b46e64              # imm = 0x9B46E64
+ 9b41ce9: eb 05                        	jmp	0x9b41cf0 <.text+0x7f0>
+ 9b41ceb: 68 2c 6e b4 09               	pushl	$0x9b46e2c              # imm = 0x9B46E2C
+ 9b41cf0: 68 41 10 04 00               	pushl	$0x41041                # imm = 0x41041
+ 9b41cf5: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41cfa: e8 32 03 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41cff: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41d02: 66 83 7d 58 08               	cmpw	$0x8, 0x58(%ebp)
+ 9b41d07: 8a 45 e1                     	movb	-0x1f(%ebp), %al
+ 9b41d0a: 88 47 6a                     	movb	%al, 0x6a(%edi)
+ 9b41d0d: 72 17                        	jb	0x9b41d26 <.text+0x826>
+ 9b41d0f: e8 d4 02 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41d14: 6a 00                        	pushl	$0x0
+ 9b41d16: 68 30 f0 04 00               	pushl	$0x4f030                # imm = 0x4F030
+ 9b41d1b: 68 a0 23 b4 09               	pushl	$0x9b423a0              # imm = 0x9B423A0
+ 9b41d20: ff 50 20                     	calll	*0x20(%eax)
+ 9b41d23: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41d26: e8 bd 02 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41d2b: 68 01 f6 03 00               	pushl	$0x3f601                # imm = 0x3F601
+ 9b41d30: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41d35: ff 50 04                     	calll	*0x4(%eax)
+ 9b41d38: 8b 75 70                     	movl	0x70(%ebp), %esi
+ 9b41d3b: 59                           	popl	%ecx
+ 9b41d3c: 59                           	popl	%ecx
+ 9b41d3d: 84 c0                        	testb	%al, %al
+ 9b41d3f: 74 3a                        	je	0x9b41d7b <.text+0x87b>
+ 9b41d41: 8d 7e 10                     	leal	0x10(%esi), %edi
+ 9b41d44: 66 39 1f                     	cmpw	%bx, (%edi)
+ 9b41d47: 74 32                        	je	0x9b41d7b <.text+0x87b>
+ 9b41d49: 8b c7                        	movl	%edi, %eax
+ 9b41d4b: 66 83 38 56                  	cmpw	$0x56, (%eax)
+ 9b41d4f: 75 20                        	jne	0x9b41d71 <.text+0x871>
+ 9b41d51: e8 92 02 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41d56: 6a 00                        	pushl	$0x0
+ 9b41d58: 68 22 00 00 10               	pushl	$0x10000022             # imm = 0x10000022
+ 9b41d5d: 68 80 23 b4 09               	pushl	$0x9b42380              # imm = 0x9B42380
+ 9b41d62: ff 50 20                     	calll	*0x20(%eax)
+ 9b41d65: b8 c0 09 00 00               	movl	$0x9c0, %eax            # imm = 0x9C0
+ 9b41d6a: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41d6d: 66 89 47 02                  	movw	%ax, 0x2(%edi)
+ 9b41d71: 83 c7 04                     	addl	$0x4, %edi
+ 9b41d74: 8b c7                        	movl	%edi, %eax
+ 9b41d76: 66 39 1f                     	cmpw	%bx, (%edi)
+ 9b41d79: 75 d0                        	jne	0x9b41d4b <.text+0x84b>
+ 9b41d7b: 80 7d df 00                  	cmpb	$0x0, -0x21(%ebp)
+ 9b41d7f: 74 28                        	je	0x9b41da9 <.text+0x8a9>
+ 9b41d81: 8b 45 60                     	movl	0x60(%ebp), %eax
+ 9b41d84: 85 c0                        	testl	%eax, %eax
+ 9b41d86: 74 21                        	je	0x9b41da9 <.text+0x8a9>
+ 9b41d88: 83 c0 10                     	addl	$0x10, %eax
+ 9b41d8b: 38 18                        	cmpb	%bl, (%eax)
+ 9b41d8d: 74 1a                        	je	0x9b41da9 <.text+0x8a9>
+ 9b41d8f: 8b c8                        	movl	%eax, %ecx
+ 9b41d91: 80 39 04                     	cmpb	$0x4, (%ecx)
+ 9b41d94: 75 0a                        	jne	0x9b41da0 <.text+0x8a0>
+ 9b41d96: 80 78 01 00                  	cmpb	$0x0, 0x1(%eax)
+ 9b41d9a: 75 04                        	jne	0x9b41da0 <.text+0x8a0>
+ 9b41d9c: c6 40 07 01                  	movb	$0x1, 0x7(%eax)
+ 9b41da0: 83 c0 08                     	addl	$0x8, %eax
+ 9b41da3: 8b c8                        	movl	%eax, %ecx
+ 9b41da5: 38 18                        	cmpb	%bl, (%eax)
+ 9b41da7: 75 e8                        	jne	0x9b41d91 <.text+0x891>
+ 9b41da9: 8b 4d 5c                     	movl	0x5c(%ebp), %ecx
+ 9b41dac: 85 c9                        	testl	%ecx, %ecx
+ 9b41dae: 0f 84 e8 00 00 00            	je	0x9b41e9c <.text+0x99c>
+ 9b41db4: 80 7d e2 00                  	cmpb	$0x0, -0x1e(%ebp)
+ 9b41db8: 75 26                        	jne	0x9b41de0 <.text+0x8e0>
+ 9b41dba: 8d 51 10                     	leal	0x10(%ecx), %edx
+ 9b41dbd: 33 ff                        	xorl	%edi, %edi
+ 9b41dbf: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41dc1: 74 1d                        	je	0x9b41de0 <.text+0x8e0>
+ 9b41dc3: 8b c1                        	movl	%ecx, %eax
+ 9b41dc5: 80 3a 03                     	cmpb	$0x3, (%edx)
+ 9b41dc8: 75 07                        	jne	0x9b41dd1 <.text+0x8d1>
+ 9b41dca: 80 60 17 f3                  	andb	$-0xd, 0x17(%eax)
+ 9b41dce: 88 58 11                     	movb	%bl, 0x11(%eax)
+ 9b41dd1: 47                           	incl	%edi
+ 9b41dd2: 8b c7                        	movl	%edi, %eax
+ 9b41dd4: 6b c0 0c                     	imull	$0xc, %eax, %eax
+ 9b41dd7: 03 c1                        	addl	%ecx, %eax
+ 9b41dd9: 8d 50 10                     	leal	0x10(%eax), %edx
+ 9b41ddc: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41dde: 75 e5                        	jne	0x9b41dc5 <.text+0x8c5>
+ 9b41de0: 80 7d e3 00                  	cmpb	$0x0, -0x1d(%ebp)
+ 9b41de4: 75 26                        	jne	0x9b41e0c <.text+0x90c>
+ 9b41de6: 8d 51 10                     	leal	0x10(%ecx), %edx
+ 9b41de9: 33 ff                        	xorl	%edi, %edi
+ 9b41deb: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41ded: 74 1d                        	je	0x9b41e0c <.text+0x90c>
+ 9b41def: 8b c1                        	movl	%ecx, %eax
+ 9b41df1: 80 3a 04                     	cmpb	$0x4, (%edx)
+ 9b41df4: 75 07                        	jne	0x9b41dfd <.text+0x8fd>
+ 9b41df6: 80 60 17 f3                  	andb	$-0xd, 0x17(%eax)
+ 9b41dfa: 88 58 11                     	movb	%bl, 0x11(%eax)
+ 9b41dfd: 47                           	incl	%edi
+ 9b41dfe: 8b c7                        	movl	%edi, %eax
+ 9b41e00: 6b c0 0c                     	imull	$0xc, %eax, %eax
+ 9b41e03: 03 c1                        	addl	%ecx, %eax
+ 9b41e05: 8d 50 10                     	leal	0x10(%eax), %edx
+ 9b41e08: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e0a: 75 e5                        	jne	0x9b41df1 <.text+0x8f1>
+ 9b41e0c: 80 7d e4 00                  	cmpb	$0x0, -0x1c(%ebp)
+ 9b41e10: 75 26                        	jne	0x9b41e38 <.text+0x938>
+ 9b41e12: 8d 51 10                     	leal	0x10(%ecx), %edx
+ 9b41e15: 33 ff                        	xorl	%edi, %edi
+ 9b41e17: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e19: 74 1d                        	je	0x9b41e38 <.text+0x938>
+ 9b41e1b: 8b c1                        	movl	%ecx, %eax
+ 9b41e1d: 80 3a 02                     	cmpb	$0x2, (%edx)
+ 9b41e20: 75 07                        	jne	0x9b41e29 <.text+0x929>
+ 9b41e22: 80 60 17 f3                  	andb	$-0xd, 0x17(%eax)
+ 9b41e26: 88 58 11                     	movb	%bl, 0x11(%eax)
+ 9b41e29: 47                           	incl	%edi
+ 9b41e2a: 8b c7                        	movl	%edi, %eax
+ 9b41e2c: 6b c0 0c                     	imull	$0xc, %eax, %eax
+ 9b41e2f: 03 c1                        	addl	%ecx, %eax
+ 9b41e31: 8d 50 10                     	leal	0x10(%eax), %edx
+ 9b41e34: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e36: 75 e5                        	jne	0x9b41e1d <.text+0x91d>
+ 9b41e38: 80 7d e5 00                  	cmpb	$0x0, -0x1b(%ebp)
+ 9b41e3c: 75 26                        	jne	0x9b41e64 <.text+0x964>
+ 9b41e3e: 8d 51 10                     	leal	0x10(%ecx), %edx
+ 9b41e41: 33 ff                        	xorl	%edi, %edi
+ 9b41e43: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e45: 74 1d                        	je	0x9b41e64 <.text+0x964>
+ 9b41e47: 8b c1                        	movl	%ecx, %eax
+ 9b41e49: 80 3a 05                     	cmpb	$0x5, (%edx)
+ 9b41e4c: 75 07                        	jne	0x9b41e55 <.text+0x955>
+ 9b41e4e: 80 60 17 f3                  	andb	$-0xd, 0x17(%eax)
+ 9b41e52: 88 58 11                     	movb	%bl, 0x11(%eax)
+ 9b41e55: 47                           	incl	%edi
+ 9b41e56: 8b c7                        	movl	%edi, %eax
+ 9b41e58: 6b c0 0c                     	imull	$0xc, %eax, %eax
+ 9b41e5b: 03 c1                        	addl	%ecx, %eax
+ 9b41e5d: 8d 50 10                     	leal	0x10(%eax), %edx
+ 9b41e60: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e62: 75 e5                        	jne	0x9b41e49 <.text+0x949>
+ 9b41e64: 80 7d e6 00                  	cmpb	$0x0, -0x1a(%ebp)
+ 9b41e68: 75 26                        	jne	0x9b41e90 <.text+0x990>
+ 9b41e6a: 8d 51 10                     	leal	0x10(%ecx), %edx
+ 9b41e6d: 33 ff                        	xorl	%edi, %edi
+ 9b41e6f: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e71: 74 1d                        	je	0x9b41e90 <.text+0x990>
+ 9b41e73: 8b c1                        	movl	%ecx, %eax
+ 9b41e75: 80 3a 06                     	cmpb	$0x6, (%edx)
+ 9b41e78: 75 07                        	jne	0x9b41e81 <.text+0x981>
+ 9b41e7a: 80 60 17 f3                  	andb	$-0xd, 0x17(%eax)
+ 9b41e7e: 88 58 11                     	movb	%bl, 0x11(%eax)
+ 9b41e81: 47                           	incl	%edi
+ 9b41e82: 8b c7                        	movl	%edi, %eax
+ 9b41e84: 6b c0 0c                     	imull	$0xc, %eax, %eax
+ 9b41e87: 03 c1                        	addl	%ecx, %eax
+ 9b41e89: 8d 50 10                     	leal	0x10(%eax), %edx
+ 9b41e8c: 38 1a                        	cmpb	%bl, (%edx)
+ 9b41e8e: 75 e5                        	jne	0x9b41e75 <.text+0x975>
+ 9b41e90: 8d 41 10                     	leal	0x10(%ecx), %eax
+ 9b41e93: eb 03                        	jmp	0x9b41e98 <.text+0x998>
+ 9b41e95: 83 c0 0c                     	addl	$0xc, %eax
+ 9b41e98: 38 18                        	cmpb	%bl, (%eax)
+ 9b41e9a: 75 f9                        	jne	0x9b41e95 <.text+0x995>
+ 9b41e9c: 80 7d f1 01                  	cmpb	$0x1, -0xf(%ebp)
+ 9b41ea0: 75 27                        	jne	0x9b41ec9 <.text+0x9c9>
+ 9b41ea2: 8d 46 10                     	leal	0x10(%esi), %eax
+ 9b41ea5: 33 c9                        	xorl	%ecx, %ecx
+ 9b41ea7: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41eaa: 74 1d                        	je	0x9b41ec9 <.text+0x9c9>
+ 9b41eac: 8b d0                        	movl	%eax, %edx
+ 9b41eae: 66 83 3a 0c                  	cmpw	$0xc, (%edx)
+ 9b41eb2: 74 0d                        	je	0x9b41ec1 <.text+0x9c1>
+ 9b41eb4: 83 c0 04                     	addl	$0x4, %eax
+ 9b41eb7: 41                           	incl	%ecx
+ 9b41eb8: 8b d0                        	movl	%eax, %edx
+ 9b41eba: 66 39 18                     	cmpw	%bx, (%eax)
+ 9b41ebd: 75 ef                        	jne	0x9b41eae <.text+0x9ae>
+ 9b41ebf: eb 08                        	jmp	0x9b41ec9 <.text+0x9c9>
+ 9b41ec1: 8d 44 8e 12                  	leal	0x12(%esi,%ecx,4), %eax
+ 9b41ec5: 66 83 08 01                  	orw	$0x1, (%eax)
+ 9b41ec9: 68 b8 6b b4 09               	pushl	$0x9b46bb8              # imm = 0x9B46BB8
+ 9b41ece: 68 08 11 04 00               	pushl	$0x41108                # imm = 0x41108
+ 9b41ed3: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b41ed8: e8 54 01 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41edd: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41ee0: e8 90 f9 ff ff               	calll	0x9b41875 <.text+0x375>
+ 9b41ee5: 84 c0                        	testb	%al, %al
+ 9b41ee7: 0f 85 d0 00 00 00            	jne	0x9b41fbd <.text+0xabd>
+ 9b41eed: 8b 45 7c                     	movl	0x7c(%ebp), %eax
+ 9b41ef0: 8b 08                        	movl	(%eax), %ecx
+ 9b41ef2: 8d 55 64                     	leal	0x64(%ebp), %edx
+ 9b41ef5: 52                           	pushl	%edx
+ 9b41ef6: 6a 32                        	pushl	$0x32
+ 9b41ef8: 50                           	pushl	%eax
+ 9b41ef9: ff 51 4c                     	calll	*0x4c(%ecx)
+ 9b41efc: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41eff: 85 c0                        	testl	%eax, %eax
+ 9b41f01: 0f 88 8d 00 00 00            	js	0x9b41f94 <.text+0xa94>
+ 9b41f07: 8b 75 64                     	movl	0x64(%ebp), %esi
+ 9b41f0a: e8 d9 00 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41f0f: 6a 0f                        	pushl	$0xf
+ 9b41f11: 68 72 f0 04 00               	pushl	$0x4f072                # imm = 0x4F072
+ 9b41f16: bf a0 23 b4 09               	movl	$0x9b423a0, %edi        # imm = 0x9B423A0
+ 9b41f1b: 57                           	pushl	%edi
+ 9b41f1c: ff 50 20                     	calll	*0x20(%eax)
+ 9b41f1f: e8 c4 00 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41f24: 6a 00                        	pushl	$0x0
+ 9b41f26: 68 73 f0 04 00               	pushl	$0x4f073                # imm = 0x4F073
+ 9b41f2b: 57                           	pushl	%edi
+ 9b41f2c: ff 50 20                     	calll	*0x20(%eax)
+ 9b41f2f: e8 b4 00 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41f34: 6a 05                        	pushl	$0x5
+ 9b41f36: 68 74 f0 04 00               	pushl	$0x4f074                # imm = 0x4F074
+ 9b41f3b: 57                           	pushl	%edi
+ 9b41f3c: ff 50 24                     	calll	*0x24(%eax)
+ 9b41f3f: 83 c4 24                     	addl	$0x24, %esp
+ 9b41f42: c6 06 02                     	movb	$0x2, (%esi)
+ 9b41f45: 66 c7 46 03 00 80            	movw	$0x8000, 0x3(%esi)      # imm = 0x8000
+ 9b41f4b: 6a 19                        	pushl	$0x19
+ 9b41f4d: 58                           	popl	%eax
+ 9b41f4e: 66 89 46 01                  	movw	%ax, 0x1(%esi)
+ 9b41f52: c6 46 05 08                  	movb	$0x8, 0x5(%esi)
+ 9b41f56: c7 46 06 34 29 00 80         	movl	$0x80002934, 0x6(%esi)  # imm = 0x80002934
+ 9b41f5d: c6 46 0a 09                  	movb	$0x9, 0xa(%esi)
+ 9b41f61: c7 46 0b 1c 29 00 80         	movl	$0x8000291c, 0xb(%esi)  # imm = 0x8000291C
+ 9b41f68: c6 46 0f 10                  	movb	$0x10, 0xf(%esi)
+ 9b41f6c: c7 46 10 14 42 00 80         	movl	$0x80004214, 0x10(%esi) # imm = 0x80004214
+ 9b41f73: 6a 05                        	pushl	$0x5
+ 9b41f75: c6 46 14 18                  	movb	$0x18, 0x14(%esi)
+ 9b41f79: c7 46 15 00 4c 00 9f         	movl	$0x9f004c00, 0x15(%esi) # imm = 0x9F004C00
+ 9b41f80: 8d 46 1c                     	leal	0x1c(%esi), %eax
+ 9b41f83: 59                           	popl	%ecx
+ 9b41f84: 33 d2                        	xorl	%edx, %edx
+ 9b41f86: 88 58 fd                     	movb	%bl, -0x3(%eax)
+ 9b41f89: 89 50 fe                     	movl	%edx, -0x2(%eax)
+ 9b41f8c: 83 c0 05                     	addl	$0x5, %eax
+ 9b41f8f: 49                           	decl	%ecx
+ 9b41f90: 75 f2                        	jne	0x9b41f84 <.text+0xa84>
+ 9b41f92: eb 05                        	jmp	0x9b41f99 <.text+0xa99>
+ 9b41f94: bf a0 23 b4 09               	movl	$0x9b423a0, %edi        # imm = 0x9B423A0
+ 9b41f99: ff 75 64                     	pushl	0x64(%ebp)
+ 9b41f9c: 68 75 f0 04 00               	pushl	$0x4f075                # imm = 0x4F075
+ 9b41fa1: 57                           	pushl	%edi
+ 9b41fa2: e8 8a 00 00 00               	calll	0x9b42031 <.text+0xb31>
+ 9b41fa7: e8 3c 00 00 00               	calll	0x9b41fe8 <.text+0xae8>
+ 9b41fac: 6a 10                        	pushl	$0x10
+ 9b41fae: 68 40 f0 04 00               	pushl	$0x4f040                # imm = 0x4F040
+ 9b41fb3: 57                           	pushl	%edi
+ 9b41fb4: ff 50 24                     	calll	*0x24(%eax)
+ 9b41fb7: 8b 75 70                     	movl	0x70(%ebp), %esi
+ 9b41fba: 83 c4 18                     	addl	$0x18, %esp
+ 9b41fbd: 8d 46 10                     	leal	0x10(%esi), %eax
+ 9b41fc0: 8d 8d d4 fb ff ff            	leal	-0x42c(%ebp), %ecx
+ 9b41fc6: 3b c8                        	cmpl	%eax, %ecx
+ 9b41fc8: 74 11                        	je	0x9b41fdb <.text+0xadb>
+ 9b41fca: 68 00 04 00 00               	pushl	$0x400                  # imm = 0x400
+ 9b41fcf: 50                           	pushl	%eax
+ 9b41fd0: 8b c1                        	movl	%ecx, %eax
+ 9b41fd2: 50                           	pushl	%eax
+ 9b41fd3: e8 18 03 00 00               	calll	0x9b422f0 <.text+0xdf0>
+ 9b41fd8: 83 c4 0c                     	addl	$0xc, %esp
+ 9b41fdb: b8 03 00 00 80               	movl	$0x80000003, %eax       # imm = 0x80000003
+ 9b41fe0: 5f                           	popl	%edi
+ 9b41fe1: 5e                           	popl	%esi
+ 9b41fe2: 5b                           	popl	%ebx
+ 9b41fe3: 83 c5 74                     	addl	$0x74, %ebp
+ 9b41fe6: c9                           	leave
+ 9b41fe7: c3                           	retl
+ 9b41fe8: 55                           	pushl	%ebp
+ 9b41fe9: 8b ec                        	movl	%esp, %ebp
+ 9b41feb: 51                           	pushl	%ecx
+ 9b41fec: 8d 45 fc                     	leal	-0x4(%ebp), %eax
+ 9b41fef: 50                           	pushl	%eax
+ 9b41ff0: 68 40 24 b4 09               	pushl	$0x9b42440              # imm = 0x9B42440
+ 9b41ff5: e8 c7 02 00 00               	calll	0x9b422c1 <.text+0xdc1>
+ 9b41ffa: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b41ffd: 59                           	popl	%ecx
+ 9b41ffe: 59                           	popl	%ecx
+ 9b41fff: c9                           	leave
+ 9b42000: c3                           	retl
+ 9b42001: e8 e2 ff ff ff               	calll	0x9b41fe8 <.text+0xae8>
+ 9b42006: ff 74 24 04                  	pushl	0x4(%esp)
+ 9b4200a: 68 80 23 b4 09               	pushl	$0x9b42380              # imm = 0x9B42380
+ 9b4200f: ff 50 08                     	calll	*0x8(%eax)
+ 9b42012: 59                           	popl	%ecx
+ 9b42013: 59                           	popl	%ecx
+ 9b42014: c3                           	retl
+ 9b42015: e8 ce ff ff ff               	calll	0x9b41fe8 <.text+0xae8>
+ 9b4201a: ff 74 24 0c                  	pushl	0xc(%esp)
+ 9b4201e: ff 74 24 0c                  	pushl	0xc(%esp)
+ 9b42022: ff 74 24 0c                  	pushl	0xc(%esp)
+ 9b42026: ff 50 20                     	calll	*0x20(%eax)
+ 9b42029: 8a 44 24 18                  	movb	0x18(%esp), %al
+ 9b4202d: 83 c4 0c                     	addl	$0xc, %esp
+ 9b42030: c3                           	retl
+ 9b42031: e8 b2 ff ff ff               	calll	0x9b41fe8 <.text+0xae8>
+ 9b42036: ff 74 24 0c                  	pushl	0xc(%esp)
+ 9b4203a: ff 74 24 0c                  	pushl	0xc(%esp)
+ 9b4203e: ff 74 24 0c                  	pushl	0xc(%esp)
+ 9b42042: ff 50 28                     	calll	*0x28(%eax)
+ 9b42045: 8b 44 24 18                  	movl	0x18(%esp), %eax
+ 9b42049: 83 c4 0c                     	addl	$0xc, %esp
+ 9b4204c: c3                           	retl
+ 9b4204d: 55                           	pushl	%ebp
+ 9b4204e: 8b ec                        	movl	%esp, %ebp
+ 9b42050: e8 93 ff ff ff               	calll	0x9b41fe8 <.text+0xae8>
+ 9b42055: ff 75 10                     	pushl	0x10(%ebp)
+ 9b42058: ff 75 0c                     	pushl	0xc(%ebp)
+ 9b4205b: ff 75 08                     	pushl	0x8(%ebp)
+ 9b4205e: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b42063: ff 50 2c                     	calll	*0x2c(%eax)
+ 9b42066: 8b 45 0c                     	movl	0xc(%ebp), %eax
+ 9b42069: 8b 55 10                     	movl	0x10(%ebp), %edx
+ 9b4206c: 83 c4 10                     	addl	$0x10, %esp
+ 9b4206f: 5d                           	popl	%ebp
+ 9b42070: c3                           	retl
+ 9b42071: e8 72 ff ff ff               	calll	0x9b41fe8 <.text+0xae8>
+ 9b42076: 6a 01                        	pushl	$0x1
+ 9b42078: 68 71 12 04 00               	pushl	$0x41271                # imm = 0x41271
+ 9b4207d: 68 90 23 b4 09               	pushl	$0x9b42390              # imm = 0x9B42390
+ 9b42082: ff 50 34                     	calll	*0x34(%eax)
+ 9b42085: 83 c4 0c                     	addl	$0xc, %esp
+ 9b42088: b0 01                        	movb	$0x1, %al
+ 9b4208a: c3                           	retl
+ 9b4208b: 3b 44 24 04                  	cmpl	0x4(%esp), %eax
+ 9b4208f: 74 11                        	je	0x9b420a2 <.text+0xba2>
+ 9b42091: ff 74 24 08                  	pushl	0x8(%esp)
+ 9b42095: ff 74 24 08                  	pushl	0x8(%esp)
+ 9b42099: 50                           	pushl	%eax
+ 9b4209a: e8 51 02 00 00               	calll	0x9b422f0 <.text+0xdf0>
+ 9b4209f: 83 c4 0c                     	addl	$0xc, %esp
+ 9b420a2: c3                           	retl
+ 9b420a3: cc                           	int3
+ 9b420a4: cc                           	int3
+ 9b420a5: cc                           	int3
+ 9b420a6: cc                           	int3
+ 9b420a7: cc                           	int3
+ 9b420a8: cc                           	int3
+ 9b420a9: cc                           	int3
+ 9b420aa: cc                           	int3
+ 9b420ab: cc                           	int3
+ 9b420ac: cc                           	int3
+ 9b420ad: cc                           	int3
+ 9b420ae: cc                           	int3
+ 9b420af: cc                           	int3
+ 9b420b0: 55                           	pushl	%ebp
+ 9b420b1: 8b ec                        	movl	%esp, %ebp
+ 9b420b3: 33 c0                        	xorl	%eax, %eax
+ 9b420b5: 5d                           	popl	%ebp
+ 9b420b6: c3                           	retl
+ 9b420b7: 55                           	pushl	%ebp
+ 9b420b8: 8d 6c 24 8c                  	leal	-0x74(%esp), %ebp
+ 9b420bc: 81 ec 1c 01 00 00            	subl	$0x11c, %esp            # imm = 0x11C
+ 9b420c2: 53                           	pushl	%ebx
+ 9b420c3: 56                           	pushl	%esi
+ 9b420c4: 8b 75 7c                     	movl	0x7c(%ebp), %esi
+ 9b420c7: c6 45 73 2e                  	movb	$0x2e, 0x73(%ebp)
+ 9b420cb: b3 01                        	movb	$0x1, %bl
+ 9b420cd: 85 f6                        	testl	%esi, %esi
+ 9b420cf: 75 0a                        	jne	0x9b420db <.text+0xbdb>
+ 9b420d1: b8 02 00 00 80               	movl	$0x80000002, %eax       # imm = 0x80000002
+ 9b420d6: e9 66 01 00 00               	jmp	0x9b42241 <.text+0xd41>
+ 9b420db: 8d 45 64                     	leal	0x64(%ebp), %eax
+ 9b420de: 50                           	pushl	%eax
+ 9b420df: 68 f0 23 b4 09               	pushl	$0x9b423f0              # imm = 0x9B423F0
+ 9b420e4: e8 d8 01 00 00               	calll	0x9b422c1 <.text+0xdc1>
+ 9b420e9: 59                           	popl	%ecx
+ 9b420ea: 59                           	popl	%ecx
+ 9b420eb: 85 c0                        	testl	%eax, %eax
+ 9b420ed: 0f 88 4e 01 00 00            	js	0x9b42241 <.text+0xd41>
+ 9b420f3: 8d 45 60                     	leal	0x60(%ebp), %eax
+ 9b420f6: 50                           	pushl	%eax
+ 9b420f7: 68 d0 23 b4 09               	pushl	$0x9b423d0              # imm = 0x9B423D0
+ 9b420fc: e8 c0 01 00 00               	calll	0x9b422c1 <.text+0xdc1>
+ 9b42101: 59                           	popl	%ecx
+ 9b42102: 59                           	popl	%ecx
+ 9b42103: 85 c0                        	testl	%eax, %eax
+ 9b42105: 79 02                        	jns	0x9b42109 <.text+0xc09>
+ 9b42107: 32 db                        	xorb	%bl, %bl
+ 9b42109: 8d 45 dc                     	leal	-0x24(%ebp), %eax
+ 9b4210c: 50                           	pushl	%eax
+ 9b4210d: 8d 45 6c                     	leal	0x6c(%ebp), %eax
+ 9b42110: 50                           	pushl	%eax
+ 9b42111: 8b 45 64                     	movl	0x64(%ebp), %eax
+ 9b42114: 6a 00                        	pushl	$0x0
+ 9b42116: 68 b0 23 b4 09               	pushl	$0x9b423b0              # imm = 0x9B423B0
+ 9b4211b: 68 88 6f b4 09               	pushl	$0x9b46f88              # imm = 0x9B46F88
+ 9b42120: 50                           	pushl	%eax
+ 9b42121: c7 45 6c 82 00 00 00         	movl	$0x82, 0x6c(%ebp)
+ 9b42128: ff 10                        	calll	*(%eax)
+ 9b4212a: 83 c4 18                     	addl	$0x18, %esp
+ 9b4212d: 89 45 68                     	movl	%eax, 0x68(%ebp)
+ 9b42130: 85 c0                        	testl	%eax, %eax
+ 9b42132: 0f 85 fe 00 00 00            	jne	0x9b42236 <.text+0xd36>
+ 9b42138: 8a 45 fd                     	movb	-0x3(%ebp), %al
+ 9b4213b: 84 c0                        	testb	%al, %al
+ 9b4213d: 74 03                        	je	0x9b42142 <.text+0xc42>
+ 9b4213f: 88 45 73                     	movb	%al, 0x73(%ebp)
+ 9b42142: 57                           	pushl	%edi
+ 9b42143: bf 01 00 00 10               	movl	$0x10000001, %edi       # imm = 0x10000001
+ 9b42148: 84 db                        	testb	%bl, %bl
+ 9b4214a: 74 3a                        	je	0x9b42186 <.text+0xc86>
+ 9b4214c: 57                           	pushl	%edi
+ 9b4214d: e8 af fe ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b42152: 66 c1 e8 02                  	shrw	$0x2, %ax
+ 9b42156: 66 83 e0 01                  	andw	$0x1, %ax
+ 9b4215a: 59                           	popl	%ecx
+ 9b4215b: 66 39 45 dc                  	cmpw	%ax, -0x24(%ebp)
+ 9b4215f: 74 04                        	je	0x9b42165 <.text+0xc65>
+ 9b42161: c6 45 73 00                  	movb	$0x0, 0x73(%ebp)
+ 9b42165: bb 00 00 00 10               	movl	$0x10000000, %ebx       # imm = 0x10000000
+ 9b4216a: 53                           	pushl	%ebx
+ 9b4216b: e8 91 fe ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b42170: 66 83 f8 08                  	cmpw	$0x8, %ax
+ 9b42174: 59                           	popl	%ecx
+ 9b42175: 0f b7 4d de                  	movzwl	-0x22(%ebp), %ecx
+ 9b42179: 1b c0                        	sbbl	%eax, %eax
+ 9b4217b: 40                           	incl	%eax
+ 9b4217c: 3b c8                        	cmpl	%eax, %ecx
+ 9b4217e: 74 0b                        	je	0x9b4218b <.text+0xc8b>
+ 9b42180: c6 45 73 00                  	movb	$0x0, 0x73(%ebp)
+ 9b42184: eb 05                        	jmp	0x9b4218b <.text+0xc8b>
+ 9b42186: bb 00 00 00 10               	movl	$0x10000000, %ebx       # imm = 0x10000000
+ 9b4218b: 80 7d 73 28                  	cmpb	$0x28, 0x73(%ebp)
+ 9b4218f: 0f 83 87 00 00 00            	jae	0x9b4221c <.text+0xd1c>
+ 9b42195: 8d b5 58 ff ff ff            	leal	-0xa8(%ebp), %esi
+ 9b4219b: e8 a8 00 00 00               	calll	0x9b42248 <.text+0xd48>
+ 9b421a0: 0f b6 4d 73                  	movzbl	0x73(%ebp), %ecx
+ 9b421a4: 89 45 68                     	movl	%eax, 0x68(%ebp)
+ 9b421a7: 6a 28                        	pushl	$0x28
+ 9b421a9: 58                           	popl	%eax
+ 9b421aa: 2b c1                        	subl	%ecx, %eax
+ 9b421ac: 74 14                        	je	0x9b421c2 <.text+0xcc2>
+ 9b421ae: 50                           	pushl	%eax
+ 9b421af: 8d 84 0d 58 ff ff ff         	leal	-0xa8(%ebp,%ecx), %eax
+ 9b421b6: 50                           	pushl	%eax
+ 9b421b7: 8d 44 0d dc                  	leal	-0x24(%ebp,%ecx), %eax
+ 9b421bb: e8 cb fe ff ff               	calll	0x9b4208b <.text+0xb8b>
+ 9b421c0: 59                           	popl	%ecx
+ 9b421c1: 59                           	popl	%ecx
+ 9b421c2: 80 7d fd 28                  	cmpb	$0x28, -0x3(%ebp)
+ 9b421c6: 74 04                        	je	0x9b421cc <.text+0xccc>
+ 9b421c8: c6 45 fd 28                  	movb	$0x28, -0x3(%ebp)
+ 9b421cc: 57                           	pushl	%edi
+ 9b421cd: e8 2f fe ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b421d2: 66 c1 e8 02                  	shrw	$0x2, %ax
+ 9b421d6: 66 83 e0 01                  	andw	$0x1, %ax
+ 9b421da: 59                           	popl	%ecx
+ 9b421db: 66 39 45 dc                  	cmpw	%ax, -0x24(%ebp)
+ 9b421df: 74 13                        	je	0x9b421f4 <.text+0xcf4>
+ 9b421e1: 57                           	pushl	%edi
+ 9b421e2: e8 1a fe ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b421e7: 66 c1 e8 02                  	shrw	$0x2, %ax
+ 9b421eb: 66 83 e0 01                  	andw	$0x1, %ax
+ 9b421ef: 59                           	popl	%ecx
+ 9b421f0: 66 89 45 dc                  	movw	%ax, -0x24(%ebp)
+ 9b421f4: 53                           	pushl	%ebx
+ 9b421f5: e8 07 fe ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b421fa: 66 83 f8 08                  	cmpw	$0x8, %ax
+ 9b421fe: 59                           	popl	%ecx
+ 9b421ff: 0f b7 4d de                  	movzwl	-0x22(%ebp), %ecx
+ 9b42203: 1b c0                        	sbbl	%eax, %eax
+ 9b42205: 40                           	incl	%eax
+ 9b42206: 3b c8                        	cmpl	%eax, %ecx
+ 9b42208: 74 12                        	je	0x9b4221c <.text+0xd1c>
+ 9b4220a: 53                           	pushl	%ebx
+ 9b4220b: e8 f1 fd ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b42210: 66 83 f8 08                  	cmpw	$0x8, %ax
+ 9b42214: 59                           	popl	%ecx
+ 9b42215: 1b c0                        	sbbl	%eax, %eax
+ 9b42217: 40                           	incl	%eax
+ 9b42218: 66 89 45 de                  	movw	%ax, -0x22(%ebp)
+ 9b4221c: 83 7d 6c 00                  	cmpl	$0x0, 0x6c(%ebp)
+ 9b42220: 5f                           	popl	%edi
+ 9b42221: 74 1b                        	je	0x9b4223e <.text+0xd3e>
+ 9b42223: ff 75 6c                     	pushl	0x6c(%ebp)
+ 9b42226: 8d 45 dc                     	leal	-0x24(%ebp), %eax
+ 9b42229: 50                           	pushl	%eax
+ 9b4222a: 8b 45 7c                     	movl	0x7c(%ebp), %eax
+ 9b4222d: e8 59 fe ff ff               	calll	0x9b4208b <.text+0xb8b>
+ 9b42232: 59                           	popl	%ecx
+ 9b42233: 59                           	popl	%ecx
+ 9b42234: eb 08                        	jmp	0x9b4223e <.text+0xd3e>
+ 9b42236: e8 0d 00 00 00               	calll	0x9b42248 <.text+0xd48>
+ 9b4223b: 89 45 68                     	movl	%eax, 0x68(%ebp)
+ 9b4223e: 8b 45 68                     	movl	0x68(%ebp), %eax
+ 9b42241: 5e                           	popl	%esi
+ 9b42242: 5b                           	popl	%ebx
+ 9b42243: 83 c5 74                     	addl	$0x74, %ebp
+ 9b42246: c9                           	leave
+ 9b42247: c3                           	retl
+ 9b42248: 68 01 00 00 10               	pushl	$0x10000001             # imm = 0x10000001
+ 9b4224d: e8 af fd ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b42252: 66 c1 e8 02                  	shrw	$0x2, %ax
+ 9b42256: 66 83 e0 01                  	andw	$0x1, %ax
+ 9b4225a: 66 89 06                     	movw	%ax, (%esi)
+ 9b4225d: c7 04 24 00 00 00 10         	movl	$0x10000000, (%esp)     # imm = 0x10000000
+ 9b42264: e8 98 fd ff ff               	calll	0x9b42001 <.text+0xb01>
+ 9b42269: 66 83 f8 08                  	cmpw	$0x8, %ax
+ 9b4226d: 59                           	popl	%ecx
+ 9b4226e: c6 46 21 28                  	movb	$0x28, 0x21(%esi)
+ 9b42272: 66 c7 46 23 00 00            	movw	$0x0, 0x23(%esi)
+ 9b42278: c7 46 08 01 01 01 00         	movl	$0x10101, 0x8(%esi)     # imm = 0x10101
+ 9b4227f: 1b c0                        	sbbl	%eax, %eax
+ 9b42281: 40                           	incl	%eax
+ 9b42282: 66 89 46 02                  	movw	%ax, 0x2(%esi)
+ 9b42286: 32 c0                        	xorb	%al, %al
+ 9b42288: 88 46 25                     	movb	%al, 0x25(%esi)
+ 9b4228b: 88 46 14                     	movb	%al, 0x14(%esi)
+ 9b4228e: 88 46 1b                     	movb	%al, 0x1b(%esi)
+ 9b42291: c7 46 04 00 00 01 01         	movl	$0x1010000, 0x4(%esi)   # imm = 0x1010000
+ 9b42298: c7 46 0c 02 00 01 01         	movl	$0x1010002, 0xc(%esi)   # imm = 0x1010002
+ 9b4229f: c7 46 10 00 00 00 01         	movl	$0x1000000, 0x10(%esi)  # imm = 0x1000000
+ 9b422a6: 66 c7 46 15 03 01            	movw	$0x103, 0x15(%esi)      # imm = 0x103
+ 9b422ac: 66 c7 46 1f 03 01            	movw	$0x103, 0x1f(%esi)      # imm = 0x103
+ 9b422b2: 66 c7 46 19 01 01            	movw	$0x101, 0x19(%esi)      # imm = 0x101
+ 9b422b8: 66 c7 46 1c 00 00            	movw	$0x0, 0x1c(%esi)
+ 9b422be: 33 c0                        	xorl	%eax, %eax
+ 9b422c0: c3                           	retl
+ 9b422c1: 55                           	pushl	%ebp
+ 9b422c2: 8b ec                        	movl	%esp, %ebp
+ 9b422c4: 83 ec 0c                     	subl	$0xc, %esp
+ 9b422c7: 8d 45 f4                     	leal	-0xc(%ebp), %eax
+ 9b422ca: 89 45 fc                     	movl	%eax, -0x4(%ebp)
+ 9b422cd: 8b 45 fc                     	movl	-0x4(%ebp), %eax
+ 9b422d0: 0f 01 08                     	sidtl	(%eax)
+ 9b422d3: ff 75 0c                     	pushl	0xc(%ebp)
+ 9b422d6: 8b 45 f6                     	movl	-0xa(%ebp), %eax
+ 9b422d9: 8b 40 fc                     	movl	-0x4(%eax), %eax
+ 9b422dc: 8b 08                        	movl	(%eax), %ecx
+ 9b422de: 6a 00                        	pushl	$0x0
+ 9b422e0: 6a 00                        	pushl	$0x0
+ 9b422e2: ff 75 08                     	pushl	0x8(%ebp)
+ 9b422e5: 50                           	pushl	%eax
+ 9b422e6: ff 51 20                     	calll	*0x20(%ecx)
+ 9b422e9: 83 c4 14                     	addl	$0x14, %esp
+ 9b422ec: c9                           	leave
+ 9b422ed: c3                           	retl
+ 9b422ee: cc                           	int3
+ 9b422ef: cc                           	int3
+ 9b422f0: 56                           	pushl	%esi
+ 9b422f1: 57                           	pushl	%edi
+ 9b422f2: 8b 74 24 10                  	movl	0x10(%esp), %esi
+ 9b422f6: 8b 7c 24 0c                  	movl	0xc(%esp), %edi
+ 9b422fa: 8b 54 24 14                  	movl	0x14(%esp), %edx
+ 9b422fe: 8d 44 16 ff                  	leal	-0x1(%esi,%edx), %eax
+ 9b42302: 39 fe                        	cmpl	%edi, %esi
+ 9b42304: 73 04                        	jae	0x9b4230a <.text+0xe0a>
+ 9b42306: 39 f8                        	cmpl	%edi, %eax
+ 9b42308: 73 0c                        	jae	0x9b42316 <.text+0xe16>
+ 9b4230a: 89 d1                        	movl	%edx, %ecx
+ 9b4230c: 83 e2 03                     	andl	$0x3, %edx
+ 9b4230f: c1 e9 02                     	shrl	$0x2, %ecx
+ 9b42312: f3 a5                        	rep		movsl	(%esi), %es:(%edi)
+ 9b42314: eb 07                        	jmp	0x9b4231d <.text+0xe1d>
+ 9b42316: 89 c6                        	movl	%eax, %esi
+ 9b42318: 8d 7c 17 ff                  	leal	-0x1(%edi,%edx), %edi
+ 9b4231c: fd                           	std
+ 9b4231d: 89 d1                        	movl	%edx, %ecx
+ 9b4231f: f3 a4                        	rep		movsb	(%esi), %es:(%edi)
+ 9b42321: fc                           	cld
+ 9b42322: 8b 44 24 0c                  	movl	0xc(%esp), %eax
+ 9b42326: 5f                           	popl	%edi
+ 9b42327: 5e                           	popl	%esi
+ 9b42328: c3                           	retl
+ 9b42329: cc                           	int3
+ 9b4232a: cc                           	int3
+ 9b4232b: cc                           	int3
+ 9b4232c: cc                           	int3
+ 9b4232d: cc                           	int3
+ 9b4232e: cc                           	int3
+ 9b4232f: cc                           	int3
+ 9b42330: 57                           	pushl	%edi
+ 9b42331: 31 c0                        	xorl	%eax, %eax
+ 9b42333: 8b 7c 24 08                  	movl	0x8(%esp), %edi
+ 9b42337: 8b 4c 24 0c                  	movl	0xc(%esp), %ecx
+ 9b4233b: 89 ca                        	movl	%ecx, %edx
+ 9b4233d: c1 e9 02                     	shrl	$0x2, %ecx
+ 9b42340: 83 e2 03                     	andl	$0x3, %edx
+ 9b42343: 57                           	pushl	%edi
+ 9b42344: f3 ab                        	rep		stosl	%eax, %es:(%edi)
+ 9b42346: 89 d1                        	movl	%edx, %ecx
+ 9b42348: f3 aa                        	rep		stosb	%al, %es:(%edi)
+ 9b4234a: 58                           	popl	%eax
+ 9b4234b: 5f                           	popl	%edi
+ 9b4234c: c3                           	retl
+ 9b4234d: 55                           	pushl	%ebp
+ 9b4234e: 8b ec                        	movl	%esp, %ebp
+ 9b42350: 8b 45 08                     	movl	0x8(%ebp), %eax
+ 9b42353: eb 09                        	jmp	0x9b4235e <.text+0xe5e>
+ 9b42355: 8a 4d 0c                     	movb	0xc(%ebp), %cl
+ 9b42358: ff 4d 10                     	decl	0x10(%ebp)
+ 9b4235b: 88 08                        	movb	%cl, (%eax)
+ 9b4235d: 40                           	incl	%eax
+ 9b4235e: 83 7d 10 00                  	cmpl	$0x0, 0x10(%ebp)
+ 9b42362: 75 f1                        	jne	0x9b42355 <.text+0xe55>
+ 9b42364: 8b 45 08                     	movl	0x8(%ebp), %eax
+ 9b42367: 5d                           	popl	%ebp
+ 9b42368: c3                           	retl

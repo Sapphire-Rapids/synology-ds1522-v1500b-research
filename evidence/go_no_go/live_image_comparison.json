@@ -1,0 +1,786 @@
+{
+  "observed_from": "live_preflight.json",
+  "official_sha256": "ac8eb91600c714bd17c7fa5bcac1e94463c8f633e7c26bd948a3b6f772415e65",
+  "same_length": true,
+  "different_bytes": 117711,
+  "different_64k_regions": [
+    {
+      "start": "0x20000",
+      "end": "0x30000",
+      "different_bytes": 2
+    },
+    {
+      "start": "0x280000",
+      "end": "0x2a0000",
+      "different_bytes": 40614
+    },
+    {
+      "start": "0x6d0000",
+      "end": "0x700000",
+      "different_bytes": 77095
+    }
+  ],
+  "directory_marker_offsets": {
+    "$PSP": {
+      "official": [
+        "0x63000"
+      ],
+      "live": [
+        "0x63000"
+      ]
+    },
+    "$PL2": {
+      "official": [
+        "0x13e000"
+      ],
+      "live": [
+        "0x13e000"
+      ]
+    },
+    "$BHD": {
+      "official": [
+        "0x126000"
+      ],
+      "live": [
+        "0x126000"
+      ]
+    },
+    "$BL2": {
+      "official": [
+        "0x285000"
+      ],
+      "live": [
+        "0x285000"
+      ]
+    }
+  },
+  "selected_region_checks": [
+    {
+      "label": "BIOS directory A",
+      "offset": "0x126000",
+      "size": "0x400",
+      "identical": true
+    },
+    {
+      "label": "BIOS directory B",
+      "offset": "0x285000",
+      "size": "0x400",
+      "identical": true
+    },
+    {
+      "label": "compressed early code region",
+      "offset": "0x750000",
+      "size": "0xb0000",
+      "identical": true
+    }
+  ],
+  "interpretation": "CPU-addressable BIOS aperture captured. Full physical SPI completeness and an authenticated boot path are not established by this capture.",
+  "amd_entry_extent_checks": [
+    {
+      "directory": "$PSP",
+      "type": "AMD_PUBLIC_KEY~0x0",
+      "offset": "0x63400",
+      "size": 576,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "PSP_FW_BOOT_LOADER~0x1",
+      "offset": "0x13e400",
+      "size": 50112,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "PSP_FW_RECOVERY_BOOT_LOADER~0x3",
+      "offset": "0x63700",
+      "size": 50112,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SMU_OFFCHIP_FW~0x8",
+      "offset": "0x6fb00",
+      "size": 132688,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SMU_OFF_CHIP_FW_2~0x12",
+      "offset": "0x90200",
+      "size": 17520,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SMU_OFFCHIP_FW~0x8",
+      "offset": "0x94700",
+      "size": 141936,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SMU_OFF_CHIP_FW_2~0x12",
+      "offset": "0xb7200",
+      "size": 27648,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "WRAPPED_IKEK~0x21",
+      "offset": "0xbde00",
+      "size": 16,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "TOKEN_UNLOCK~0x22",
+      "offset": "0xbe000",
+      "size": 4096,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0xbf000",
+      "size": 6240,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0xc0900",
+      "size": 6208,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0xc2200",
+      "size": 6240,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0xc3b00",
+      "size": 5696,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0xc5200",
+      "size": 5728,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL0~0x30",
+      "offset": "0xc6900",
+      "size": 3536,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL1~0x31",
+      "offset": "0xc7700",
+      "size": 51712,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL2~0x32",
+      "offset": "0xd4100",
+      "size": 34976,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL3~0x33",
+      "offset": "0xdca00",
+      "size": 45712,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL4~0x34",
+      "offset": "0xe7d00",
+      "size": 55488,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL5~0x35",
+      "offset": "0xf5600",
+      "size": 52768,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL6~0x36",
+      "offset": "0x102500",
+      "size": 38576,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "ABL7~0x37",
+      "offset": "0x10bc00",
+      "size": 52688,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PSP",
+      "type": "PSP_FW_L2_PTR~0x40",
+      "offset": "0x13e000",
+      "size": 1024,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "PSP_FW_BOOT_LOADER~0x1",
+      "offset": "0x13e400",
+      "size": 50112,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "AMD_PUBLIC_KEY~0x0",
+      "offset": "0x14a800",
+      "size": 576,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "PSP_FW_TRUSTED_OS~0x2",
+      "offset": "0x14ab00",
+      "size": 62224,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "PSP_NV_DATA~0x4",
+      "offset": "0x41000",
+      "size": 131072,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SMU_OFFCHIP_FW~0x8",
+      "offset": "0x159f00",
+      "size": 132688,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "PSP_NVRAM~0x54",
+      "offset": "0x0",
+      "size": 131072,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SEC_DBG_PUBLIC_KEY~0x9",
+      "offset": "0x17a600",
+      "size": 832,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SOFT_FUSE_CHAIN_01~0xb",
+      "offset": "0x13e090",
+      "size": 16,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "PSP_BOOT_TIME_TRUSTLETS~0xc",
+      "offset": "0x17aa00",
+      "size": 80928,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SMU_OFF_CHIP_FW_2~0x12",
+      "offset": "0x18e700",
+      "size": 17520,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "DEBUG_UNLOCK~0x13",
+      "offset": "0x192c00",
+      "size": 6480,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "WRAPPED_IKEK~0x21",
+      "offset": "0x194600",
+      "size": 16,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "TOKEN_UNLOCK~0x22",
+      "offset": "0x195000",
+      "size": 4096,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0x196000",
+      "size": 6240,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0x197900",
+      "size": 6208,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0x199200",
+      "size": 6240,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0x19ab00",
+      "size": 5696,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SEC_GASKET~0x24",
+      "offset": "0x19c200",
+      "size": 5728,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "MP2_FW~0x25",
+      "offset": "0x19d900",
+      "size": 8945,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "MP2_FW~0x25",
+      "offset": "0x19fc00",
+      "size": 15048,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "MP2_FW~0x25",
+      "offset": "0x1a3700",
+      "size": 8945,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "DRIVER_ENTRIES~0x28",
+      "offset": "0x1a5a00",
+      "size": 120720,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "KVM_IMAGE~0x29",
+      "offset": "0x1c3200",
+      "size": 12544,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "KVM_IMAGE~0x29",
+      "offset": "0x1c3200",
+      "size": 12544,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL0~0x30",
+      "offset": "0x1c6300",
+      "size": 3536,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL1~0x31",
+      "offset": "0x1c7100",
+      "size": 51712,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL2~0x32",
+      "offset": "0x1d3b00",
+      "size": 34976,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL3~0x33",
+      "offset": "0x1dc400",
+      "size": 45712,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL4~0x34",
+      "offset": "0x1e7700",
+      "size": 55488,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL5~0x35",
+      "offset": "0x1f5000",
+      "size": 52768,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL6~0x36",
+      "offset": "0x201f00",
+      "size": 38576,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "ABL7~0x37",
+      "offset": "0x20b600",
+      "size": 52688,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SMU_OFFCHIP_FW~0x8",
+      "offset": "0x218400",
+      "size": 141936,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$PL2",
+      "type": "SMU_OFF_CHIP_FW_2~0x12",
+      "offset": "0x23af00",
+      "size": 27648,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "BIOS_PUBLIC_KEY~0x5",
+      "offset": "0x126400",
+      "size": 832,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "APCB~0x60",
+      "offset": "0x127000",
+      "size": 8192,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "APCB_COPY~0x68",
+      "offset": "0x129000",
+      "size": 8192,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "BIOS",
+      "offset": "0x750000",
+      "size": 427393,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x12b000",
+      "size": 15424,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x12ed00",
+      "size": 816,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x12f100",
+      "size": 17936,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x133800",
+      "size": 800,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x133c00",
+      "size": 18480,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x138500",
+      "size": 880,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x138900",
+      "size": 18336,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x13d100",
+      "size": 832,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BHD",
+      "type": "BIOS_L2_PTR~0x70",
+      "offset": "0x285000",
+      "size": 1024,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "BIOS_PUBLIC_KEY~0x5",
+      "offset": "0x285400",
+      "size": 832,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "APCB~0x60",
+      "offset": "0x286000",
+      "size": 8192,
+      "identical": false,
+      "different_bytes": 100
+    },
+    {
+      "directory": "$BL2",
+      "type": "APCB_COPY~0x68",
+      "offset": "0x288000",
+      "size": 8192,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "BIOS",
+      "offset": "0x750000",
+      "size": 427393,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "APOB_NV_COPY~0x63",
+      "offset": "0x28a000",
+      "size": 65536,
+      "identical": false,
+      "different_bytes": 40514
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x29a000",
+      "size": 15424,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x29dd00",
+      "size": 816,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x29e100",
+      "size": 17936,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x2a2800",
+      "size": 800,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x2a2c00",
+      "size": 18480,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x2a7500",
+      "size": 880,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_CODE~0x64",
+      "offset": "0x2a7900",
+      "size": 18336,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "PMU_DATA~0x65",
+      "offset": "0x2ac100",
+      "size": 832,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "MICROCODE_PATCH~0x66",
+      "offset": "0x2ac500",
+      "size": 3200,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "MICROCODE_PATCH~0x66",
+      "offset": "0x2ad200",
+      "size": 3200,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "MICROCODE_PATCH~0x66",
+      "offset": "0x2adf00",
+      "size": 3200,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "MICROCODE_PATCH~0x66",
+      "offset": "0x2aec00",
+      "size": 3200,
+      "identical": true,
+      "different_bytes": 0
+    },
+    {
+      "directory": "$BL2",
+      "type": "TEE_PRE_MEM_DRIVER_FW~0x6a",
+      "offset": "0x2af900",
+      "size": 1380,
+      "identical": true,
+      "different_bytes": 0
+    }
+  ],
+  "preservation_requirement": "Preserve the entire live image outside the candidate code region. No reset or replacement of machine-specific NVRAM/APOB/descriptor fields is part of the topology change.",
+  "scope": "Deidentified region-comparison results; the full mapped image and its unique fingerprint are withheld."
+}

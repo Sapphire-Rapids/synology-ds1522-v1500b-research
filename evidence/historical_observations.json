@@ -1,0 +1,19 @@
+{
+  "model": "DS1522+",
+  "reported_event_date": "2025-08-19",
+  "reported_symptoms": [
+    "After V1500B replacement, the router did not show an IP through either onboard Ethernet or the expansion10GbE card.",
+    "The first three drive bays reportedly failed to spin their disks."
+  ],
+  "recovered_bios_diagnostic": "00/01/05---FF/00/0 can't find JMB585",
+  "message_count": 4,
+  "interpretation": "The firmware ReadyToBoot callback could not find JMB585 at its expected bridge.",
+  "time_correlation": "A subsequent successful boot collected the stale messages while its clock was reset; nearby records correlate that collection with2025-08-19 evening.",
+  "limits": [
+    "The messages do not name the CPU that produced them.",
+    "Four messages do not establish four separate boots.",
+    "ReadyToBoot is a reached stage, not proof of the final stopping stage.",
+    "No failed V1500B serial or PCI enumeration trace is available."
+  ],
+  "raw_system_logs_published": false
+}

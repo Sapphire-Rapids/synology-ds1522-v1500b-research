@@ -1,0 +1,1142 @@
+{
+  "ds1522_entries": [
+    {
+      "sectionType": "AMD_PUBLIC_KEY~0x0",
+      "address": 1353728,
+      "size": 576,
+      "version": "1",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_FW_BOOT_LOADER~0x1",
+      "address": 1303552,
+      "size": 50112,
+      "version": "0.8.A1.7D",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "PSP_FW_RECOVERY_BOOT_LOADER~0x3",
+      "address": 407296,
+      "size": 50112,
+      "version": "0.8.A1.7D",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFFCHIP_FW~0x8",
+      "address": 1416960,
+      "size": 132688,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFF_CHIP_FW_2~0x12",
+      "address": 1632000,
+      "size": 17520,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFFCHIP_FW~0x8",
+      "address": 2196480,
+      "size": 141936,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFF_CHIP_FW_2~0x12",
+      "address": 2338560,
+      "size": 27648,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "WRAPPED_IKEK~0x21",
+      "address": 1656320,
+      "size": 16,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "TOKEN_UNLOCK~0x22",
+      "address": 1658880,
+      "size": 4096,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1675776,
+      "size": 6240,
+      "version": "A.2.3.27",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1669376,
+      "size": 6208,
+      "version": "A.2.4.26",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1682176,
+      "size": 5696,
+      "version": "A.2.5.23",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1688064,
+      "size": 5728,
+      "version": "A.2.4.27",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "ABL0~0x30",
+      "address": 1860352,
+      "size": 3536,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL1~0x31",
+      "address": 1863936,
+      "size": 51712,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL2~0x32",
+      "address": 1915648,
+      "size": 34976,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL3~0x33",
+      "address": 1950720,
+      "size": 45712,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL4~0x34",
+      "address": 1996544,
+      "size": 55488,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL5~0x35",
+      "address": 2052096,
+      "size": 52768,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL6~0x36",
+      "address": 2105088,
+      "size": 38576,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL7~0x37",
+      "address": 2143744,
+      "size": 52688,
+      "version": "21.2.12.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PSP_FW_L2_PTR~0x40",
+      "address": 1302528,
+      "size": 1024,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_FW_TRUSTED_OS~0x2",
+      "address": 1354496,
+      "size": 62224,
+      "version": "0.8.A1.7D",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "PSP_NV_DATA~0x4",
+      "address": 266240,
+      "size": 131072,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_NVRAM~0x54",
+      "address": 0,
+      "size": 131072,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "SEC_DBG_PUBLIC_KEY~0x9",
+      "address": 1549824,
+      "size": 832,
+      "version": "1",
+      "info": [
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SOFT_FUSE_CHAIN_01~0xb",
+      "address": 1302672,
+      "size": 16,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_BOOT_TIME_TRUSTLETS~0xc",
+      "address": 1550848,
+      "size": 80928,
+      "version": "3.37.0.4",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "DEBUG_UNLOCK~0x13",
+      "address": 1649664,
+      "size": 6480,
+      "version": "0.8.A1.7D",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "MP2_FW~0x25",
+      "address": 1718016,
+      "size": 8945,
+      "version": "3.18.0.1",
+      "info": [
+        "signed(76E9)",
+        "no_key"
+      ]
+    },
+    {
+      "sectionType": "MP2_FW~0x25",
+      "address": 1702912,
+      "size": 15048,
+      "version": "1.2.2.6",
+      "info": [
+        "signed(76E9)",
+        "no_key"
+      ]
+    },
+    {
+      "sectionType": "DRIVER_ENTRIES~0x28",
+      "address": 1726976,
+      "size": 120720,
+      "version": "0.8.A1.7D",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "KVM_IMAGE~0x29",
+      "address": 1847808,
+      "size": 12544,
+      "version": "0.7.0.1",
+      "info": [
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "BIOS_PUBLIC_KEY~0x5",
+      "address": 2642944,
+      "size": 832,
+      "version": "1",
+      "info": [
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "APCB~0x60",
+      "address": 2646016,
+      "size": 8192,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "APCB_COPY~0x68",
+      "address": 2654208,
+      "size": 8192,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "APOB",
+      "address": 0,
+      "size": 0,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "BIOS",
+      "address": 7667712,
+      "size": 427393,
+      "version": "",
+      "info": [
+        "compressed"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2727936,
+      "size": 15424,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2743552,
+      "size": 816,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2744576,
+      "size": 17936,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2762752,
+      "size": 800,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2763776,
+      "size": 18480,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2782464,
+      "size": 880,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2783488,
+      "size": 18336,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2801920,
+      "size": 832,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "BIOS_L2_PTR~0x70",
+      "address": 2641920,
+      "size": 1024,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "APOB_NV_COPY~0x63",
+      "address": 2662400,
+      "size": 65536,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2802944,
+      "size": 3200,
+      "version": "0x8101016",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2806272,
+      "size": 3200,
+      "version": "0x8200103",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2809600,
+      "size": 3200,
+      "version": "0x8108109",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2812928,
+      "size": 3200,
+      "version": "0x8108002",
+      "info": []
+    },
+    {
+      "sectionType": "TEE_PRE_MEM_DRIVER_FW~0x6a",
+      "address": 2816256,
+      "size": 1380,
+      "version": "0.0.0.1",
+      "info": [
+        "signed(76E9)",
+        "no_key"
+      ]
+    }
+  ],
+  "ds1525_entries": [
+    {
+      "sectionType": "AMD_PUBLIC_KEY~0x0",
+      "address": 1366016,
+      "size": 576,
+      "version": "1",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_FW_BOOT_LOADER~0x1",
+      "address": 1303552,
+      "size": 62400,
+      "version": "0.8.A0.90",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "PSP_FW_RECOVERY_BOOT_LOADER~0x3",
+      "address": 407296,
+      "size": 62400,
+      "version": "0.8.A0.90",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFFCHIP_FW~0x8",
+      "address": 1433344,
+      "size": 132688,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFF_CHIP_FW_2~0x12",
+      "address": 1652480,
+      "size": 17520,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFFCHIP_FW~0x8",
+      "address": 2237184,
+      "size": 142464,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SMU_OFF_CHIP_FW_2~0x12",
+      "address": 2379776,
+      "size": 27536,
+      "version": "0.0.0.0",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "WRAPPED_IKEK~0x21",
+      "address": 1676800,
+      "size": 16,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "TOKEN_UNLOCK~0x22",
+      "address": 1679360,
+      "size": 4096,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1696256,
+      "size": 6240,
+      "version": "A.2.3.27",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1689856,
+      "size": 6208,
+      "version": "A.2.4.26",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1702656,
+      "size": 5696,
+      "version": "A.2.5.23",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "SEC_GASKET~0x24",
+      "address": 1708544,
+      "size": 5728,
+      "version": "A.2.4.28",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "ABL0~0x30",
+      "address": 1884928,
+      "size": 3552,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL1~0x31",
+      "address": 1888512,
+      "size": 53904,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL2~0x32",
+      "address": 1942528,
+      "size": 36800,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL3~0x33",
+      "address": 1979392,
+      "size": 49488,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL4~0x34",
+      "address": 2029056,
+      "size": 57760,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL5~0x35",
+      "address": 2086912,
+      "size": 54496,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL6~0x36",
+      "address": 2141440,
+      "size": 40352,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "ABL7~0x37",
+      "address": 2181888,
+      "size": 55072,
+      "version": "23.6.19.EE",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PSP_FW_L2_PTR~0x40",
+      "address": 1302528,
+      "size": 1024,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_FW_TRUSTED_OS~0x2",
+      "address": 1366784,
+      "size": 66320,
+      "version": "0.8.A0.90",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "PSP_NV_DATA~0x4",
+      "address": 135168,
+      "size": 131072,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_NVRAM~0x54",
+      "address": 0,
+      "size": 131072,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "SEC_DBG_PUBLIC_KEY~0x9",
+      "address": 1566208,
+      "size": 832,
+      "version": "1",
+      "info": [
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "SOFT_FUSE_CHAIN_01~0xb",
+      "address": 1302656,
+      "size": 16,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "PSP_BOOT_TIME_TRUSTLETS~0xc",
+      "address": 1567232,
+      "size": 85232,
+      "version": "3.5A.0.4",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "DEBUG_UNLOCK~0x13",
+      "address": 1670144,
+      "size": 6624,
+      "version": "0.8.A0.90",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "MP2_FW~0x25",
+      "address": 1738496,
+      "size": 8945,
+      "version": "3.18.0.1",
+      "info": [
+        "signed(76E9)",
+        "no_key"
+      ]
+    },
+    {
+      "sectionType": "MP2_FW~0x25",
+      "address": 1723392,
+      "size": 15048,
+      "version": "1.2.2.6",
+      "info": [
+        "signed(76E9)",
+        "no_key"
+      ]
+    },
+    {
+      "sectionType": "DRIVER_ENTRIES~0x28",
+      "address": 1747456,
+      "size": 124816,
+      "version": "0.8.A0.90",
+      "info": [
+        "signed(60BB)",
+        "verified",
+        "encrypted"
+      ]
+    },
+    {
+      "sectionType": "KVM_IMAGE~0x29",
+      "address": 1872384,
+      "size": 12544,
+      "version": "0.7.0.1",
+      "info": [
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "BIOS_PUBLIC_KEY~0x5",
+      "address": 2642944,
+      "size": 832,
+      "version": "1",
+      "info": [
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "APCB~0x60",
+      "address": 2646016,
+      "size": 8192,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "APCB_COPY~0x68",
+      "address": 2654208,
+      "size": 8192,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "APOB",
+      "address": 0,
+      "size": 0,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "BIOS",
+      "address": 7667712,
+      "size": 425617,
+      "version": "",
+      "info": [
+        "compressed"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2727936,
+      "size": 15424,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2743552,
+      "size": 816,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2744576,
+      "size": 17936,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2762752,
+      "size": 800,
+      "version": "0.0.A1.41",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2763776,
+      "size": 18480,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2782464,
+      "size": 880,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_CODE~0x64",
+      "address": 2783488,
+      "size": 18336,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "PMU_DATA~0x65",
+      "address": 2801920,
+      "size": 832,
+      "version": "0.0.18.5",
+      "info": [
+        "compressed",
+        "signed(60BB)",
+        "verified"
+      ]
+    },
+    {
+      "sectionType": "BIOS_L2_PTR~0x70",
+      "address": 2641920,
+      "size": 1024,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "APOB_NV_COPY~0x63",
+      "address": 2662400,
+      "size": 65536,
+      "version": "",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2802944,
+      "size": 3200,
+      "version": "0x810100b",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2806272,
+      "size": 3200,
+      "version": "0x8200103",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2809600,
+      "size": 3200,
+      "version": "0x8108109",
+      "info": []
+    },
+    {
+      "sectionType": "MICROCODE_PATCH~0x66",
+      "address": 2812928,
+      "size": 3200,
+      "version": "0x8108002",
+      "info": []
+    },
+    {
+      "sectionType": "TEE_PRE_MEM_DRIVER_FW~0x6a",
+      "address": 2816256,
+      "size": 1380,
+      "version": "0.0.0.1",
+      "info": [
+        "signed(76E9)",
+        "no_key"
+      ]
+    }
+  ],
+  "identical_entries": [
+    {
+      "type": "WRAPPED_IKEK~0x21",
+      "sha256": "cff60e0efd90b3c38f2e386bb303c555223d3545403a13e55f5bf331ecdc369e"
+    },
+    {
+      "type": "TOKEN_UNLOCK~0x22",
+      "sha256": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6"
+    },
+    {
+      "type": "SOFT_FUSE_CHAIN_01~0xb",
+      "sha256": "a67ecf3b0f46bf4ad58ea7504b2f91acb252447afeabfa988f45da7891a573a9"
+    },
+    {
+      "type": "SEC_GASKET~0x24",
+      "sha256": "c144f2c7903e637936bbc530475bada63c57bed70540812afa1d4acafe04d60d"
+    },
+    {
+      "type": "SEC_DBG_PUBLIC_KEY~0x9",
+      "sha256": "aa625670831e9b7fafe4a60567e9e38e5b5a9e9ac470cfa97cfca6be9f3bffdd"
+    },
+    {
+      "type": "PMU_CODE~0x64",
+      "sha256": "bb837b6198d6f6710bd9b85d11de7f52650b0309d2e40e75c86a816ea5af08d6"
+    },
+    {
+      "type": "PMU_CODE~0x64",
+      "sha256": "3d6148237d7b2a6d3ac10140ee00b5e28719abeda77b32718970f2aab1c772ee"
+    },
+    {
+      "type": "MICROCODE_PATCH~0x66",
+      "sha256": "6229aa2a26b54a05c2be7a25e37d04c28c43d49e61f2ebd3051671d7e9ccf720"
+    },
+    {
+      "type": "APOB_NV_COPY~0x63",
+      "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+    },
+    {
+      "type": "MICROCODE_PATCH~0x66",
+      "sha256": "003a5e311a4938c60415ebb38e26a4d881204029a716fc1e4b9a14a65d36fa6b"
+    },
+    {
+      "type": "PMU_DATA~0x65",
+      "sha256": "6de41b58e5ce03d6242c882baedb7ef84103fc9cd4295f5484beab31019e2174"
+    },
+    {
+      "type": "MICROCODE_PATCH~0x66",
+      "sha256": "a97b43a6e748513882900bda4a3eef0f9c48a017269286fd9e314237d4706078"
+    },
+    {
+      "type": "APOB",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "type": "MP2_FW~0x25",
+      "sha256": "1adfb7b3e9667323bdf1afdd1b9e59746deb15259861de37d60d148f05dbb5b3"
+    },
+    {
+      "type": "PMU_DATA~0x65",
+      "sha256": "5588e41e6bd619f9b098f3cd981a445a7053bdba3833f838ca0b7cbd26af7443"
+    },
+    {
+      "type": "TEE_PRE_MEM_DRIVER_FW~0x6a",
+      "sha256": "48ec1a5e479b62b2d2b0d99342a853ca64012feedb21c84f45ae55ad84c67a39"
+    },
+    {
+      "type": "SEC_GASKET~0x24",
+      "sha256": "ee0775781cc978227912cd187b76e4a9a9f8e456e86f9c36f698bd0c7fcc3c50"
+    },
+    {
+      "type": "AMD_PUBLIC_KEY~0x0",
+      "sha256": "752b195fe49c18e00afaa8319d0af674a460186a64d5b9da7fe691f6189994e8"
+    },
+    {
+      "type": "BIOS_L2_PTR~0x70",
+      "sha256": "b5a0f45077a6be6bac659118449d0b36e6f3678f00c9833fa1e47b9391b3a195"
+    },
+    {
+      "type": "KVM_IMAGE~0x29",
+      "sha256": "89bfdae9ed7cd9e9c45adf13f64e43124768a2ba0dc4a9408cfcf2ca896fa52b"
+    },
+    {
+      "type": "SEC_GASKET~0x24",
+      "sha256": "6d539cffb6c271b3f928b5f419d974060ae1710e98b584c1ad98fdfbd4c8cec1"
+    },
+    {
+      "type": "PMU_CODE~0x64",
+      "sha256": "dc15e77e614d238de12bb4754cfe9470a8415d96038e8a3d5a37df34541960e9"
+    },
+    {
+      "type": "PMU_CODE~0x64",
+      "sha256": "99cb2cfe2c412550edcde8dc06b9b7eea5cf3e105bbf76a8ea88ee9a2a1fd440"
+    },
+    {
+      "type": "BIOS_PUBLIC_KEY~0x5",
+      "sha256": "c2d3d32ff7c6b4d326eeadf3c99bae2a8e7321e9ef814967ddc7efdb9c683818"
+    },
+    {
+      "type": "PSP_NVRAM~0x54",
+      "sha256": "b5a41c3758763bbec72769fab4a2533bf2db0b6312d93d25a695f9e4b9e02260"
+    },
+    {
+      "type": "PMU_DATA~0x65",
+      "sha256": "6edbad27505433287a8c566cb8a743de8e5286d7f87a4be96abfa44b0bc2cb4b"
+    },
+    {
+      "type": "PMU_DATA~0x65",
+      "sha256": "614892a8f04af3883752751e7ae4405cf5babbc0e7cec8caaa3f301c874b8ced"
+    },
+    {
+      "type": "MP2_FW~0x25",
+      "sha256": "98df1eb73dafa8c44749bb54da68ab3bd41bdff63ca9f7f18d6d94cbe188b4a1"
+    }
+  ]
+}

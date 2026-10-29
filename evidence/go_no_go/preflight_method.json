@@ -1,0 +1,24 @@
+{
+  "scope": "Source-backed description of the private read-only collection, without the machine-specific collector or capture.",
+  "source_commit": "c339f4010dea8b0d754f84ace70cd1b089878ef8",
+  "source_base": "https://github.com/torvalds/linux/blob/c339f4010dea8b0d754f84ace70cd1b089878ef8/drivers/crypto/ccp/",
+  "source_files": [
+    "sp-pci.c",
+    "psp-dev.c",
+    "psp-dev.h",
+    "hsti.c"
+  ],
+  "mapping": {
+    "pci": "1022:15df",
+    "device_data_index": 4,
+    "bar": 2,
+    "psp_version": "pspv3",
+    "feature_offset": "0x109fc",
+    "security_reporting_bit": 7,
+    "fused_part_bit": 8,
+    "boot_integrity_bit": 9
+  },
+  "observed_raw": "0x2",
+  "security_reporting_valid": false,
+  "interpretation": "No valid reporting; both security values are unknown. No driver loading, mailbox command, configuration write, or firmware write was used."
+}

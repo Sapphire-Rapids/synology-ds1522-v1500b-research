@@ -1,0 +1,25 @@
+{
+  "scope": "Deidentified read-only observations on the original R1600 system. Raw device captures and machine-specific image hashes are not published.",
+  "cpu": "AMD Ryzen Embedded R1600",
+  "bios_version": "M.305.00",
+  "security": {
+    "pci_vendor_device": "1022:15df",
+    "pci_device": "0000:0a:00.2",
+    "bar": 2,
+    "register_offset": "0x109fc",
+    "raw": "0x2",
+    "security_reporting_valid": false,
+    "fused_part": null,
+    "boot_integrity": null
+  },
+  "mapped_bios": {
+    "size": 8388608,
+    "early_code_matches_official": true,
+    "bios_directories_match_official": true,
+    "physical_spi_backup_verified": false
+  },
+  "firmware_writes": false,
+  "configuration_writes": false,
+  "driver_loads": false,
+  "mailbox_commands": false
+}

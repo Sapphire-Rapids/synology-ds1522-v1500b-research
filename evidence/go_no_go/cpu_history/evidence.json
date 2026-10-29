@@ -1,0 +1,136 @@
+{
+  "scope": "Bounded static CPU-history check of already extracted DS1522+ firmware modules. No NAS access, UEFI variable read, whole-NVRAM read, credential/key variable inspection, target execution, or patch.",
+  "conclusion": {
+    "historical_platform_recovery_from_current_pbs": "Not supported. AMD_PBS_SETUP stores current configuration flags and the DXE driver normalizes them to the current boot platform before registering its setup interface. A subsequent successful R1600 boot can overwrite the prior classification.",
+    "go_no_go_impact": "This path cannot remove the unknown V1500B platform selection or prove its final boot stage. Reading the current named variable would establish current stored flags only.",
+    "amdsetup_history": "No reliable historical CPUID/core-count/platform-ID record was established in the bounded AmdSetup check. Its name and persistence alone are not historical evidence; no NAS read is recommended for this purpose."
+  },
+  "inputs": [
+    {
+      "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPbsSetupDxe.efi",
+      "sha256": "b6a41ab1904f7bfb80089fa1840bc3395372020fe336ca76415bc81f48588d5e"
+    },
+    {
+      "path": "analysis/modules/DS1522+_7.2.2-72806/CbsSetupDxeRV.efi",
+      "sha256": "de723fbb1d91bc5856fceaa29fbbb7f947a09ddeda832c320d3dfcad9ea9502a"
+    },
+    {
+      "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+      "sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf"
+    }
+  ],
+  "amd_pbs_setup": {
+    "name": "AMD_PBS_SETUP",
+    "vendor_guid": "a339d746-f678-49b3-9fc7-54ce0f9df226",
+    "guid_file_offset": "0x47c0",
+    "utf16_name_file_offset": "0x67e8",
+    "base_payload_bytes": 130,
+    "write_attributes": 7,
+    "write_attributes_meaning": [
+      "NON_VOLATILE",
+      "BOOTSERVICE_ACCESS",
+      "RUNTIME_ACCESS"
+    ],
+    "payload_fields": [
+      {
+        "offset": 0,
+        "width": 2,
+        "encoding": "little-endian uint16",
+        "expression": "(GetEx16(token 0x10000001) >> 2) & 1",
+        "meaning": "One derived flag from token 0x10000001. This is NOT a bit extracted from the actual platform-ID token."
+      },
+      {
+        "offset": 2,
+        "width": 2,
+        "encoding": "little-endian uint16",
+        "expression": "GetEx16(token 0x10000000) > 7",
+        "meaning": "A coarse current-platform group flag. Platform 0 yields 0; platform 8 yields 1. The value does not preserve the full platform ID or uniquely identify a CPU."
+      },
+      {
+        "offset": 33,
+        "width": 1,
+        "meaning": "Configuration layout/version marker; old values below 0x28 trigger migration. It is not a CPU-history counter."
+      }
+    ],
+    "boot_write_chain": [
+      {
+        "location": "AmdPbsSetupDxe entry 0x2d8; call 0x348 -> 0x3c4 -> 0x16a4",
+        "evidence": "pbs_entry_and_tables.asm",
+        "fact": "Initialization is reached from the module entry, before the setup-form interface is registered. It does not require the user to enter the BIOS menu."
+      },
+      {
+        "location": "AmdPbsSetupDxe 0x16a4",
+        "evidence_id": "ev_df6664e4e0d4f7a6cc5f1287e360bf057ba17ce51b4fd25bcb307642437dfa45",
+        "fact": "Read AMD_PBS_SETUP through 0x4188. Compare offsets 0 and 2 against the current PCD-derived expressions. On mismatch, update each field and set the write-required flag."
+      },
+      {
+        "location": "AmdPbsSetupDxe 0x17cd–0x17df",
+        "evidence_id": "ev_df6664e4e0d4f7a6cc5f1287e360bf057ba17ce51b4fd25bcb307642437dfa45",
+        "fact": "When data is missing, an old layout needs migration, or a current classification flag differs, call the persistent writer at 0x402c. A write failure propagates as an error."
+      },
+      {
+        "location": "AmdPbsSetupDxe 0x402c; SetVariable calls 0x4113 and 0x4172",
+        "evidence_id": "ev_aebd6a0e11e40271a3b2933ae80fe7e4efe20d00e06382de77b2cc3a1805df1a",
+        "fact": "For an existing variable, read its current size/data, replace the first 0x82 bytes with the supplied configuration, and SetVariable with attributes 7. If creating it, write a new 0x82-byte variable. This replaces current data; it does not append history."
+      }
+    ],
+    "pcd_identity_correction": {
+      "source": "analysis/pcie_followup/cpm_selection_pseudocode.json",
+      "evidence_id": "ev_9a44442685345ccf6f3f5799a52b3e592065d6f24b6dc1ff0b87c2574f5ce037",
+      "procedure": "AmdCpmInitPeim 0x9b478b7",
+      "fact": "The inspected selection routine sets token 0x10000001 to 0, then writes the selected platform ID to token 0x10000000 and CPM main-table offset 0x31. Do not describe both PBS fields as platform-ID bits."
+    },
+    "pei_consumer": {
+      "source": "analysis/pcie_followup/oem_pei_pseudocode.json",
+      "evidence_id": "ev_355c9f5ade2335f9afd17f702be0a4c635bf5bfe474e6d6d6c2c06e6c043a0a0",
+      "procedure": "AmdCpmOemInitPeim 0x9b420b7",
+      "fact": "The earlier PEI routine reads these stored flags and checks them against the current tokens. Its local-buffer normalization is distinct from the later DXE persistent write proved above."
+    },
+    "read_only_target_if_current_state_is_needed": {
+      "api": "UEFI GetVariable with this exact name and vendor GUID",
+      "efivarfs_filename": "AMD_PBS_SETUP-a339d746-f678-49b3-9fc7-54ce0f9df226",
+      "minimal_interpretation": "Report the attributes and the first two uint16 fields. efivarfs prefixes variable data with a four-byte attribute header; API data does not include that header.",
+      "availability": "Requires working UEFI runtime-variable access in the current OS boot. No live availability or value was read in this task.",
+      "historical_limit": "Even a value of 0 or 1 at payload offset 2 describes current stored platform grouping after any successful normalization/write, not the CPU installed when the old failed boot occurred."
+    }
+  },
+  "amdsetup": {
+    "name": "AmdSetup",
+    "vendor_guid": "3a997502-647a-4c82-998e-52ef9486a247",
+    "guid_file_offset": "0x87e0",
+    "utf16_runtime_name_file_offset": "0x8a20",
+    "expected_payload_bytes_in_module": 1343,
+    "bounded_observations": [
+      {
+        "procedure": "CbsSetupDxeRV 0xad4",
+        "evidence_id": "ev_85a71c3196692b72a9498c645e417563ea5ed9f5830a61cedb538d35647e489e",
+        "fact": "Allocates a current setup buffer, calls the configuration loader at 0x958, and installs setup/configuration interfaces."
+      },
+      {
+        "procedure": "CbsSetupDxeRV 0x958",
+        "evidence_id": "ev_a80347e6fd71307436a98648e6f945923d9a257f7fa8acba9610635ee7b0daef",
+        "fact": "Reads AmdSetup, manages a fixed-sized current configuration and defaults, and may write the current buffer using SetVariable attributes 7. No historical event sequence was established."
+      }
+    ],
+    "limit": "CPU identity and history semantics for every individual AmdSetup field were not established. Do not infer a historical V1500B boot from this variable or from a surviving setting. No broad variable enumeration or NVRAM recovery was performed."
+  },
+  "evidence_storage": {
+    "canonical_rea_records": "rea_evidence.jsonl.gz",
+    "canonical_record_count": 4,
+    "uncompressed_records_sha256": "0fc783cff4cc334a84c0a341831e3c90fd8bbfc32b99bdab2b8267dbf400cf27",
+    "entry_assembly": "pbs_entry_and_tables.asm",
+    "tools": [
+      "REA 6.4.0 independent CLI",
+      "Ghidra 12.1.2",
+      "LLVM objdump",
+      "Python exact-byte GUID decoding"
+    ]
+  },
+  "limits": [
+    "Static analysis establishes the writer and overwrite condition; it does not prove which fields were written during the historical failed V1500B run.",
+    "The overwrite conclusion assumes the subsequent R1600 boot reached this DXE driver and its SetVariable operation succeeded.",
+    "A zero result would not uniquely identify V1500B; other platform IDs below 8 yield the same flag.",
+    "No timestamps, previous-value archive, or CPUID/core-count historical log was established by this bounded investigation.",
+    "Deleted or stale flash-variable records were not searched and are outside this task."
+  ]
+}

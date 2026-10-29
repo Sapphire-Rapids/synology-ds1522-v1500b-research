@@ -1,0 +1,19 @@
+{
+  "scope": "Independent integration check of the two decision-relevant CPU gate code ranges reported by the CPU comparison worker.",
+  "checks": [
+    {
+      "region": "family_package_matcher",
+      "file_offset": "0x56f",
+      "size": 104,
+      "sha256": "67afc5d2828a78d574665fefc614c8b35a00009b5f4755249d88a98bfe48d115",
+      "identical": true
+    },
+    {
+      "region": "family_candidate_setup",
+      "file_offset": "0x28f",
+      "size": 93,
+      "sha256": "3031ece60790e57df25094030a594d64064986c2d528ffb0df810b730ce9af58",
+      "identical": true
+    }
+  ]
+}

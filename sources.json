@@ -1,0 +1,52 @@
+{
+  "firmware": [
+    {
+      "label": "DS1522+_7.2.2-72806",
+      "official_package_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1522%2B_72806.pat",
+      "package_sha256": "428a896511849bc0971b9d3e4fcdcbb29c48dae65ae46e7c757a9f585412e2dd",
+      "bios_container": {
+        "size": 9158376,
+        "sha256": "09289812c93bfc184425b8db7853a56d92abd60256904aeeaa4f6249f4552b68",
+        "crc32": 617722080
+      },
+      "payload": {
+        "container_sha256": "09289812c93bfc184425b8db7853a56d92abd60256904aeeaa4f6249f4552b68",
+        "payload_offset": 723152,
+        "payload_size": 8388608,
+        "payload_sha256": "ac8eb91600c714bd17c7fa5bcac1e94463c8f633e7c26bd948a3b6f772415e65",
+        "reset_vector_hex": "ffffffffffffffffffffffffffffffff"
+      },
+      "early_bios_sha256": "72d2ae15438d8f0b52a99bd68489bac0f37210c83657eea3e9b8a98324535432"
+    },
+    {
+      "label": "DS1525+_7.2.2-72806-U4",
+      "official_package_url": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806-4/DSM_DS1525%2B_72806.pat",
+      "package_sha256": "13c17c0df78465994bc0d1b4efb81909e933807aaf674f78446b840762dea14e",
+      "bios_container": {
+        "size": 9330760,
+        "sha256": "30b7a29ea6404803b5ca0da2ab0d0d7cecf4078d8fdeda53f99650597eec33c4",
+        "crc32": 839628114
+      },
+      "payload": {
+        "container_sha256": "30b7a29ea6404803b5ca0da2ab0d0d7cecf4078d8fdeda53f99650597eec33c4",
+        "payload_offset": 893296,
+        "payload_size": 8388608,
+        "payload_sha256": "092c7d6aecc38135e781288010c5d747ce236bd1cbbf950042efd33649338a69",
+        "reset_vector_hex": "ffffffffffffffffffffffffffffffff"
+      },
+      "early_bios_sha256": "3e599b302f25eebe75bd8edff4bfc4781c3c59a10c1ea2698044e828b6647784"
+    }
+  ],
+  "additional_comparison_source": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1621%2B_72806.pat",
+  "incident_update_source": "https://global.synologydownload.com/download/DSM/criticalupdate/update_pack/72806-4/synology_r1000_1522%2B.pat",
+  "tools": {
+    "pat_extraction": "https://github.com/sud0woodo/patology",
+    "uefi_extraction": "https://github.com/LongSoft/UEFITool",
+    "amd_firmware_metadata": "https://github.com/PSPReverse/PSPTool",
+    "reverse_engineering": "https://github.com/morluto/rea",
+    "decompiler": "https://github.com/NationalSecurityAgency/ghidra",
+    "emulation": "https://github.com/unicorn-engine/unicorn"
+  },
+  "reproduction": "The portable scripts require only the exact DS1522 bios.ROM and Python with unicorn2.1.4. Other tools explain how the broader evidence was obtained.",
+  "distribution": "Vendor firmware, vendor executables, full device captures, and machine-specific candidate images are not included."
+}

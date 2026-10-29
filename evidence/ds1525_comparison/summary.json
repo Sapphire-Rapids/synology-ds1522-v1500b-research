@@ -1,0 +1,54 @@
+{
+  "question": "Does the official DS1525+ V1500B firmware provide a useful control for adapting DS1522+ to V1500B before another costly CPU replacement?",
+  "answer": "Yes. The comparison corroborates specific existing CPU support and board-policy mechanisms, but it does not establish a transplantable image or a verified V1500B boot on DS1522+.",
+  "current_judgment": "No specific missing V1500B basic-initialization prerequisite was identified. Board topology remains the strongest concrete working hypothesis; it is not proven to be the sole cause.",
+  "observed_shared_behavior": [
+    "The actual family/package matcher and candidate-selection block in AmdSocFp5RvPei are byte-identical.",
+    "All eight PMU memory-training code/data entry extents are byte-identical; three of four CPU microcode entries are identical.",
+    "Both BIOSes have executable V1500B power-policy branches and a16W path.",
+    "After normalizing PE HIGHLOW image relocations, the selected CPM Init/GPIO Init/PCIe Init PEIM text sections are byte-identical.",
+    "The relevant device-reset table and its lookup behavior are the same; no extra mandatory reset mapping for the candidate was demonstrated."
+  ],
+  "meaningful_differences": [
+    "PSP, SMU, ABL and other code/configuration are not all identical; newer labels alone do not prove that DS1522 lacks a required CPU feature.",
+    "DS1522 has four1GbE onboard ports and eSATA expansion; DS1525 has two2.5GbE ports and USB Type-C expansion.",
+    "DS1525 uses six active platform0 PCIe roots with different logical lanes/BDF assignments; the DS1522 candidate uses the five DS1522 roots and clock rows.",
+    "The DS1522 candidate separates logical lanes0 and1 into x1 PCIe links, while DS1525 combines them as x2. Actual V1500B training of the candidate combination remains unobserved."
+  ],
+  "candidate_decision": "The comparison alone does not demonstrate a mandatory change to the existing130-byte topology/clock candidate. Retain DS1522 board-specific wiring, clocks, reset policy and current mutable configuration.",
+  "completed_candidate_work": {
+    "module_changed_bytes": 130,
+    "synthetic_selector_cases_passed": 8,
+    "constructed_cpuid_inputs": [
+      "0x00810f10",
+      "0x00810f81"
+    ],
+    "replacement_cpuid_measured": false,
+    "smu_high_bits": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "live_mapped_image_candidate_size": 8388608,
+    "outside_target_region_preserved": true,
+    "qualified_for_spi_programming": false,
+    "firmware_written": false
+  },
+  "readiness": "HOLD_CPU_REWORK: candidate deployment/restore, boot on the installed R1600, physical serial capture, and exact V1500B lane-allocation validation remain outstanding.",
+  "evidence": {
+    "cpu": "cpu/evidence.json",
+    "board": "board/evidence.json",
+    "hardware_specs": "hardware_specs.json",
+    "selected_integration_check": "selected_verification.json",
+    "pre_rework_decision": "../go_no_go/decision.json",
+    "lane_split": "board/lane_split_support.json",
+    "actual_mapper_limits": "../boot_enablement/port_mapping_check.json"
+  },
+  "lane_split_followup": {
+    "result": "UNKNOWN",
+    "explicit_prohibition_found": false,
+    "same_generation_corroboration": "Official Advantech V1000 board diagram shows separate GPP x1 paths, but it does not publish the exact Raven logical-to-physical mapping or list V1500B.",
+    "remaining": "Validate the exact logical0/1 split, full candidate lane set, and resulting root-port assignment under V1500B SMU behavior. The mapper accepting unique requested BDF values is insufficient."
+  }
+}

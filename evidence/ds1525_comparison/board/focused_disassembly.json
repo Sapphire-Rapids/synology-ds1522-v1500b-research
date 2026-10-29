@@ -1,0 +1,190 @@
+{
+  "method": "Capstone static disassembly of exact PE byte ranges; section RVA equals file offset for these extracted modules. No target execution.",
+  "items": [
+    {
+      "label": "CPM8-bit AND/OR helper",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitPeim_D919136E_early.efi",
+      "module_sha256": "46701360c3fd09965346c8f5b897e6ae12b9717ca55d6c0f533fc6e8a0c434bd",
+      "image_base": "0x9b47120",
+      "file_offset": "0xf3f",
+      "start_address": "0x9b4805f",
+      "end_address_exclusive": "0x9b48070",
+      "raw_hex": "8b4c24048a01224424080a44240c8801c3",
+      "instructions": [
+        {
+          "address": "0x9b4805f",
+          "bytes": "8b4c2404",
+          "instruction": "mov ecx, dword ptr [esp + 4]"
+        },
+        {
+          "address": "0x9b48063",
+          "bytes": "8a01",
+          "instruction": "mov al, byte ptr [ecx]"
+        },
+        {
+          "address": "0x9b48065",
+          "bytes": "22442408",
+          "instruction": "and al, byte ptr [esp + 8]"
+        },
+        {
+          "address": "0x9b48069",
+          "bytes": "0a44240c",
+          "instruction": "or al, byte ptr [esp + 0xc]"
+        },
+        {
+          "address": "0x9b4806d",
+          "bytes": "8801",
+          "instruction": "mov byte ptr [ecx], al"
+        },
+        {
+          "address": "0x9b4806f",
+          "bytes": "c3",
+          "instruction": "ret "
+        }
+      ]
+    },
+    {
+      "label": "CPM+0x68 helper registration",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitPeim_D919136E_early.efi",
+      "module_sha256": "46701360c3fd09965346c8f5b897e6ae12b9717ca55d6c0f533fc6e8a0c434bd",
+      "image_base": "0x9b47120",
+      "file_offset": "0x21a7",
+      "start_address": "0x9b492c7",
+      "end_address_exclusive": "0x9b492dc",
+      "raw_hex": "c74060b380b409c74064de80b409c740685f80b409",
+      "instructions": [
+        {
+          "address": "0x9b492c7",
+          "bytes": "c74060b380b409",
+          "instruction": "mov dword ptr [eax + 0x60], 0x9b480b3"
+        },
+        {
+          "address": "0x9b492ce",
+          "bytes": "c74064de80b409",
+          "instruction": "mov dword ptr [eax + 0x64], 0x9b480de"
+        },
+        {
+          "address": "0x9b492d5",
+          "bytes": "c740685f80b409",
+          "instruction": "mov dword ptr [eax + 0x68], 0x9b4805f"
+        }
+      ]
+    },
+    {
+      "label": "Class11/12 ACPI MMIO base selection",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitPeim_D919136E_early.efi",
+      "module_sha256": "46701360c3fd09965346c8f5b897e6ae12b9717ca55d6c0f533fc6e8a0c434bd",
+      "image_base": "0x9b47120",
+      "file_offset": "0x38bb",
+      "start_address": "0x9b4a9db",
+      "end_address_exclusive": "0x9b4a9f5",
+      "raw_hex": "ff96b000000083c424eb0f83c0f583f8017707c743370000d8fe",
+      "instructions": [
+        {
+          "address": "0x9b4a9db",
+          "bytes": "ff96b0000000",
+          "instruction": "call dword ptr [esi + 0xb0]"
+        },
+        {
+          "address": "0x9b4a9e1",
+          "bytes": "83c424",
+          "instruction": "add esp, 0x24"
+        },
+        {
+          "address": "0x9b4a9e4",
+          "bytes": "eb0f",
+          "instruction": "jmp 0x9b4a9f5"
+        },
+        {
+          "address": "0x9b4a9e6",
+          "bytes": "83c0f5",
+          "instruction": "add eax, -0xb"
+        },
+        {
+          "address": "0x9b4a9e9",
+          "bytes": "83f801",
+          "instruction": "cmp eax, 1"
+        },
+        {
+          "address": "0x9b4a9ec",
+          "bytes": "7707",
+          "instruction": "ja 0x9b4a9f5"
+        },
+        {
+          "address": "0x9b4a9ee",
+          "bytes": "c743370000d8fe",
+          "instruction": "mov dword ptr [ebx + 0x37], 0xfed80000"
+        }
+      ]
+    },
+    {
+      "label": "PCIe reset callback wrapper",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+      "module_sha256": "b901b6a298c66f3759c372e69d02f696dee739ddd21ea7eca52686f75b4aef2a",
+      "image_base": "0x9b4d3a0",
+      "file_offset": "0x2dc",
+      "start_address": "0x9b4d67c",
+      "end_address_exclusive": "0x9b4d693",
+      "raw_hex": "ff74240c8b442408ff74240c50ff90c801000083c40cc3",
+      "instructions": [
+        {
+          "address": "0x9b4d67c",
+          "bytes": "ff74240c",
+          "instruction": "push dword ptr [esp + 0xc]"
+        },
+        {
+          "address": "0x9b4d680",
+          "bytes": "8b442408",
+          "instruction": "mov eax, dword ptr [esp + 8]"
+        },
+        {
+          "address": "0x9b4d684",
+          "bytes": "ff74240c",
+          "instruction": "push dword ptr [esp + 0xc]"
+        },
+        {
+          "address": "0x9b4d688",
+          "bytes": "50",
+          "instruction": "push eax"
+        },
+        {
+          "address": "0x9b4d689",
+          "bytes": "ff90c8010000",
+          "instruction": "call dword ptr [eax + 0x1c8]"
+        },
+        {
+          "address": "0x9b4d68f",
+          "bytes": "83c40c",
+          "instruction": "add esp, 0xc"
+        },
+        {
+          "address": "0x9b4d692",
+          "bytes": "c3",
+          "instruction": "ret "
+        }
+      ]
+    },
+    {
+      "label": "CPM+0x1c8 reset helper registration",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmGpioInitPeim_DE3E049C_early.efi",
+      "module_sha256": "1656b39435d18bc29d2741c202bd7334debb9fa9f5c912dcebcd7c7b2340d5b0",
+      "image_base": "0x9b4b820",
+      "file_offset": "0xf73",
+      "start_address": "0x9b4c793",
+      "end_address_exclusive": "0x9b4c7a0",
+      "raw_hex": "8b45f8c780c801000050c1b409",
+      "instructions": [
+        {
+          "address": "0x9b4c793",
+          "bytes": "8b45f8",
+          "instruction": "mov eax, dword ptr [ebp - 8]"
+        },
+        {
+          "address": "0x9b4c796",
+          "bytes": "c780c801000050c1b409",
+          "instruction": "mov dword ptr [eax + 0x1c8], 0x9b4c150"
+        }
+      ]
+    }
+  ]
+}

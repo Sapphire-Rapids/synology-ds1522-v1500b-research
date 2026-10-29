@@ -1,0 +1,83 @@
+{
+  "objective": "Determine why DS1522+ failed to complete boot after R1600 to V1500B replacement, and establish the preparation needed before another rework.",
+  "decision": "HOLD_CPU_REWORK",
+  "impossibility_proven": false,
+  "preparation_complete": false,
+  "reason": "The topology candidate has offline evidence, but there is no tested deployment/boot path and no observed V1500B execution. Additional CPU replacement expense is not yet justified.",
+  "completed": [
+    {
+      "item": "Current early BIOS identity",
+      "result": "Exact match to the analyzed official DS1522+ early code",
+      "evidence": "../boot_enablement/live_code_verification.json"
+    },
+    {
+      "item": "Minimal board-table candidate",
+      "result": "130 module data bytes changed; eight synthetic cases across Model11h/Model18h inputs and four SMU high-bit values passed; platform8 table results preserved.",
+      "evidence": "../boot_enablement/candidate_emulation.json"
+    },
+    {
+      "item": "Compressed region construction",
+      "result": "Fits within original extent; decompression, FFS/FV structure checks passed",
+      "evidence": "../boot_enablement/region_rebuild_verification.json"
+    },
+    {
+      "item": "Mapped live image",
+      "result": "8 MiB aperture captured; both BIOS directories and compressed early code match official image; live configuration data retained separately",
+      "evidence": "live_image_comparison.json"
+    },
+    {
+      "item": "Supported read-only security status attempt",
+      "result": "Actual register value0x2 has no valid security-reporting bit; no authenticated-boot decision can be inferred",
+      "evidence": "live_preflight.json"
+    },
+    {
+      "item": "Historical CPU-variable check",
+      "result": "Subsequent normal boots overwrite current-platform fields; cannot recover failed V1500B selection from current variable",
+      "evidence": "cpu_history/evidence.json"
+    },
+    {
+      "item": "Diskless networking mechanism",
+      "result": "Recovery networking is independent of finding an installed disk system; the studied recovery image lacks Atlantic, so expansion-port behavior alone cannot locate the failure",
+      "evidence": "../network_followup/evidence.json"
+    },
+    {
+      "item": "Complete mapped-image candidate",
+      "result": "Built 8 MiB candidate from the live capture; preserved all current configuration and all bytes outside the compressed target region. Physical SPI image qualification remains open.",
+      "evidence": "live_candidate_verification.json"
+    },
+    {
+      "item": "DS1525 official V1500B comparison",
+      "result": "No exact missing basic CPU-init prerequisite or mandatory extra reset/clock change was identified. The precise logical0/1 dual-x1 candidate combination remains unverified; no explicit prohibition was found.",
+      "evidence": "../ds1525_comparison/summary.json"
+    }
+  ],
+  "blocking_gaps_before_recommending_rework": [
+    {
+      "item": "Deployment and original recovery image",
+      "needed": "Establish actual SPI chip/layout and readable backup, preserve current board-specific fields, and establish a working image-write/restore method. Current mapped read is not verified as a complete physical SPI backup."
+    },
+    {
+      "item": "Acceptance of modified firmware",
+      "needed": "Observe a controlled R1600 boot of the finalized minimal candidate, or obtain equivalent platform-specific proof of the authenticated boot path. Vendor update signatures are already known to become invalid after editing."
+    },
+    {
+      "item": "Complete board adaptation",
+      "needed": "Donor comparison completed without a demonstrated additional mandatory patch. Still validate the exact candidate lane allocation/root-port behavior under full-I/O V1500B; public sources and selector emulation do not close that silicon-specific gap."
+    },
+    {
+      "item": "Useful failure observation",
+      "needed": "Before CPU rework, verify physical serial capture on the working R1600 and have a recoverable diagnostic boot path with known PCI/NIC/SATA output. Current serial settings alone do not test the external capture chain."
+    }
+  ],
+  "residual_uncertainty_after_r1600_preparation": "An R1600 boot cannot prove replacement V1500B silicon/fuse state, its exact logical0/1 dual-x1 and full-lane-set training, or solder/electrical behavior. If primary silicon evidence cannot close the lane question first, any eventual rework remains an explicitly experimental test, not a verified upgrade.",
+  "first_v1500b_acceptance_milestone": "A diskless V1500B boot reaches a working recovery environment and obtains an IP via an onboard DS1522+ port; verify actual PCI endpoints and then normal DSM boot.",
+  "hard_stop_evidence_if_observed": [
+    "A documented, applicable electrical/package incompatibility that cannot be corrected by board configuration.",
+    "Boot authentication demonstrably rejects the required modified code and no compatible signed or otherwise supported deployment route exists.",
+    "A repeatable V1500B boot trace identifies a stage that the prepared configuration cannot pass."
+  ],
+  "limits_on_hard_stop_interpretation": "None of these hard-stop conditions has been established. Missing logs, absent security sysfs files, a raw capability register without its valid bit, and static code differences are not proof of impossibility.",
+  "nas_firmware_or_boot_configuration_changed": false,
+  "nas_temporary_preflight_files_removed": true,
+  "donor_comparison": "../ds1525_comparison/"
+}

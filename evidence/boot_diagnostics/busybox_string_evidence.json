@@ -1,0 +1,25 @@
+{
+  "input_sha256": "0e971a47eed862acd97e20b096c1c53a78e88ccbdb8f1d45a344552d298d8100",
+  "strings": [
+    {
+      "file_offset_hex": "0x59c52",
+      "text": "/bin/ash /linuxrc.syno > /dev/console 2>&1"
+    },
+    {
+      "file_offset_hex": "0x59cc4",
+      "text": "linuxrc.syno failed on %d"
+    },
+    {
+      "file_offset_hex": "0x59dac",
+      "text": "::sysinit:/etc/rc"
+    },
+    {
+      "file_offset_hex": "0x59dbe",
+      "text": "::respawn:/sbin/getty 115200 console"
+    },
+    {
+      "file_offset_hex": "0x59cb4",
+      "text": "/sbin/init.post"
+    }
+  ]
+}

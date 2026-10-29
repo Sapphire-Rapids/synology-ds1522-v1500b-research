@@ -1,0 +1,16 @@
+{
+  "scope": "Local run of the public scripts from the official bios.ROM, without the private NAS capture.",
+  "python_version": "3.14.0",
+  "unicorn_version": "2.1.4",
+  "commands": [
+    "python3 scripts/prepare_inputs.py /path/to/extracted/bios.ROM",
+    "python3 scripts/validate_candidate.py"
+  ],
+  "prepared_input_files": 4,
+  "selector_cases_passed": 8,
+  "module_changed_bytes": 130,
+  "candidate_module_sha256": "19536f87b29917839457311c0acdba61aee96c0bb90054b6a530fb15f97e4e28",
+  "region_rebuild_verified": true,
+  "hardware_accessed": false,
+  "firmware_written": false
+}

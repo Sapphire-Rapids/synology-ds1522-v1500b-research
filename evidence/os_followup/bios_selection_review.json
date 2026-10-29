@@ -1,0 +1,822 @@
+{
+  "scope": "Independent bounded read-only review of table selection and default DXIO records. Does not determine the live SMU classification of either CPU, does not claim observed V1500B boot behavior.",
+  "inputs": [
+    {
+      "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+      "sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf"
+    },
+    {
+      "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemInitPeim_D617467B_early.efi",
+      "sha256": "7e41e27054cc5fdd3f7ee484c1a133d32bd34328cfda6d48c2a53e03ccb354a8"
+    },
+    {
+      "path": "analysis/pcie_followup/cpm_selection_pseudocode.json",
+      "sha256": "b39ee49e43cecc12cc5663a1ef63dd944a198f74c707c954ad2b6fdc9ff2cacd"
+    },
+    {
+      "path": "analysis/pcie_followup/cpm_init_pei_disassembly.txt",
+      "sha256": "997854eab71ef96c68b7c37f48d4711d681d688bf02dc75207a79e70ce3ae7d9"
+    },
+    {
+      "path": "analysis/pcie_followup/pcie_dispatch_pseudocode.json",
+      "sha256": "e6aa704a137d4b27e782a5563314f9e954b0be44b2df8221d50cc65cfbd12ef0"
+    },
+    {
+      "path": "analysis/pcie_followup/pcie_init_pei_disassembly.txt",
+      "sha256": "7f73b4136e52e3bc399b0532356edc4fe0fce95348be796782dbdf868e14106b"
+    },
+    {
+      "path": "analysis/pcie_followup/oem_pei_pseudocode.json",
+      "sha256": "390bb8b280b0fc70e9712520f9127d24ab3ece170697d1f5f8bc9dce46d67c9d"
+    },
+    {
+      "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitPeim_D919136E_early.efi",
+      "sha256": "46701360c3fd09965346c8f5b897e6ae12b9717ca55d6c0f533fc6e8a0c434bd"
+    },
+    {
+      "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+      "sha256": "b901b6a298c66f3759c372e69d02f696dee739ddd21ea7eca52686f75b4aef2a"
+    }
+  ],
+  "checks": [
+    {
+      "claim": "The two DS1522+ A26 tables are registered and have the specified masks.",
+      "result": "confirmed",
+      "evidence": "OEM raw offsets 0x23a8 and 0x3d30, pointers in table list at 0x5cac and 0x5cb0 respectively. Masks at header+8 are 0x000000ff and 0x3f001f00."
+    },
+    {
+      "claim": "Platform index selects tables via the mask at header+8.",
+      "result": "confirmed",
+      "evidence": "AmdCpmInitPeim 0x09b47be7 reads byte main_table+0x31; 0x09b47bf2 shifts integer 1 by that index; 0x09b47c13 reads candidate_header+8; 0x09b47c16-1c accepts zero mask or nonzero intersection."
+    },
+    {
+      "claim": "The class-to-platform mapping produces platform 0 or 8 for classification 0x0b or 0x0c with condition word zero.",
+      "result": "confirmed conditional",
+      "evidence": "A01 raw table at 0x14c8 has records at 0x14d8 (class11, condition0, platform0) and 0x14fb (class12, condition0, platform8). InitPeim 0x09b4791c uses 7-byte records, tests class at table+0x10+7*i and zero word at +0x13, loads platform at +0x15, stores main_table+0x31. Unmatched class defaults to 0. Specific CPU->class is outside this review."
+    },
+    {
+      "claim": "DXIO record start, stride, type, present and device/function bit offsets are as proposed.",
+      "result": "confirmed",
+      "evidence": "PcieInitPeim 0x09b4df05 passes table+0x14 as port descriptors. 0x09b4da7b multiplies index by 0x194; 0x09b4da84 tests table+i*stride+0x18 ==1; 0x09b4da8e tests +0x20 bit0; 0x09b4daa1 masks +0x21 with 0x1f and 0x09b4daa9 shifts same byte right5. These are record+4, record+12 and record+13. Record+6 is also used in lane-range comparisons; paired raw bytes+6/+7 were retained as lane_bytes. No independent public structure definition for the +7 field was located in this bounded check."
+    },
+    {
+      "claim": "Platform0 DS1522 table lacks active PCIe01.4 and01.5 and has type16 on lane bytes0/0 and1/1.",
+      "result": "confirmed raw/default records",
+      "evidence": "Active PCIe predicate requires type1 AND present1. The two01.5-looking descriptors are type0 and must not be counted as active. Type16 entries start at file0x2d34 and0x2ec8."
+    },
+    {
+      "claim": "Platform8 DS1522 table includes the actual R1600 network/JMB root functions.",
+      "result": "confirmed default records, hardware correspondence inferred",
+      "evidence": "ActivePCIe01.4 at file0x4200 has lane bytes1/1; activePCIe01.5 at0x4394 has lane bytes0/0. Existing R1600 topology identifies NIC switch under01.4 andJMB585 under01.5."
+    },
+    {
+      "claim": "DS1525 provides a useful reciprocal comparison.",
+      "result": "confirmed raw/default records",
+      "evidence": "Its platform0 table has activePCIe01.1..01.6 including lane0..1 at01.6, matching its model.dtb SATA root. Its platform8 table resembles the non-customized alternative, with type16 lane0/1 and no active01.4/.5."
+    }
+  ],
+  "tables": {
+    "DS1522+_7.2.2-72806": [
+      {
+        "table_file_offset": "0x23a8",
+        "size": "0x1984",
+        "mask": "0xff",
+        "accepted_platform_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "active_pcie_devfn": [
+          "01.1",
+          "01.2"
+        ],
+        "records": [
+          {
+            "index": 0,
+            "file_offset": "0x23bc",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              15,
+              8
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 1,
+            "first32_hex": "0000000001000f08040000000121004e00000080000000000000000000000000"
+          },
+          {
+            "index": 1,
+            "file_offset": "0x2550",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              4,
+              7
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 2,
+            "first32_hex": "0000000001000407130000000141005e00000080000000000000000000000000"
+          },
+          {
+            "index": 2,
+            "file_offset": "0x26e4",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              2,
+              3
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 5,
+            "first32_hex": "00000000000002031b00000001a1003200000080000000000000000000000000"
+          },
+          {
+            "index": 3,
+            "file_offset": "0x2878",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              3
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 5,
+            "first32_hex": "00000000000000031b00000001a1003200000080000000000000000000000000"
+          },
+          {
+            "index": 4,
+            "file_offset": "0x2a0c",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              3,
+              3
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003000303010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 5,
+            "file_offset": "0x2ba0",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              2,
+              2
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003000202010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 6,
+            "file_offset": "0x2d34",
+            "flags": "0x0",
+            "engine_type": 16,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000010000000010000000100000000000000000000000000000000088016"
+          },
+          {
+            "index": 7,
+            "file_offset": "0x2ec8",
+            "flags": "0x80000000",
+            "engine_type": 16,
+            "lane_bytes": [
+              1,
+              1
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000008010000101010000000100000000000000000000000000000001088016"
+          }
+        ]
+      },
+      {
+        "table_file_offset": "0x3d30",
+        "size": "0x1984",
+        "mask": "0x3f001f00",
+        "accepted_platform_indices": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "active_pcie_devfn": [
+          "01.1",
+          "01.2",
+          "01.3",
+          "01.4",
+          "01.5"
+        ],
+        "records": [
+          {
+            "index": 0,
+            "file_offset": "0x3d44",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              8,
+              11
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 1,
+            "first32_hex": "000000000100080b23000000012100f000000080000000000000000000000000"
+          },
+          {
+            "index": 1,
+            "file_offset": "0x3ed8",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              4,
+              4
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 2,
+            "first32_hex": "000000000100040425000000014100f000000080000000000000000000000000"
+          },
+          {
+            "index": 2,
+            "file_offset": "0x406c",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              5,
+              5
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 3,
+            "first32_hex": "000000000100050526000000016100f000000080000000000000000000000000"
+          },
+          {
+            "index": 3,
+            "file_offset": "0x4200",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              1,
+              1
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 4,
+            "first32_hex": "000000000100010127000000018100f000000080000000000000000000000000"
+          },
+          {
+            "index": 4,
+            "file_offset": "0x4394",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 5,
+            "first32_hex": "00000000010000002800000001a100f000000080000000000000000000000000"
+          },
+          {
+            "index": 5,
+            "file_offset": "0x4528",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              3,
+              3
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003010303010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 6,
+            "file_offset": "0x46bc",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              2,
+              2
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003010202010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 7,
+            "file_offset": "0x4850",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 8,
+            "file_offset": "0x49e4",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 9,
+            "file_offset": "0x4b78",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 10,
+            "file_offset": "0x4d0c",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 11,
+            "file_offset": "0x4ea0",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 12,
+            "file_offset": "0x5034",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 13,
+            "file_offset": "0x51c8",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 14,
+            "file_offset": "0x535c",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          {
+            "index": 15,
+            "file_offset": "0x54f0",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 0,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      }
+    ],
+    "DS1525+_7.2.2-72806-U4": [
+      {
+        "table_file_offset": "0x2428",
+        "size": "0x1984",
+        "mask": "0xff",
+        "accepted_platform_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "active_pcie_devfn": [
+          "01.1",
+          "01.2",
+          "01.3",
+          "01.4",
+          "01.5",
+          "01.6"
+        ],
+        "records": [
+          {
+            "index": 0,
+            "file_offset": "0x243c",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              12,
+              15
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 1,
+            "first32_hex": "0000000001000c0f23000000012100f000000080000000000000000000000000"
+          },
+          {
+            "index": 1,
+            "file_offset": "0x25d0",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              8,
+              11
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 2,
+            "first32_hex": "000000000100080b24000000014100f000000080000000000000000000000000"
+          },
+          {
+            "index": 2,
+            "file_offset": "0x2764",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              4,
+              4
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 3,
+            "first32_hex": "000000000100040429000000016100f000000080000000000000000000000000"
+          },
+          {
+            "index": 3,
+            "file_offset": "0x28f8",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              5,
+              5
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 4,
+            "first32_hex": "00000000010005052a000000018100f000000080000000000000000000000000"
+          },
+          {
+            "index": 4,
+            "file_offset": "0x2a8c",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              6,
+              7
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 5,
+            "first32_hex": "00000000010006072500000001a100f000000080000000000000000000000000"
+          },
+          {
+            "index": 5,
+            "file_offset": "0x2c20",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              0,
+              1
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 6,
+            "first32_hex": "00000000010000012600000001c100f000000080000000000000000000000000"
+          },
+          {
+            "index": 6,
+            "file_offset": "0x2db4",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              3,
+              3
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003010303010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 7,
+            "file_offset": "0x2f48",
+            "flags": "0x80000000",
+            "engine_type": 3,
+            "lane_bytes": [
+              2,
+              2
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000008003010202010000000100000000000020000000000000000000000000"
+          }
+        ]
+      },
+      {
+        "table_file_offset": "0x3db0",
+        "size": "0x1984",
+        "mask": "0x3f001f00",
+        "accepted_platform_indices": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "active_pcie_devfn": [
+          "01.1",
+          "01.2"
+        ],
+        "records": [
+          {
+            "index": 0,
+            "file_offset": "0x3dc4",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              11,
+              8
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 1,
+            "first32_hex": "0000000001000b08040000000121004e00000080000000000000000000000000"
+          },
+          {
+            "index": 1,
+            "file_offset": "0x3f58",
+            "flags": "0x0",
+            "engine_type": 1,
+            "lane_bytes": [
+              4,
+              5
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 2,
+            "first32_hex": "0000000001000405130000000141005e00000080000000000000000000000000"
+          },
+          {
+            "index": 2,
+            "file_offset": "0x40ec",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              0,
+              1
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 5,
+            "first32_hex": "00000000000000011b00000001a1003200000080000000000000000000000000"
+          },
+          {
+            "index": 3,
+            "file_offset": "0x4280",
+            "flags": "0x0",
+            "engine_type": 0,
+            "lane_bytes": [
+              2,
+              3
+            ],
+            "port_present": 1,
+            "device": 1,
+            "function": 5,
+            "first32_hex": "00000000000002031b00000001a1003200000080000000000000000000000000"
+          },
+          {
+            "index": 4,
+            "file_offset": "0x4414",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              3,
+              3
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003000303010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 5,
+            "file_offset": "0x45a8",
+            "flags": "0x0",
+            "engine_type": 3,
+            "lane_bytes": [
+              2,
+              2
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000003000202010000000100000000000020000000000000000000000000"
+          },
+          {
+            "index": 6,
+            "file_offset": "0x473c",
+            "flags": "0x0",
+            "engine_type": 16,
+            "lane_bytes": [
+              0,
+              0
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000000010000000010000000100000000000000000000000000000000084013"
+          },
+          {
+            "index": 7,
+            "file_offset": "0x48d0",
+            "flags": "0x80000000",
+            "engine_type": 16,
+            "lane_bytes": [
+              1,
+              1
+            ],
+            "port_present": 1,
+            "device": 0,
+            "function": 0,
+            "first32_hex": "0000008010000101010000000100000000000000000000000000000001084013"
+          }
+        ]
+      }
+    ]
+  },
+  "classification_mapping_raw": [
+    {
+      "record_file_offset": "0x14d8",
+      "raw_hex": "0b1f0000000000",
+      "classification": 11,
+      "tested_condition_word": 0,
+      "platform_index": 0
+    },
+    {
+      "record_file_offset": "0x14df",
+      "raw_hex": "0b1f0004000100",
+      "classification": 11,
+      "tested_condition_word": 4,
+      "platform_index": 1
+    },
+    {
+      "record_file_offset": "0x14e6",
+      "raw_hex": "0b1f0008000200",
+      "classification": 11,
+      "tested_condition_word": 8,
+      "platform_index": 2
+    },
+    {
+      "record_file_offset": "0x14ed",
+      "raw_hex": "0b1f0018000300",
+      "classification": 11,
+      "tested_condition_word": 24,
+      "platform_index": 3
+    },
+    {
+      "record_file_offset": "0x14f4",
+      "raw_hex": "0b1f0010000400",
+      "classification": 11,
+      "tested_condition_word": 16,
+      "platform_index": 4
+    },
+    {
+      "record_file_offset": "0x14fb",
+      "raw_hex": "0c1f0000000800",
+      "classification": 12,
+      "tested_condition_word": 0,
+      "platform_index": 8
+    },
+    {
+      "record_file_offset": "0x1502",
+      "raw_hex": "0c1f0004000900",
+      "classification": 12,
+      "tested_condition_word": 4,
+      "platform_index": 9
+    },
+    {
+      "record_file_offset": "0x1509",
+      "raw_hex": "0c1f0008000a00",
+      "classification": 12,
+      "tested_condition_word": 8,
+      "platform_index": 10
+    },
+    {
+      "record_file_offset": "0x1510",
+      "raw_hex": "0c1f0018000b00",
+      "classification": 12,
+      "tested_condition_word": 24,
+      "platform_index": 11
+    },
+    {
+      "record_file_offset": "0x1517",
+      "raw_hex": "0c1f0010000c00",
+      "classification": 12,
+      "tested_condition_word": 16,
+      "platform_index": 12
+    }
+  ],
+  "potential_misreadings": [
+    "Do not call the first table the working/main table just because it occurs first. For DS1522 it is platform0/0xff; the01.4/.5 layout is platform8/0x3f001f00.",
+    "Presence bit1 alone is insufficient: type0 records contain01.5 but the PCIe-specific consumer requires type1.",
+    "Do not mistake the complete table size0x1984 for a pure port-array size. Port records occupy0x14..0x1954 (16*0x194); later bytes are separately referenced, so naive size/stride can overcount.",
+    "Type16 is numerically certain and is not type1 PCIe. A more specific human name for type16 is not independently established here.",
+    "Static selection and default descriptors are not a runtime observation: later code may amend descriptors, and the actual V1500B classification remains to be established.",
+    "The ordinary CPU-brand/model-string whitelist claim is not demonstrated by this selection mechanism; these tables configure platform I/O."
+  ],
+  "judgment": "The supplied interpretation of masks, platform0/platform8 mapping and activePCIe absence/presence is supported. If a swappedCPU selects platform0 in the DS1522 BIOS, these defaults provide a concrete mechanism to omit both the NIC-switch and JMB585 PCIe root functions. The conditional premise has not been observed or proven by this review."
+}

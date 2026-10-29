@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-29T00:16:43.931410+00:00",
+  "scope": "Source-backed assessment of AMD boot-time authentication for the DS1522+ R1600 -> V1500B preparation gate. Offline public-source research only by this worker. No NAS access, driver loading, mailbox commands, register reads/writes, flash operations, or authentication-bypass research.",
+  "decision": {
+    "authentication_gate": "UNKNOWN",
+    "replacement_readiness": "NO_GO_UNTIL_AUTHENTICATION_EVIDENCE_IS_CLOSED",
+    "summary": "The BIOS directory and compression structures are understood, but they do not disclose the live processor's authentication policy. The existing Linux read-only security-reporting attributes are absent on the current NAS. There is no supported, already-exposed SSH interface in the collected evidence that establishes whether the modified reset BIOS would be accepted.",
+    "distinction": "This is a missing-evidence gate, not proof that PSB is enabled and not proof that the CPU swap is impossible."
+  },
+  "input_evidence": {
+    "firmware_signatures": "../../patch_feasibility/evidence.json",
+    "live_early_bios": "../../boot_enablement/live_code_verification.json",
+    "live_security_reporting": "../../boot_enablement/live_security_reporting.json",
+    "live_pci_topology": "../../pcie_followup/current_r1600_topology.json",
+    "running_platform": {
+      "processor": "AMD Ryzen Embedded R1600",
+      "family_decimal": 23,
+      "model_decimal": 24,
+      "stepping": 1,
+      "psp_pci_bdf": "0000:0a:00.2",
+      "pci_vendor_device": "1022:15df",
+      "kernel": "4.4.302+",
+      "dsm": "7.3.2-86009 Update 5",
+      "identification_source": "Existing local evidence and parent-reported earlier live status; no new device access by this worker."
+    }
+  },
+  "findings": [
+    {
+      "id": "processor_support_is_not_enablement",
+      "conclusion": "AMD documents Platform Secure Boot and one-time-programmable key-management capability for the R1000 family, including R1600 in its model table. This establishes that the security feature exists, not whether Synology enabled it on this processor.",
+      "sources": [
+        "amd_r1000_product_brief"
+      ]
+    },
+    {
+      "id": "bios_directory_flags",
+      "observed": {
+        "entry_type": "0x62",
+        "flags": "0x000b",
+        "source": "0xfff50000",
+        "destination": "0x09b00000",
+        "size": "0x300000"
+      },
+      "decoded": {
+        "reset": 1,
+        "copy": 1,
+        "read_only": 0,
+        "compressed": 1,
+        "instance": 0,
+        "subprogram": 0
+      },
+      "conclusion": "These flag bits select/reset, copy, and compression behavior. None of the decoded bits is an authentication-enable or PSB-disable indicator. The separate BIOS signature entry is type 0x07; the BIOS signing public key is type 0x05.",
+      "sources": [
+        "coreboot_bios_directory"
+      ],
+      "original_observation": "../../patch_feasibility/evidence.json"
+    },
+    {
+      "id": "signature_entry_conventions",
+      "conclusion": "coreboot reserves a separate type-0x07 PSB signature object, with 0x100 bytes reserved for Raven and Picasso. PSPTool names 0x06 BIOS_RTM_FIRMWARE, 0x07 BIOS_RTM_SIGNATURE, and BIOS-directory 0x62 BIOS. It deliberately treats 0x62 as a file without its generic PSP header. Therefore its lack of a per-entry signature result is a parser/format result, not a hardware-policy observation.",
+      "local_observation": "No type 0x06 or 0x07 in the four examined update-payload directories. The 0x100-byte compressed header is zero except the packed-stream length. These remain observations only.",
+      "sources": [
+        "coreboot_amdfwtool_soc",
+        "psptool_file"
+      ],
+      "original_observation": "../../patch_feasibility/evidence.json"
+    },
+    {
+      "id": "signed_key_is_not_signed_bios",
+      "conclusion": "PSPTool parses the public-key object's own signature after its header, exponent, and modulus; the signed bytes are the key object excluding that signature. Verification of this object does not by itself authenticate the 3 MiB BIOS and does not show whether boot-time verification is enforced.",
+      "sources": [
+        "psptool_pubkey_file"
+      ],
+      "original_observation": "../../patch_feasibility/evidence.json"
+    },
+    {
+      "id": "update_signatures_are_a_separate_gate",
+      "conclusion": "Existing offline analysis established that the Insyde BIOSCER signature covers the complete 8 MiB payload and the outer Authenticode signature covers the altered payload area. Public inputs cannot recreate valid original-vendor signatures after editing. This does not determine the raw SPI boot-time policy.",
+      "original_observation": "../../patch_feasibility/evidence.json"
+    },
+    {
+      "id": "current_code_identity_does_not_measure_policy",
+      "conclusion": "The CPU-mapped compressed early-BIOS code matches the official payload exactly, including expanded SHA256 72d2ae15438d8f0b52a99bd68489bac0f37210c83657eea3e9b8a98324535432. This verifies the target code, not the full live SPI directory chain, processor fuses, or acceptance of modified code.",
+      "original_observation": "../../boot_enablement/live_code_verification.json"
+    }
+  ],
+  "runtime_method_review": [
+    {
+      "method": "Existing Linux CCP sysfs attributes",
+      "applicability": "Upstream Linux maps PCI ID 1022:15df to pspv3. Its HSTI code exposes boot_integrity and fused_part as read-only attributes when the security-reporting capability is present.",
+      "paths": [
+        "/sys/bus/pci/devices/0000:0a:00.2/boot_integrity",
+        "/sys/bus/pci/devices/0000:0a:00.2/fused_part",
+        "/sys/bus/pci/devices/0000:0a:00.2/driver"
+      ],
+      "versions_from_upstream_abi": {
+        "fused_part": "5.19",
+        "boot_integrity": "6.20"
+      },
+      "semantics": {
+        "fused_part": "Reports processor fusion against tampering; it is not a dedicated OEM BIOS PSB-enable result.",
+        "boot_integrity": "Reports whether the AMD CPU/APU serves as a boot hardware root of trust. Even a valid value would not certify that this specific edited BIOS is accepted."
+      },
+      "observed_on_current_nas": {
+        "observed_utc": "2026-10-29T00:16:43.931410+00:00",
+        "vendor": "0x1022",
+        "device": "0x15df",
+        "driver": null,
+        "boot_integrity_available": false,
+        "fused_part_available": false
+      },
+      "conclusion": "Unavailable in this current environment. Absence is missing reporting, not a false/disabled value. No driver load or manual register probing was requested.",
+      "sources": [
+        "linux_ccp_abi",
+        "linux_ccp_hsti",
+        "linux_ccp_pci",
+        "linux_ccp_psp_dev",
+        "linux_ccp_psp_capability"
+      ],
+      "live_evidence": "../../boot_enablement/live_security_reporting.json"
+    },
+    {
+      "method": "coreboot util/amdtool PSB dump",
+      "applicability": "The inspected print_psb device switch supports Breithorn and Phoenix root complexes and rejects other devices. It does not supply an R1600 support case.",
+      "conclusion": "Do not transplant its fixed status/HSTI offsets or bit interpretation onto R1600 as a verified runtime method.",
+      "sources": [
+        "coreboot_amdtool_psb"
+      ]
+    },
+    {
+      "method": "coreboot firmware PSB enable implementation",
+      "applicability": "The implementation reads status but can also send an automatic PSB fusing command and reset the platform. Kconfig identifies AMD PSB user guide document 56654 revision 1.00 as NDA documentation.",
+      "conclusion": "This is enablement code, not a read-only collection utility. It supplies useful format/status concepts but does not close R1600-specific runtime applicability here.",
+      "sources": [
+        "coreboot_psb_fusing",
+        "coreboot_psp_kconfig"
+      ]
+    },
+    {
+      "method": "CHIPSEC PSP/HSTI and ROM Armor helpers",
+      "applicability": "The inspected PSP helper uses SMN-index writes for indirect access and its HSTI query writes command-buffer pointers and a mailbox command. The ROM Armor module calls that helper and checks SPI-access protection.",
+      "conclusion": "This is not an existing read-only sysfs interface and is not a verified R1600 PSB-fuse read. It was not executed. ROM Armor/write protection must not be substituted for boot-time BIOS authentication.",
+      "sources": [
+        "chipsec_psp",
+        "chipsec_rom_armor"
+      ]
+    }
+  ],
+  "minimum_missing_evidence": [
+    {
+      "item": "A platform-applicable authentication-state result",
+      "required": "AMD/OEM documentation or a supported diagnostic that explicitly identifies the R1600 platform's BIOS-authentication enable/policy fields, followed by an actual value with valid availability semantics. The examined existing sysfs path cannot provide this on the current NAS.",
+      "not_satisfied_by": [
+        "Missing type-0x07 entry in an update file",
+        "A signed BIOS public key",
+        "PSPTool showing no generic per-entry signature",
+        "Absent sysfs files",
+        "Generic UEFI Secure Boot status"
+      ]
+    },
+    {
+      "item": "Binding between the policy and the code that will boot",
+      "required": "Establish the active boot directory/verification path and the protected BIOS extent for the actual SPI image. If enforcement covers the modified extent, obtain a legitimate signed compatible image or vendor-supported signing path; checksum repair alone cannot satisfy it.",
+      "limit": "The current live read validated only the mapped early-BIOS code region."
+    },
+    {
+      "item": "Replacement-processor applicability",
+      "required": "Account for the V1500B's own key/fuse binding and its boot flow. A result from the currently installed R1600 cannot by itself establish the replacement processor's OTP state.",
+      "basis": "OTP key management is a processor capability; this is an inference about the scope of a measurement, not an observed fuse state on either chip.",
+      "sources": [
+        "amd_r1000_product_brief"
+      ]
+    }
+  ],
+  "stopping_point": "Keep authentication UNKNOWN. Do not expand to undocumented SMN/MMIO probing, mailbox commands, fuse changes, or bypass research. Await applicable evidence or a separately planned recoverable bench validation.",
+  "sources": [
+    {
+      "id": "amd_r1000_product_brief",
+      "url": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/R1000-product-brief.pdf",
+      "git_blob_sha": null
+    },
+    {
+      "id": "coreboot_bios_directory",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/psp/bios_directory.h",
+      "git_blob_sha": "b69022729ee796b534a0aaccc57f3b7fc926ffea"
+    },
+    {
+      "id": "coreboot_psb_fusing",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/common/block/psp/psb.c",
+      "git_blob_sha": "30016424c036734ca154a492affb90487fe38961"
+    },
+    {
+      "id": "coreboot_psp_kconfig",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/common/block/psp/Kconfig",
+      "git_blob_sha": "bcc22e06239f177f1d5e3d36ba3ce08bdddad8e7"
+    },
+    {
+      "id": "coreboot_amdfwtool_soc",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/util/amdfwtool/soc.c",
+      "git_blob_sha": "b6df23eb01afbf6b7ab28983880805c71b69f688"
+    },
+    {
+      "id": "coreboot_amdtool_psb",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/util/amdtool/psb.c",
+      "git_blob_sha": "e1458bb888e1a4243a5d03222cc89adc5853e277"
+    },
+    {
+      "id": "psptool_file",
+      "url": "https://github.com/PSPReverse/PSPTool/blob/50554038893026b1c9c7a1b19199a800f1e63730/psptool/file.py",
+      "git_blob_sha": "77ed7ce9ceb40c0ec329becf8aacb18d022d4d74"
+    },
+    {
+      "id": "psptool_pubkey_file",
+      "url": "https://github.com/PSPReverse/PSPTool/blob/50554038893026b1c9c7a1b19199a800f1e63730/psptool/pubkey_file.py",
+      "git_blob_sha": "16e0013692f8d11374fef0885b55d9483f567604"
+    },
+    {
+      "id": "linux_ccp_abi",
+      "url": "https://github.com/torvalds/linux/blob/c339f4010dea8b0d754f84ace70cd1b089878ef8/Documentation/ABI/testing/sysfs-driver-ccp",
+      "git_blob_sha": "6ec74b9a292a71419b3da1d663c023ffa1f302ee"
+    },
+    {
+      "id": "linux_ccp_hsti",
+      "url": "https://github.com/torvalds/linux/blob/c339f4010dea8b0d754f84ace70cd1b089878ef8/drivers/crypto/ccp/hsti.c",
+      "git_blob_sha": "df09e03223046f0c1def62efb98b2188309c28b9"
+    },
+    {
+      "id": "linux_ccp_pci",
+      "url": "https://github.com/torvalds/linux/blob/c339f4010dea8b0d754f84ace70cd1b089878ef8/drivers/crypto/ccp/sp-pci.c",
+      "git_blob_sha": "ede6ff9ad0c24e3207df0f8aa449d6b7b8ec5744"
+    },
+    {
+      "id": "linux_ccp_psp_dev",
+      "url": "https://github.com/torvalds/linux/blob/c339f4010dea8b0d754f84ace70cd1b089878ef8/drivers/crypto/ccp/psp-dev.c",
+      "git_blob_sha": "b14ce51065d5dac65b23596a4454d8456ec1d19e"
+    },
+    {
+      "id": "linux_ccp_psp_capability",
+      "url": "https://github.com/torvalds/linux/blob/c339f4010dea8b0d754f84ace70cd1b089878ef8/drivers/crypto/ccp/psp-dev.h",
+      "git_blob_sha": "4e370e76b6ca5481e8fa4bb83ff7feb5f2a23728"
+    },
+    {
+      "id": "chipsec_psp",
+      "url": "https://github.com/chipsec/chipsec/blob/25457060db45217c74b46f61cc934098ddff8d64/chipsec/hal/amd/psp.py",
+      "git_blob_sha": "0f45258b65b63249386b0c31bb7f060e80f476a2"
+    },
+    {
+      "id": "chipsec_rom_armor",
+      "url": "https://github.com/chipsec/chipsec/blob/25457060db45217c74b46f61cc934098ddff8d64/chipsec/modules/common/rom_armor.py",
+      "git_blob_sha": "bde4f1971b20e1c55445ceaf30f597d35643be75"
+    }
+  ],
+  "cleanup": "Temporary copies of fetched upstream source files in this directory are removed after recording pinned source URLs and Git blob hashes. Existing firmware and all evidence outside this worker's authentication directory are untouched.",
+  "followup_live_register_check": {
+    "checked_utc": "2026-10-29T00:26:21.676908+00:00",
+    "evidence": "../live_preflight.json",
+    "method": "../preflight_method.json",
+    "raw_capability": "0x2",
+    "security_reporting_valid": false,
+    "authentication_gate": "UNKNOWN",
+    "meaning": "A source-backed read-only BAR2 feature-register read was completed after the initial sysfs review. The result has no security-reporting valid bit. It cannot establish boot_integrity or OEM binding. No mailbox commands or driver loads were used."
+  },
+  "followup_mapped_image": {
+    "evidence": "../live_image_comparison.json",
+    "size": 8388608,
+    "bios_directories_match_official": true,
+    "early_code_region_matches_official": true,
+    "physical_spi_backup_verified": false
+  }
+}

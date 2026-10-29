@@ -1,0 +1,312 @@
+{
+  "scope": "Static analysis of the official DS1522+ DSM 7.2.2-72806 Update 4 kernel and complete initial RAM filesystem. No NAS access, target execution, configuration change, or patch.",
+  "question": "Can lack of an IP on the 1d6a:04c0 expansion port be explained by the no-disk recovery environment?",
+  "conclusion": {
+    "answer": "Yes. The original recovery kernel and ramdisk provide no Atlantic driver for this expansion NIC. The existing eth4 DHCP configuration is not sufficient without a registered network interface.",
+    "conditional_chain": "If the V1500B firmware path loses both the onboard NIC path and the system-disk controller, Linux could enter the no-disk recovery environment. The onboard ports would be unavailable because of that PCIe condition, while the expansion port could remain without an IP because Atlantic is absent from the recovery image. This explains both observations without requiring the expansion PCIe root to fail.",
+    "not_proven": [
+      "The V1500B run selected the suspected topology table.",
+      "The V1500B run reached Linux or the no-disk recovery environment.",
+      "The expansion PCIe endpoint actually enumerated during that run."
+    ],
+    "interpretation": "All five tested ports lacking an IP does not by itself rule out the proposed topology-to-no-disk chain or locate the final executed boot stage."
+  },
+  "inputs": [
+    {
+      "path": "analysis/firmware/DS1522+_7.2.2-72806-U4/flashupdate_contents/rd.gz",
+      "sha256": "f0dd2be5d803219daaff84e55e1601489e733cc8475ec3d42d25de1d5b1df718"
+    },
+    {
+      "path": "analysis/firmware/DS1522+_7.2.2-72806-U4/flashupdate_contents/zImage",
+      "sha256": "e2a85372e7715106243d8784948bc7e88ef6c208a16b429df78784ec487dc246"
+    }
+  ],
+  "ramdisk_verification": {
+    "compression": "LZMA, decompressed with 7-Zip 26.02",
+    "uncompressed_bytes": 20000256,
+    "lzma_header_declared_bytes": 20000256,
+    "cpio_entry_count": 652,
+    "cpio_trailer_offset": "0x1312cac",
+    "post_trailer_padding_all_zero": true,
+    "all_member_hashes_match_existing_inventory": true,
+    "inventory_path": "analysis/os/DS1522+_7.2.2-72806-U4/ramdisk_inventory.json",
+    "decompressor_exit": 2,
+    "decompressor_warning": "ERROR: There are some data after the end of the payload data : rd",
+    "integrity_limit": "7-Zip reports data after the LZMA payload. Exact declared output size, valid complete CPIO parsing, zero post-trailer padding, and all member hashes were verified; no full-container signature validation is claimed."
+  },
+  "ramdisk_drivers": {
+    "kernel_module_count": 41,
+    "atlantic_named_members": [],
+    "target_pci_vendor_device": "1d6a:04c0",
+    "target_matching_module_aliases": [],
+    "alias_method": "Parsed ELF .modinfo alias fields from every .ko in the original CPIO; compared vendor 1d6a, device 04c0, and Ethernet class 02:00:00. Subvendor/subdevice constraints were ignored to avoid a false negative from unknown subsystem IDs. Generic USB host-controller aliases fail the Ethernet-class match.",
+    "all_pci_alias_records": [
+      {
+        "path": "usr/lib/modules/ehci-pci.ko",
+        "alias": "pci:v0000104Ad0000CC00sv*sd*bc*sc*i*"
+      },
+      {
+        "path": "usr/lib/modules/ehci-pci.ko",
+        "alias": "pci:v*d*sv*sd*bc0Csc03i20*"
+      },
+      {
+        "path": "usr/lib/modules/xhci-pci.ko",
+        "alias": "pci:v*d*sv*sd*bc0Csc03i30*"
+      },
+      {
+        "path": "usr/lib/modules/uhci-hcd.ko",
+        "alias": "pci:v*d*sv*sd*bc0Csc03i00*"
+      },
+      {
+        "path": "usr/lib/modules/r8168.ko",
+        "alias": "pci:v00001186d00004300sv00001186sd00004B10bc*sc*i*"
+      },
+      {
+        "path": "usr/lib/modules/r8168.ko",
+        "alias": "pci:v000010ECd00008161sv*sd*bc*sc*i*"
+      },
+      {
+        "path": "usr/lib/modules/r8168.ko",
+        "alias": "pci:v000010ECd00008168sv*sd*bc*sc*i*"
+      }
+    ],
+    "network_module_load_file": {
+      "path": "usr/lib/modules-load.d/70-network-0006-realtek-r8168-driver.conf",
+      "content": "r8168\n"
+    },
+    "network_modules_observed": [
+      "r8168"
+    ],
+    "lib_link": "usr/lib"
+  },
+  "kernel_builtin_check": {
+    "decompressed_elf_bytes": 14493736,
+    "payload_trailer_declared_bytes": 14493736,
+    "decompressed_elf_sha256": "261941684374de6db715d8bd9f517e9816511eb52edfb6e6c06cfa62b0a01ea9",
+    "bzimage_payload_file_offset": "0x406e",
+    "bzimage_payload_length": 3446131,
+    "decompressor_exit": 2,
+    "decompressor_warning": "ERROR: There are some data after the end of the payload data : ~",
+    "normal_symbol_table_present": false,
+    "method": "Recovered the complete compressed kallsyms name stream using its 256-entry token index and token table. Verified symbol count, all 116 marker offsets, end alignment, and positive-control kernel function names.",
+    "rodata_file_offset": "0x800000",
+    "rodata_relative_locations": {
+      "symbol_count": "0xabae0",
+      "markers": "0x101678",
+      "token_table": "0x101a18",
+      "token_index": "0x101d70"
+    },
+    "recovered_symbol_count": 29463,
+    "marker_count": 116,
+    "typed_symbol_stream_sha256": "cf1d230107859b2544d4330eb29b41a199f8a1d3be2ff8444636235891e7144b",
+    "positive_control_symbols": [
+      "Tstart_kernel",
+      "T__pci_register_driver",
+      "Tkallsyms_lookup_name"
+    ],
+    "case_insensitive_symbol_match_counts": {
+      "atlantic": 0,
+      "aquantia": 0,
+      "aq_": 0,
+      "aqtion": 0
+    },
+    "raw_string_match_counts": {
+      "atlantic": 0,
+      "aquantia": 0,
+      "aq_": 0,
+      "aqtion": 0
+    },
+    "conclusion": "The expected Atlantic/Aquantia driver function families and identifying strings are absent from this actual U4 kernel; it is not supplying the missing ramdisk driver as a built-in."
+  },
+  "loading_path": [
+    {
+      "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/synoinfo.conf",
+      "lines": [
+        316
+      ],
+      "fact": "unique=synology_r1000_1522+; the stored platform remains r1000 after a CPU swap."
+    },
+    {
+      "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc",
+      "lines": [
+        17,
+        142,
+        146,
+        150,
+        151,
+        153,
+        154,
+        156,
+        157,
+        185,
+        222,
+        258,
+        276
+      ],
+      "fact": "On x86_64, NET_MODULES has no case assignment. Network drivers are instead accumulated in NET_DRIVERS and KERNEL_MODULES. r1000 includes r8168 but does not enter any branch that adds atlantic."
+    },
+    {
+      "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc.subr",
+      "lines": [
+        137,
+        144,
+        150,
+        151,
+        158,
+        171,
+        172
+      ],
+      "fact": "SYNOLoadModules loads an existing /lib/modules/<name>.ko via insmod; nonexistent paths are skipped."
+    }
+  ],
+  "network_configuration": {
+    "bundled_ifcfg_defaults": {
+      "eth0": "DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=yes\nIPV6INIT=off\n",
+      "eth1": "DEVICE=eth1\nBOOTPROTO=dhcp\nONBOOT=yes\nIPV6INIT=off\n",
+      "eth2": "DEVICE=eth2\nBOOTPROTO=dhcp\nONBOOT=yes\nIPV6INIT=off\n",
+      "eth3": "DEVICE=eth3\nBOOTPROTO=dhcp\nONBOOT=yes\nIPV6INIT=off\n",
+      "eth4": "DEVICE=eth4\nBOOTPROTO=dhcp\nONBOOT=yes\nIPV6INIT=off\n"
+    },
+    "eth4_config_source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/sysconfig/network-scripts/ifcfg-eth4",
+    "interface_renaming": {
+      "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc",
+      "lines": [
+        289,
+        293
+      ],
+      "fact": "synonetseqadj runs before network start; its CPIO symlink target is scemd. Exact renaming with missing onboard NICs was not executed."
+    },
+    "optional_config_generator": {
+      "path": "usr/syno/bin/synochecknetworkcfg",
+      "present_in_cpio": false,
+      "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc",
+      "lines": [
+        301,
+        302,
+        303,
+        304,
+        306
+      ]
+    },
+    "dhcp_sources": [
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc.network",
+        "lines": [
+          311,
+          319,
+          326,
+          342,
+          347,
+          368,
+          391
+        ],
+        "fact": "check_interfaces reads all ifcfg files; there is no eth0-through-eth3-only selection in this path."
+      },
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc.network",
+        "lines": [
+          515,
+          522,
+          523,
+          528,
+          532
+        ],
+        "fact": "setup_interface_ip checks /proc/net/dev and only queues an existing interface for DHCP."
+      },
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc.network",
+        "lines": [
+          701,
+          716,
+          732,
+          733,
+          754,
+          774,
+          775,
+          777,
+          780,
+          781,
+          782
+        ],
+        "fact": "start_network respects ONBOOT=yes, brings queued interfaces up, and launches udhcpc separately for each."
+      }
+    ],
+    "dhcp_client": {
+      "path": "usr/sbin/udhcpc",
+      "symlink_target": "../bin/busybox",
+      "sbin_symlink_target": "usr/sbin"
+    },
+    "finding": "The bundled defaults cover eth0 through eth4 with DHCP and ONBOOT=yes. No blanket restriction to the four onboard ports was found in the inspected recovery startup scripts. A missing driver prevents an eth interface from appearing, so DHCP is never requested for that device."
+  },
+  "junior_expansion_pack": {
+    "packaged_jep_members": [],
+    "sources": [
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc",
+        "lines": [
+          306,
+          345,
+          352,
+          353,
+          355,
+          368,
+          427
+        ],
+        "fact": "The default expansion-pack launch occurs later than rc.network start and runs in the background."
+      },
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/usr/syno/sbin/junior_expansion_pack.sh",
+        "lines": [
+          50,
+          51,
+          68,
+          69,
+          70,
+          75,
+          94,
+          101,
+          106,
+          111
+        ],
+        "fact": "The default archive is /tmp/JEP.jep and extraction destination is /tmp/JEP.extract. An explicit --jep path can supply a local archive, but /etc/rc invokes the script without that option."
+      },
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/usr/syno/sbin/junior_expansion_pack.sh",
+        "lines": [
+          181,
+          182,
+          191,
+          197,
+          199,
+          207,
+          218,
+          253,
+          260,
+          265
+        ],
+        "fact": "If the archive is absent, the default flow downloads it by HTTPS using platform/buildnumber."
+      },
+      {
+        "source": "analysis/os/DS1522+_7.2.2-72806-U4/rd/usr/syno/sbin/junior_expansion_pack.sh",
+        "lines": [
+          331,
+          340,
+          341,
+          346,
+          347,
+          352
+        ],
+        "fact": "The downloaded archive supplies an entry script that is subsequently run."
+      }
+    ],
+    "finding": "This is not a disk-only mechanism: a package can be downloaded into RAM or explicitly supplied as a local archive. The original ramdisk contains no .jep archive, and its default startup path specifies no DOM archive source. Therefore this download path cannot bootstrap the first working network interface when all available interfaces already lack a working driver or enumeration.",
+    "limit": "The remotely served JEP contents were not fetched; its potential Atlantic contents are unnecessary to resolve the initial no-network dependency."
+  },
+  "boundaries": [
+    "The result covers the exact official U4 zImage and rd.gz hashes above, not every possible installed or modified boot image.",
+    "No V1500B runtime PCI enumeration, serial log, or selected topology was observed.",
+    "The normal disk-based DSM previously using atlantic_v2 does not imply that driver is in the much smaller recovery ramdisk.",
+    "Actual DHCP success additionally requires the interface driver and hardware to initialize and link; configuration alone does not establish success.",
+    "No NAS access, shared REA session, or target binary execution was used in this follow-up."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "purpose": "Compare the official V1500B product against the existing DS1522+ board without treating a common enclosure or peripheral function as identical wiring.",
+  "official_specs": {
+    "DS1522+": {
+      "cpu": "AMD Ryzen R1600",
+      "sata_bays": 5,
+      "m2_slots": 2,
+      "onboard_lan": "4 x 1GbE",
+      "usb_a": "2 x USB 3.2 Gen 1",
+      "drive_expansion": "2 x eSATA",
+      "network_upgrade_slot": "1 x Gen3 x2 (x2 link)",
+      "source": "https://global.download.synology.com/download/Document/Hardware/HIG/DiskStation/22-year/DS1522%2B/enu/DS1522%2B_HIG_enu.pdf"
+    },
+    "DS1525+": {
+      "cpu": "AMD Ryzen V1500B",
+      "sata_bays": 5,
+      "m2_slots": 2,
+      "onboard_lan": "2 x 2.5GbE",
+      "usb_a": "2 x USB 3.2 Gen 1",
+      "drive_expansion": "2 x USB Type-C",
+      "network_upgrade_slot": "1 x Gen3 x2",
+      "source": "https://www.synology.com/en-global/products/DS1525%2B"
+    }
+  },
+  "interpretation": "DS1525+ is a useful official V1500B initialization reference. Its LAN and expansion interfaces differ, so board topology, GPIO and clock assignments require field-level comparison rather than whole-image transplantation. Product specs alone do not describe the chip-to-lane wiring."
+}

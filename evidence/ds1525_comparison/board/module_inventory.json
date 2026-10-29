@@ -1,0 +1,761 @@
+{
+  "method": "Compare PE .text bytes after subtracting each image base at only IMAGE_REL_BASED_HIGHLOW relocation locations. Headers, timestamps and non-.text sections are outside this comparison. This is static byte identity, not runtime equivalence.",
+  "modules": [
+    {
+      "name": "AmdCpmAcpPowerGatingDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmAcpPowerGatingDxe.efi",
+          "sha256": "b0adbcf9b6d6296390e5a369c89904dd0000a4a81f90a32798ee123966821861",
+          "size": 2016,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 960,
+            "virtual_size": 934
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "58a52bb31e86b5ff519e721bc1e57c9965376e6796b835a81c81ff2ef60baeb9"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmAcpPowerGatingDxe.efi",
+          "sha256": "dd087f8a35dd44abe9bcfb5a091cac7bcbe25239d6d3348aba065ae62ad62482",
+          "size": 2112,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 960,
+            "virtual_size": 934
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "24ee4fb7d3792447338e1dc7fd2796b54d95aee65d20887e41603987eb46d306"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmDisplayFeatureDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmDisplayFeatureDxe.efi",
+          "sha256": "53f69cb6363fba436a8cc692fd24d30b8ec1a5c3b59e998ef6d075b30b0631c8",
+          "size": 14816,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 13152,
+            "virtual_size": 13147
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "6226e71ca4f6664942117cf06f4b859cc4489ea496d716c3deec910b25601703"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmDisplayFeatureDxe.efi",
+          "sha256": "99b6cbf284aa68a25aa6d14c646b9b6a0e8e26ac33ae7784a63b05a64ee8b11a",
+          "size": 14880,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 13152,
+            "virtual_size": 13131
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "24ff44f52166739f0c5464f3ae115c02099aaadfccc2e247570ecdba4bdb7e0b"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmDisplayFeaturePeim_DE3E049C_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmDisplayFeaturePeim_DE3E049C_early.efi",
+          "sha256": "de891da4e15085acfefbe3492ed98f629e6d4c4d31151af541a0720119f5a4d0",
+          "size": 1568,
+          "image_base": "0x9b4cca0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 896,
+            "virtual_size": 883
+          },
+          "relocation_count": 4,
+          "relocation_normalized_text_sha256": "f9a06a5b8bfe39d1af257b2081925369b1376660c6e0341a4830c95d64dfe2c9"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmDisplayFeaturePeim_DE3E049C_early.efi",
+          "sha256": "859e6664f51b85aadd334d1c0cda6ac527a0608882ce0a8bb7dde2ac9b7ed45c",
+          "size": 1568,
+          "image_base": "0x9b4a8a0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 896,
+            "virtual_size": 883
+          },
+          "relocation_count": 4,
+          "relocation_normalized_text_sha256": "f9a06a5b8bfe39d1af257b2081925369b1376660c6e0341a4830c95d64dfe2c9"
+        }
+      ],
+      "relocation_normalized_text_identical": true
+    },
+    {
+      "name": "AmdCpmDisplayFeatureSmm.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmDisplayFeatureSmm.efi",
+          "sha256": "07c6dfb2807efed89c0903cc3fd26b2019047dcb329538957e92be670fb02499",
+          "size": 32768,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 12288,
+            "virtual_size": 9148
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "2caa46303826db3585fe3e8e14677671647c25d255a77a8eb7d7198c39638f69"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmDisplayFeatureSmm.efi",
+          "sha256": "09aec9b1c8fc39931578a424b1a9cd354c1e4cc981f99ea9ac5f1e145b530878",
+          "size": 32768,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 12288,
+            "virtual_size": 9612
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "54d17b865a0b4168448520431abb8b485082e833c8f2f7ee52bdfb67650419fc"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmGpioInitDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmGpioInitDxe.efi",
+          "sha256": "232311fef1e4ee192ea25c05eb15fb76b0705cf60525a09ee2fb5a4e75b9edbf",
+          "size": 3520,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 2432,
+            "virtual_size": 2413
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "f936ca2ac8cb927a6aeba755d7f098c65edfb67042e7802ab40995c1ae727085"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmGpioInitDxe.efi",
+          "sha256": "ebf2b707640976a5711a424864d323b5dd309e74775d611e43b3b78bb46a159e",
+          "size": 3616,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 2432,
+            "virtual_size": 2413
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "ac37367413f76b331a6c52e15b2b2c893ea49519449318d19b3f0c5d552a108b"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmGpioInitPeim_DE3E049C_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmGpioInitPeim_DE3E049C_early.efi",
+          "sha256": "1656b39435d18bc29d2741c202bd7334debb9fa9f5c912dcebcd7c7b2340d5b0",
+          "size": 5024,
+          "image_base": "0x9b4b820",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 4064,
+            "virtual_size": 4037
+          },
+          "relocation_count": 19,
+          "relocation_normalized_text_sha256": "f309d75a79a1f9f31d02a7ba9116bef271c169f4bb15cb736e0173717d2e8cc4"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmGpioInitPeim_DE3E049C_early.efi",
+          "sha256": "aa426ce46d06332000f2543e449e90644b6c2a7496ee9fbddaaf61e2c6869573",
+          "size": 5024,
+          "image_base": "0x9b49420",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 4064,
+            "virtual_size": 4037
+          },
+          "relocation_count": 19,
+          "relocation_normalized_text_sha256": "f309d75a79a1f9f31d02a7ba9116bef271c169f4bb15cb736e0173717d2e8cc4"
+        }
+      ],
+      "relocation_normalized_text_identical": true
+    },
+    {
+      "name": "AmdCpmGpioInitSmm.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmGpioInitSmm.efi",
+          "sha256": "6ad305d4442de2e89ddf516dc303b2eee2637fa3150b50dc52cf4ca3ff367356",
+          "size": 24576,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 4096,
+            "virtual_size": 2652
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "eaf919a5b4edcdc1a556e91fb6cb613b4e95d73721c17be45b434ceec02c97aa"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmGpioInitSmm.efi",
+          "sha256": "2a432e7af79d95ed2943f2cac14d80b9751db128432abaa8a037d40d4a7d6f72",
+          "size": 24576,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 4096,
+            "virtual_size": 3148
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "582af4b4da4e2f99aa7ba40871941848bb39cab9277fa1b6181bb59b5d612e70"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmInitDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitDxe.efi",
+          "sha256": "6651b767373ddd713c0b451692d9d9717c4e9d491ef5e01603e5816afa107685",
+          "size": 24032,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 19232,
+            "virtual_size": 19217
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "69ddb70a6b0a1ee9fec19d3c4459b3d1240c38910ba2fca994c5f50d226a28ca"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmInitDxe.efi",
+          "sha256": "010fa157590f6b4964c10986f4e5bc462cef1fb8bf18155168ab574b23c232aa",
+          "size": 24128,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 19232,
+            "virtual_size": 19213
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "aa840bcb19a3e14f23ebb1aaa874e0e50a5772dfc7f88b98b6c7b6cfa8302c00"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmInitPeim_D919136E_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitPeim_D919136E_early.efi",
+          "sha256": "46701360c3fd09965346c8f5b897e6ae12b9717ca55d6c0f533fc6e8a0c434bd",
+          "size": 17920,
+          "image_base": "0x9b47120",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 14656,
+            "virtual_size": 14653
+          },
+          "relocation_count": 219,
+          "relocation_normalized_text_sha256": "3acdea60e45eded4a1e51ff2e8591a766f90e991046f5246abbcd9cf601a935d"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmInitPeim_D919136E_early.efi",
+          "sha256": "fef9b3309b5a406e5dfad0969ef29d0eecff31a847e910276bb5f43a2672d4d0",
+          "size": 17920,
+          "image_base": "0x9b44d20",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 14656,
+            "virtual_size": 14653
+          },
+          "relocation_count": 219,
+          "relocation_normalized_text_sha256": "3acdea60e45eded4a1e51ff2e8591a766f90e991046f5246abbcd9cf601a935d"
+        }
+      ],
+      "relocation_normalized_text_identical": true
+    },
+    {
+      "name": "AmdCpmInitSmm.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmInitSmm.efi",
+          "sha256": "35798a4566d1edbdddd4c24c29a9e7ca5cde76886188ca35668191740c950d86",
+          "size": 36864,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 16384,
+            "virtual_size": 16305
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "32b2edd9e13ae3ed00f1ddff352ba127cbe0f1651ea73e96591b925e4c975d6a"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmInitSmm.efi",
+          "sha256": "6ec2c13747e5d0b6ff7a94aa37129beab1423fbc5529c2b8ce76d337aaec73dd",
+          "size": 40960,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 20480,
+            "virtual_size": 16753
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "7fedf6a493c0df31be789791c9b25b5a3761ac6cf3b96c4665721c7ef27f7cd2"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmOemInitDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitDxe.efi",
+          "sha256": "20fa2d1404cf292347607d7a693612261c27996261a3a3e70463226a869c3e53",
+          "size": 4576,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 3072,
+            "virtual_size": 3069
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "286193702ce7d10a03f6fdad53e8c4bca23a9c287d0f1cfd7e2224a638283bdf"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemInitDxe.efi",
+          "sha256": "1f64c930973a069905dcccba5f2eb9a38edb751eef7afc3a3da99aef775f8438",
+          "size": 4672,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 3104,
+            "virtual_size": 3079
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "bb2210e2ed92e30146d9329823c732296a527fd9d5e03b01da39db5a564c84b7"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmOemInitPeim_D617467B_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+          "sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf",
+          "size": 23968,
+          "image_base": "0x9b412c0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 3712,
+            "virtual_size": 3689
+          },
+          "relocation_count": 66,
+          "relocation_normalized_text_sha256": "eb85193cb8e5d418296732d8dc4b5be6b1d91dd7cf3864eeeeb5e348a483e84a"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemInitPeim_D617467B_early.efi",
+          "sha256": "7e41e27054cc5fdd3f7ee484c1a133d32bd34328cfda6d48c2a53e03ccb354a8",
+          "size": 24064,
+          "image_base": "0x9b3ee40",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 3840,
+            "virtual_size": 3817
+          },
+          "relocation_count": 66,
+          "relocation_normalized_text_sha256": "88734c8358a38822985b2687e0d8c6a89bbedd171915662dcbad0d73c7f57d63"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmOemSmm.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemSmm.efi",
+          "sha256": "fc776fe89296b76a46bf22182f17df909fb2162eefe207d3a00afbdaa885242e",
+          "size": 24576,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 4096,
+            "virtual_size": 2140
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "9a951dd2a78263ba29542e79b9618491ea052290ef53776c320afb3ee08c34eb"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemSmm.efi",
+          "sha256": "a3f6eef94248e9ca0ace844202d09e0c097cb8fffe28e18035de8d8cb3339828",
+          "size": 24576,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 4096,
+            "raw": 4096,
+            "size": 4096,
+            "virtual_size": 2636
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "311653abc9f0d17c24dd2360a2653822d7cfb6529275c533cbe56daba4a889b2"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmPcieInitDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmPcieInitDxe.efi",
+          "sha256": "2e98c18773ded29de9dd1365019c3d38becde51ab9189dba764c279d3cc12efe",
+          "size": 4128,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 3072,
+            "virtual_size": 3068
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "ac523baa1ec920232f12a194c87a68a0bd27c7601c66aee2190c4a49d3c1cf2c"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmPcieInitDxe.efi",
+          "sha256": "3068fd1ef5b04888abbedbb7c1de45a368eee8b2ce226864383cc0bcbff3d523",
+          "size": 4192,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 3072,
+            "virtual_size": 3068
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "df13c37815ebe2b43eb193958a340fa4e7f91c4f7432fe51ec5e566d34c8ea9f"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+          "sha256": "b901b6a298c66f3759c372e69d02f696dee739ddd21ea7eca52686f75b4aef2a",
+          "size": 3424,
+          "image_base": "0x9b4d3a0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 2656,
+            "virtual_size": 2633
+          },
+          "relocation_count": 14,
+          "relocation_normalized_text_sha256": "d45f0d5e52108402eea9929240b23ede7aac4609b7baffc48cbdb6ba4a048d26"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+          "sha256": "91a7c75dbc8f4b15305a990a91f96ec4407fb40c56f4f10c09bc33dfe183ed63",
+          "size": 3424,
+          "image_base": "0x9b4afa0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 2656,
+            "virtual_size": 2633
+          },
+          "relocation_count": 14,
+          "relocation_normalized_text_sha256": "d45f0d5e52108402eea9929240b23ede7aac4609b7baffc48cbdb6ba4a048d26"
+        }
+      ],
+      "relocation_normalized_text_identical": true
+    },
+    {
+      "name": "EarlySetPlatformHardwareSwitchPei_2A9A39D5_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/EarlySetPlatformHardwareSwitchPei_2A9A39D5_early.efi",
+          "sha256": "6cfe3252e8322fc98d434ff8a1134239a551a69fe3a8cdea246d21e1fcad33a1",
+          "size": 2208,
+          "image_base": "0x9b00120",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 1376,
+            "virtual_size": 1369
+          },
+          "relocation_count": 23,
+          "relocation_normalized_text_sha256": "50bc148dc4c6f0b9e6b972c7639d94a89437c9966bd02710385f06754a7845f2"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/EarlySetPlatformHardwareSwitchPei_2A9A39D5_early.efi",
+          "sha256": "3714ad76cd97bc0d1462995a01d074305e58d4f48c434f671ee74504f330c902",
+          "size": 2208,
+          "image_base": "0x9b00120",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 1376,
+            "virtual_size": 1367
+          },
+          "relocation_count": 23,
+          "relocation_normalized_text_sha256": "dafa8ec13e7b65f62b7ec84f7a5362006ddfc5286f0e65b0858a3ae5d3dd7b96"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "FchSandstonePei_5C536A02_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/FchSandstonePei_5C536A02_early.efi",
+          "sha256": "4a462b9aea5b7b85f74aa918a95678661668339a2f8943af4e6e8f142b4e1c78",
+          "size": 30784,
+          "image_base": "0x9b71fe0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 24992,
+            "virtual_size": 24984
+          },
+          "relocation_count": 167,
+          "relocation_normalized_text_sha256": "cd021d951320cfc76e8f0b5bb85a456d367bfdbb072732966d03a3ec7319d87a"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/FchSandstonePei_5C536A02_early.efi",
+          "sha256": "96defa54806f541f1a5d9df13eaee8e46302b9acc8f21240d3dba9d398bd22ed",
+          "size": 30944,
+          "image_base": "0x9b734e0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 25088,
+            "virtual_size": 25059
+          },
+          "relocation_count": 167,
+          "relocation_normalized_text_sha256": "56be741d27b0d6328069c3b0e7ad85ec9c57ed76ecb2e6adf36693abbd37af65"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "PlatformStage1Pei_A85027FC_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/PlatformStage1Pei_A85027FC_early.efi",
+          "sha256": "990df19f2e5582046bb43373737bcf1cf1c67fbe74285c3407d885b1c021ee92",
+          "size": 11200,
+          "image_base": "0x9b15140",
+          "text": {
+            "name": ".text",
+            "rva": 608,
+            "raw": 608,
+            "size": 7968,
+            "virtual_size": 7961
+          },
+          "relocation_count": 137,
+          "relocation_normalized_text_sha256": "f55facdb9d7b30b2b9535bd8e9db81b9e3ebd87723b1bd03d2c0da75ad463792"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/PlatformStage1Pei_A85027FC_early.efi",
+          "sha256": "b2a4d4c9140580c93b4fe809e382a639eecf278b366e685d2329da86706392b8",
+          "size": 11328,
+          "image_base": "0x9b15c40",
+          "text": {
+            "name": ".text",
+            "rva": 608,
+            "raw": 608,
+            "size": 8352,
+            "virtual_size": 8343
+          },
+          "relocation_count": 143,
+          "relocation_normalized_text_sha256": "7fcfed60971e9c35b89682c6e24eb4304cf025b798dfc4358dc49a40fb9b65db"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "PlatformStage2Pei_1191BBF5_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/PlatformStage2Pei_1191BBF5_early.efi",
+          "sha256": "92995c470986e58fa3ef4a6ae8f3b6ea4664a3144e11aed3345979ecbdb12bca",
+          "size": 3424,
+          "image_base": "0x9b17dc0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 2144,
+            "virtual_size": 2137
+          },
+          "relocation_count": 20,
+          "relocation_normalized_text_sha256": "4955b9ceaa61f573aa88ae222c6a9aaba49694693b6086a9e43e5e84e309e54f"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/PlatformStage2Pei_1191BBF5_early.efi",
+          "sha256": "a5cd198ce8a538f42e380b6dbf842b2a91693088e8d6c52699dc4416e8a3142f",
+          "size": 3264,
+          "image_base": "0x9b18940",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 2208,
+            "virtual_size": 2183
+          },
+          "relocation_count": 21,
+          "relocation_normalized_text_sha256": "1aba4252ac17671ef2bb914f0f826230ba14fe03664ff4cf90d1ca8d1fef7c34"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "ProgClkGenPeim_FDB3B9A7_early.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/ProgClkGenPeim_FDB3B9A7_early.efi",
+          "sha256": "6666745cbc746494fdd4abb747eaed3f7e9c21d6a2da8309475375d96aae107d",
+          "size": 928,
+          "image_base": "0x9b18c40",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 288,
+            "virtual_size": 285
+          },
+          "relocation_count": 1,
+          "relocation_normalized_text_sha256": "34df0ec0c7afa56d356198b383766a430495fa6b8636157533213e5d548ed3de"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/ProgClkGenPeim_FDB3B9A7_early.efi",
+          "sha256": "f35a421409ac4cf81b0853caf552844bbeab2c1393ecf4832edbfdf887055250",
+          "size": 928,
+          "image_base": "0x9b196c0",
+          "text": {
+            "name": ".text",
+            "rva": 576,
+            "raw": 576,
+            "size": 288,
+            "virtual_size": 279
+          },
+          "relocation_count": 1,
+          "relocation_normalized_text_sha256": "572803ce2271bb8f82e7d684471e585eb0fcd6b14e3930b4ccab72aedea702cf"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    },
+    {
+      "name": "SynoServiceDxe.efi",
+      "inputs": [
+        {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/SynoServiceDxe.efi",
+          "sha256": "6eda8970b9ef4c8111e837cfb900aba1035e72a4f01898f0ae9680522e90184d",
+          "size": 9952,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 672,
+            "raw": 672,
+            "size": 6656,
+            "virtual_size": 6629
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "62a25f4e89940c8832c31f2da3ceabf0bde5f7afb2d9581071c7a8fba27a460c"
+        },
+        {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/SynoServiceDxe.efi",
+          "sha256": "358914a6e5db7556ee14d3a3dbc9c3159cff0152b46422134c9b12562d7adb04",
+          "size": 11104,
+          "image_base": "0x0",
+          "text": {
+            "name": ".text",
+            "rva": 704,
+            "raw": 704,
+            "size": 7360,
+            "virtual_size": 7345
+          },
+          "relocation_count": 0,
+          "relocation_normalized_text_sha256": "d507503e27ad4064fa274d3ae7e242a04d63e0db6c467d119c01e035b6f18356"
+        }
+      ],
+      "relocation_normalized_text_identical": false
+    }
+  ]
+}

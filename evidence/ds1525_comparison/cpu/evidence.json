@@ -1,0 +1,1609 @@
+{
+  "scope": "Bounded static comparison of CPU and early-SoC support in official DS1522+ and DS1525+ firmware. Only decision-relevant family/package gates, V1500B power policy, selected CPU/memory/PSP modules, and AMD firmware directory entries were examined. No NAS access, target execution, firmware write, new infrastructure, or shared REA session mutation.",
+  "baseline": {
+    "ds1522": "DS1522+_7.2.2-72806",
+    "ds1525": "DS1525+_7.2.2-72806-U4",
+    "ds1522_base_bios_matches_u4_bios": true,
+    "ds1522_bios_sha256": "09289812c93bfc184425b8db7853a56d92abd60256904aeeaa4f6249f4552b68",
+    "payloads": [
+      {
+        "model": "DS1522+_7.2.2-72806",
+        "path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+        "bytes": 8388608,
+        "sha256": "ac8eb91600c714bd17c7fa5bcac1e94463c8f633e7c26bd948a3b6f772415e65"
+      },
+      {
+        "model": "DS1525+_7.2.2-72806-U4",
+        "path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+        "bytes": 8388608,
+        "sha256": "092c7d6aecc38135e781288010c5d747ce236bd1cbbf950042efd33649338a69"
+      }
+    ],
+    "provenance": [
+      "analysis/firmware/DS1522+_7.2.2-72806/extraction.json",
+      "analysis/firmware/DS1525+_7.2.2-72806-U4/extraction.json"
+    ]
+  },
+  "judgment": {
+    "missing_cpu_prerequisite": "No specific V1500B family/package, memory-training blob, microcode category, or SMU model-handling prerequisite missing from DS1522+ was identified.",
+    "positive_support": "The actual family/package matcher and its candidate-construction block are byte-identical, all eight PMU code/data entries are byte-identical, three of four microcode entries are byte-identical, and both SMU DXE modules implement a V1500B configuration branch with a 16 W path.",
+    "not_established": "Whole-stack compatibility, successful V1500B memory training on the DS1522 board, the failed chip's selected platform ID, or that peripheral topology is the only possible difference.",
+    "interpretation": "The comparison supports continuing the concrete board-policy investigation. It does not establish a need to import a CPU-initialization component from DS1525, and does not by itself make a hardware swap or firmware deployment ready."
+  },
+  "family_package_gate": {
+    "module": "AmdSocFp5RvPei_01C827C2_early.efi",
+    "ds1522_sha256": "ac1f55ee0ecc5c3c27f372924482c3a5f2e130e51c002bfd2abfc5a2cd15800e",
+    "ds1525_sha256": "9391dd1709f1b5c0d8157e3c3a305fce4adb3b880621c3e9a4c0a071f79782c5",
+    "whole_modules_byte_identical": false,
+    "exact_common_code": [
+      {
+        "label": "family_package_candidate_construction",
+        "file_offset": "0x28f",
+        "bytes": 93,
+        "sha256": "3031ece60790e57df25094030a594d64064986c2d528ffb0df810b730ce9af58",
+        "ds1522_va": "0x9b6364f",
+        "ds1525_va": "0x9b649cf",
+        "byte_identical": true
+      },
+      {
+        "label": "cpuid_family_package_matcher",
+        "file_offset": "0x56f",
+        "bytes": 104,
+        "sha256": "67afc5d2828a78d574665fefc614c8b35a00009b5f4755249d88a98bfe48d115",
+        "ds1522_va": "0x9b6392f",
+        "ds1525_va": "0x9b64caf",
+        "byte_identical": true
+      }
+    ],
+    "semantics": "The matcher reads CPUID leaf 0x80000001, compares EAX masked by 0x0fff0f00 with the supplied candidate, then compares EBX[31:28] with the candidate package byte. The common caller block constructs constants 0x00810f00, 0x00820f00, and 0x00810f80, each with package byte 0, and invokes the same matcher in the same branch sequence.",
+    "source_evidence": {
+      "path": "analysis/key_function_evidence.json",
+      "label": "soc_cpu_family_match",
+      "evidence_id": "ev_2616ace6d3f20385f4129dc3eca62a102c9916c75d1fd799bff4c3c3d07c0990",
+      "original_procedure": "0x9b6392f"
+    },
+    "new_comparison_evidence": "identical_family_gate.asm",
+    "establishes": "For the same CPUID inputs these compared instruction blocks behave the same. The DS1525 support is not supplied by a distinct replacement family/package check at this gate.",
+    "limit": "These two blocks are not every CPU-related branch in either firmware. They do not observe the actual failed replacement chip's CPUID/package/fuse state."
+  },
+  "v1500b_power_policy": {
+    "ds1522_module": "AmdNbioSmuV10Dxe.efi",
+    "ds1522_sha256": "dc0d4554c53415fbbb34cc1ead96a6f8a2435b00f340e77d517fac0bcd813d4c",
+    "ds1525_module": "AmdNbioSmuV10Dxe.efi",
+    "ds1525_sha256": "d3e3dffe846ce0681c7be98d0cbd0ec224745e18f36fcd5fbec8e55abeabc25b",
+    "ds1522": {
+      "procedure": "0x2498",
+      "branch_range": "0x29e5–0x2a45",
+      "evidence_id": "ev_941d9d88ece40d2ecf14366a8c18d6a14d38c43427fe2a92592495c2d2e7dc64",
+      "source": "analysis/key_function_evidence.json",
+      "fact": "An OPN string equal to V1500B selects 16000 mW for sustained, slow, and fast power limits and writes SystemConfiguration token 0x4f02b=2."
+    },
+    "ds1525": {
+      "procedure": "0x2544",
+      "branch_range": "0x2aa4–0x2b61",
+      "evidence_id": "ev_5a23cd2de3154d6cddfffdf5cefc7288a7687b5672c26678ea7cf23d3945e9ff",
+      "source": "smu1525_power_policy.json",
+      "fact": "The V1500B match remains. When token 0x4f03e is nonzero AND SystemConfiguration token 0x4f02b is 3, it selects sustained/slow limits of 25000 mW and fast limit of 30000 mW, retaining token value 3. Otherwise it uses the same three 16000 mW limits and token value 2."
+    },
+    "interpretation": "This is an additional conditional power-policy option in DS1525, not evidence that DS1522 lacks V1500B recognition. The actual DS1525 runtime values of the enabling tokens were not observed, so this does not assert that DS1525 normally runs the higher-power branch.",
+    "limit": "Executing either configuration branch on the user's replacement chip was not observed. Do not copy power settings based on this comparison."
+  },
+  "module_inventory_comparison": {
+    "pairing": "Exact extracted filename, with PEI FFS GUID fragment included where present. Hashes cover full extracted PE bytes, including headers/relocations/data.",
+    "selected_module_count": 38,
+    "whole_module_identical_names": [
+      "CpuIo2Dxe.efi"
+    ],
+    "note": "Most selected PE files differ. Some differences can include relocation/build data; full-file inequality alone is not a semantic CPU-support difference. No whole-stack equality is claimed.",
+    "rows": [
+      {
+        "name": "AmdApcbRvDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdApcbRvDxe.efi",
+          "bytes": 29120,
+          "sha256": "06f5341ebb63f45a330c4beb278bfdeaca44efe7548c522665c5e0427a3b4627"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdApcbRvDxe.efi",
+          "bytes": 35328,
+          "sha256": "5facb18ddc66c26ca138d4fbe513c9a9be0d154fe61c1602249a72cd425fc4b1"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdApcbRvSmm.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdApcbRvSmm.efi",
+          "bytes": 61440,
+          "sha256": "8d74eb2e4b7d941bd131b3052427bf2a8c1f4d410eff8efc2047f7a7fdae5cea"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdApcbRvSmm.efi",
+          "bytes": 65536,
+          "sha256": "7c4f8ad63e08f8626ae9d5f47667c7339b55d1b86177aa9f6f704fa336361740"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdCcxZenRvDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCcxZenRvDxe.efi",
+          "bytes": 59264,
+          "sha256": "509ec1f349a4edc30013711041432244df88460a2f920984266fe6afc24b1694"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCcxZenRvDxe.efi",
+          "bytes": 65472,
+          "sha256": "66da08c062baeff639afd72ac7f7d3276af1367f8a831ca4b3116ea3f05027e4"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdCcxZenRvPei_D3A6CF7C_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCcxZenRvPei_D3A6CF7C_early.efi",
+          "bytes": 10944,
+          "sha256": "387dd65e814916761e8c2b4a4387b5641a8ffa402d73d57cb27be2ef23cfc672"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCcxZenRvPei_D3A6CF7C_early.efi",
+          "bytes": 11072,
+          "sha256": "b587d7f1685b8e3e7298e4feac6663734618613f28dbfbe709ca01e85edcad52"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdCcxZenRvSmm.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdCcxZenRvSmm.efi",
+          "bytes": 32768,
+          "sha256": "6340192e37711255e3a4e33ba9123e6ac3b74a18857938e5dc918ff6fc1b41f8"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCcxZenRvSmm.efi",
+          "bytes": 36864,
+          "sha256": "dd583c428e8ffd5608a248587eaf531fc2b17023340f352ecfd8262517e3ba13"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemAm4Dxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemAm4Dxe.efi",
+          "bytes": 1312,
+          "sha256": "dea40fea0aa991496e55a481192c43f2b8fcf569750fb93110d02ffdb209ebbc"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemAm4Dxe.efi",
+          "bytes": 1408,
+          "sha256": "9cccce50c72dbbd62f28cbbac0f1df287598e17f07a9571bf20745809c09f5e4"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemAm4ZpPei_9FF8B817_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemAm4ZpPei_9FF8B817_early.efi",
+          "bytes": 5536,
+          "sha256": "b6213193813827a531cefea0d480157cd6cdcd397e2ef01a0e9fe38baa4c1da1"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemAm4ZpPei_9FF8B817_early.efi",
+          "bytes": 10784,
+          "sha256": "2f95ac33d3e472edf73aae26f1a92547809f7d490b29f9532aca76cc7b6db854"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemChanXLatZpPei_F19071B5_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemChanXLatZpPei_F19071B5_early.efi",
+          "bytes": 1248,
+          "sha256": "45c39f177c087456c3cd1d59ca7ddc0b4d0ed2893ca9031760ac9e161d8d6b9a"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemChanXLatZpPei_F19071B5_early.efi",
+          "bytes": 1248,
+          "sha256": "c9f1d0a56a86e5a57fcaddf6a0774102b90c43d1b3d6af0a420717d6f9ed3cd4"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemRestoreDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemRestoreDxe.efi",
+          "bytes": 5312,
+          "sha256": "d30ede946a65dd94c90ee5b95985902ba2acece61a037ee036fdd245e36102a9"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemRestoreDxe.efi",
+          "bytes": 5344,
+          "sha256": "012a2fad5385b83157e0ee3223bd9a170400c4c625b5e86485387cd20a46dab8"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemRestorePei_4B6E1294_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemRestorePei_4B6E1294_early.efi",
+          "bytes": 1696,
+          "sha256": "565d416bf63ccc1d84869838ca7a462e9cfa198b3b8e104e94d23e69c29fb565"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemRestorePei_4B6E1294_early.efi",
+          "bytes": 1760,
+          "sha256": "939fef49720c158344500791b8a08588a5a70891e221906f3ff87d767abfa691"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemSmbiosV2RvDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemSmbiosV2RvDxe.efi",
+          "bytes": 4448,
+          "sha256": "f5b72c47057b3d161f9be94c49685a4883f524501588e2e8aeb67cebc525e0e1"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemSmbiosV2RvDxe.efi",
+          "bytes": 4512,
+          "sha256": "228ba9809a08a6b0b2b04f027039e91bccc8e2b3d2e74b8cd07d77c76d94b79e"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemSmbiosV2RvPei_F6663081_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemSmbiosV2RvPei_F6663081_early.efi",
+          "bytes": 8704,
+          "sha256": "8948be7b14a81c775ea1043b0a42499d32af883b28f6983ad1e15b8ad3a38ef9"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemSmbiosV2RvPei_F6663081_early.efi",
+          "bytes": 14272,
+          "sha256": "2926d6f4d32d85a83939a9c8ecb6eb3f6722298ddcf8253ebc9960007e88f481"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdMemoryHobInfoPeim_5EAD1D32_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdMemoryHobInfoPeim_5EAD1D32_early.efi",
+          "bytes": 6656,
+          "sha256": "424fc778326f06a5c8bcc4b2b1112019681dcc488b70d81b22e7424f6ff81764"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdMemoryHobInfoPeim_5EAD1D32_early.efi",
+          "bytes": 6752,
+          "sha256": "2b783395b8e9b32caf96b1264162377b73c48704c4c874ab1a01768e8ad85156"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdNbioEarlyPhaseRVPei_52DFCF2E_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdNbioEarlyPhaseRVPei_52DFCF2E_early.efi",
+          "bytes": 4416,
+          "sha256": "15b33f25eb63e0ac8102cf4885bbdc9ba0bbc06292ce779051b0aaea91169985"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdNbioEarlyPhaseRVPei_52DFCF2E_early.efi",
+          "bytes": 4544,
+          "sha256": "dfadb00bd0f9a12d5d068eacb647cb6a86bb221491a8886cb411daa8fd54a088"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdNbioSmuV10Dxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdNbioSmuV10Dxe.efi",
+          "bytes": 51360,
+          "sha256": "dc0d4554c53415fbbb34cc1ead96a6f8a2435b00f340e77d517fac0bcd813d4c"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdNbioSmuV10Dxe.efi",
+          "bytes": 51808,
+          "sha256": "d3e3dffe846ce0681c7be98d0cbd0ec224745e18f36fcd5fbec8e55abeabc25b"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdNbioSmuV10Pei_7307BD0F_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdNbioSmuV10Pei_7307BD0F_early.efi",
+          "bytes": 19712,
+          "sha256": "1ca0d455ac739c37394dc6232c1e2741122ac4cf4f95ae9dd9587b260fff92fb"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdNbioSmuV10Pei_7307BD0F_early.efi",
+          "bytes": 19808,
+          "sha256": "2944dda21311f8fb543857c623d1d00c44e169ae292c7e5cf2021f479d4b04c0"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspDxeV2Rv.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPspDxeV2Rv.efi",
+          "bytes": 29344,
+          "sha256": "879754f5ab285bd4ad0f8577da4ef9a017574f73c719faa2c9217703a0dbdbce"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspDxeV2Rv.efi",
+          "bytes": 35520,
+          "sha256": "bb0ed0ba3334406fee5b5eaffd963ac3e04d866750290ab3a74ba2580ccab92d"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspFtpmDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPspFtpmDxe.efi",
+          "bytes": 6944,
+          "sha256": "7094fb00c84b3e988354fd0b177fab56e84e10e36cebaf77c18c89586afb3648"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspFtpmDxe.efi",
+          "bytes": 7040,
+          "sha256": "0ad214e84c2a9c8b9e27b388d4b885c97bc83769afa1cb623e7140b161af5c36"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspFtpmPei_2FC61DE6_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPspFtpmPei_2FC61DE6_early.efi",
+          "bytes": 6336,
+          "sha256": "739cfe50c596bd557c203a41c558830d27cb845d002bb9dfad9b3c2da8681812"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspFtpmPei_2FC61DE6_early.efi",
+          "bytes": 6400,
+          "sha256": "e3673df1beccfe1662b8f843ddc8a4b2e3fa4afa495a83fefc4af214cb06ce63"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspP2CmboxV2.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPspP2CmboxV2.efi",
+          "bytes": 53248,
+          "sha256": "89d57e7493965f0cf71ee2859de199e6046d28d008023f6346de730ab22e3c06"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspP2CmboxV2.efi",
+          "bytes": 61440,
+          "sha256": "d828d9cb1fe403d73248e6f00780ef6f8104200fc50532133d7425bfcfd75625"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspP2CmboxV2SmmBuffer.efi",
+        "ds1522": null,
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspP2CmboxV2SmmBuffer.efi",
+          "bytes": 32768,
+          "sha256": "8f1d89754505bcbc2a9e1d9817dc4d8081f354ae04d23643e4b246ebdbc41b8a"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspPeiV2_0C556BFF_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPspPeiV2_0C556BFF_early.efi",
+          "bytes": 12480,
+          "sha256": "bc2a4dde6fb90fbbd41b8ffe1012696b55d52c801ced255b54dce55e5e3184dc"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspPeiV2_0C556BFF_early.efi",
+          "bytes": 15232,
+          "sha256": "f807bdaf0057d48b50c8c43e16baaf58e798dd6e36bfe4fbcc1cba42005d8ee1"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdPspSmmV2.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdPspSmmV2.efi",
+          "bytes": 49152,
+          "sha256": "9290c05ffba82e437806a74763189f37307d6665fa559a7f784137d24cfc0292"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdPspSmmV2.efi",
+          "bytes": 49152,
+          "sha256": "11c049d6ffa2d523356d77d4f21faf6b3befa8dc1eaec8e0b0afbfbedd54b85b"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdSocFp5RvDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdSocFp5RvDxe.efi",
+          "bytes": 11168,
+          "sha256": "b42523ff82eec8f29909a6dc2bdd52919455bd7394e04d1abe2d6765c8fcc808"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdSocFp5RvDxe.efi",
+          "bytes": 11296,
+          "sha256": "685bbbb772950eaf6aeddd9f67d361073dfded2c1924a1c90ac6cecc97c4d459"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "AmdSocFp5RvPei_01C827C2_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/AmdSocFp5RvPei_01C827C2_early.efi",
+          "bytes": 29472,
+          "sha256": "ac1f55ee0ecc5c3c27f372924482c3a5f2e130e51c002bfd2abfc5a2cd15800e"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdSocFp5RvPei_01C827C2_early.efi",
+          "bytes": 29600,
+          "sha256": "9391dd1709f1b5c0d8157e3c3a305fce4adb3b880621c3e9a4c0a071f79782c5"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "ApobZpRvDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/ApobZpRvDxe.efi",
+          "bytes": 15808,
+          "sha256": "89f5df2bcfe18fee473400d163cd9d53ae60cb5e3c1b2bf6d5f2724da8777b50"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/ApobZpRvDxe.efi",
+          "bytes": 23680,
+          "sha256": "707feb98bf2a7ccaf07101971c718612bb0deb629878e45c71df51eec1bd235c"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "ApobZpRvPei_05DDA141_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/ApobZpRvPei_05DDA141_early.efi",
+          "bytes": 7040,
+          "sha256": "12380dc2f609187e80e70836cf92588509fa6e0bb2cd5548f0bf6326a2ff3d68"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/ApobZpRvPei_05DDA141_early.efi",
+          "bytes": 12352,
+          "sha256": "ee6338af4d9fe522cc892ed08efcfd8436cf0de8e4b8f34811098e1d71ad28d2"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CpuArchDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuArchDxe.efi",
+          "bytes": 25216,
+          "sha256": "b9913ee35bc4ed7548fbebf2c60ec5b887d58d29da5eee7f2fd16dcf0bc1b00a"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuArchDxe.efi",
+          "bytes": 25312,
+          "sha256": "e3e22b44810e153aaa94437daf9d671add57e48054978066b407ace0dfe619fe"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CpuInstallEfiMemoryPei_0E511F9D_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuInstallEfiMemoryPei_0E511F9D_early.efi",
+          "bytes": 4320,
+          "sha256": "235303dcc69b764575bed875681810b7cd28d4ac7af57c5323b0127167441932"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuInstallEfiMemoryPei_0E511F9D_early.efi",
+          "bytes": 4800,
+          "sha256": "9949791b44101268f084036287e93f823cdeef94677a8cd5d42ce37bf5691f13"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CpuIo2Dxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuIo2Dxe.efi",
+          "bytes": 3136,
+          "sha256": "76ed9c0d19042d332cf000d6d3c3150e15afb9df99cdc0a88665425cc30e01bb"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuIo2Dxe.efi",
+          "bytes": 3136,
+          "sha256": "76ed9c0d19042d332cf000d6d3c3150e15afb9df99cdc0a88665425cc30e01bb"
+        },
+        "byte_identical": true
+      },
+      {
+        "name": "CpuIo2Smm.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuIo2Smm.efi",
+          "bytes": 24576,
+          "sha256": "101e79c7abec36589190132cd3502ce8e84419b9c1bf4e68fa0d6c5fc451592f"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuIo2Smm.efi",
+          "bytes": 24576,
+          "sha256": "f8785a929336bff6633af6db98f1b6653a3aa0fbb6f98e250798a6ea5d5ec2c4"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CpuIoPei_AE265864_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuIoPei_AE265864_early.efi",
+          "bytes": 2400,
+          "sha256": "dc2b3a984192f30008e6c6a9962d99ac2dfc8c083e3a37e2ae22c032600864c8"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuIoPei_AE265864_early.efi",
+          "bytes": 2400,
+          "sha256": "3149663a64b2b555adc0466a92a24e5e30ad80b9977a0d876e988a6ebd8b7b69"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CpuMpDxe.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuMpDxe.efi",
+          "bytes": 43392,
+          "sha256": "d25dd5cc9a34e94b24e2aba3b5504f04b021836bfcff3515a1ddbfc19aebd58e"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuMpDxe.efi",
+          "bytes": 43424,
+          "sha256": "11efbc2786e661c159d045abcacfb609c72dadcf87554c5db9d6c93157eb3eec"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CpuPei_01359D99_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CpuPei_01359D99_early.efi",
+          "bytes": 10048,
+          "sha256": "d1daa1664500811d9bcdbcc99ff4431cafe324f4080775b7bfe02dc06ec1de4b"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CpuPei_01359D99_early.efi",
+          "bytes": 9952,
+          "sha256": "f69223aaa8047d47e1341c4f68208b3091bf16c505f7cde3d96c4c75098e15a0"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "CrisisMemoryInitPei_EE9F26FB_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/CrisisMemoryInitPei_EE9F26FB_early.efi",
+          "bytes": 3840,
+          "sha256": "bedae2950acd4c9f821793cd10fc8f2145e5222920c801f74b1665a0fe1da666"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/CrisisMemoryInitPei_EE9F26FB_early.efi",
+          "bytes": 4288,
+          "sha256": "470e6a50ae52c7b9fc7882638f95460bb67de1207e1066f780058dd40d9c4dca"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "DisableCacheAsRamPei_C79DD14B_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/DisableCacheAsRamPei_C79DD14B_early.efi",
+          "bytes": 1984,
+          "sha256": "6b5f12f4cdfac7ccde206e9093dab2e403be27cc4d06eec4e6accb42db4ebf70"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/DisableCacheAsRamPei_C79DD14B_early.efi",
+          "bytes": 1984,
+          "sha256": "86a68866eb6d79d8d3d73c7f5da932ef374948f46bb628b72a83b075219076e3"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "PlatformMemoryConfigurationPei_FF30FA10_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/PlatformMemoryConfigurationPei_FF30FA10_early.efi",
+          "bytes": 608,
+          "sha256": "c0009a1e646934f0cb7296202bd3d9633d47b893207c3dfeea852da2181be21e"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/PlatformMemoryConfigurationPei_FF30FA10_early.efi",
+          "bytes": 608,
+          "sha256": "3061695bc6b33818ce6c6b043ce7b83bf630e2bf870a6400c9604b0341d55380"
+        },
+        "byte_identical": false
+      },
+      {
+        "name": "RecoveryCpuInitPei_01882424_early.efi",
+        "ds1522": {
+          "path": "analysis/modules/DS1522+_7.2.2-72806/RecoveryCpuInitPei_01882424_early.efi",
+          "bytes": 1216,
+          "sha256": "d9b0807f5ce0c1d191b561cea649e993082a42c5f92947ec4fb3b8b9346bee09"
+        },
+        "ds1525": {
+          "path": "analysis/modules/DS1525+_7.2.2-72806-U4/RecoveryCpuInitPei_01882424_early.efi",
+          "bytes": 1216,
+          "sha256": "a9fed622580743a7205d1d9dc34d3ae7bee14686771745b9b207429fb25174c3"
+        },
+        "byte_identical": false
+      }
+    ]
+  },
+  "amd_blob_comparison": {
+    "method": "Use previously retained PSPTool directory metadata, independently verify each directory magic in the source payload, hash the exact listed packed/signed entry extent, and pair the same directory/type/instance. Equality here means exact stored bytes, not version-label similarity.",
+    "source_inventories": [
+      "analysis/firmware/DS1522+_7.2.2-72806/psp.json",
+      "analysis/firmware/DS1525+_7.2.2-72806-U4/psp.json"
+    ],
+    "pmu_equal_entry_count": 8,
+    "microcode_equal_entry_count": 3,
+    "pmu_primary_secondary_copy_checks": [
+      {
+        "model": "DS1522+_7.2.2-72806",
+        "primary_and_secondary_pmu_entry_copies_identical": true,
+        "entries": 8
+      },
+      {
+        "model": "DS1525+_7.2.2-72806-U4",
+        "primary_and_secondary_pmu_entry_copies_identical": true,
+        "entries": 8
+      }
+    ],
+    "changed_families": "PSP boot/recovery loaders and trusted OS, all compared ABL0–7 entries, the SMU off-chip variants, and APCB defaults differ. ABL version labels are 21.2.12.EE versus 23.6.19.EE; PSP boot/OS labels are 0.8.A1.7D versus 0.8.A0.90.",
+    "microcode_detail": "Both contain four listed microcode patches. IDs 0x8200103, 0x8108109 and 0x8108002 have identical bytes. The remaining slot differs: DS1522 contains 0x8101016, DS1525 contains 0x810100b. Patch applicability to the unobserved failed chip was not inferred from the patch IDs alone.",
+    "rows": [
+      {
+        "type": "ABL0~0x30",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 14,
+          "offset": "0xc6900",
+          "bytes": 3536,
+          "sha256": "d69c3055a8b4c4c26a2e29a9618024e2f839bb4f1f8f35c1a9d0e5b338631ff9",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 14,
+          "offset": "0xca900",
+          "bytes": 3552,
+          "sha256": "33a4f77b106783dfd6ec4bacd7471f33de9305a2d56a6a2ccbceefb2d26764b0",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL1~0x31",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 15,
+          "offset": "0xc7700",
+          "bytes": 51712,
+          "sha256": "a83310221dc4f6a3e68328dcdba5bb492f8169b29cd663471a07d5c6c790df83",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 15,
+          "offset": "0xcb700",
+          "bytes": 53904,
+          "sha256": "f89a9e9d0d4376d7e2151f7c2d49eda78682d8d4cb6b2895e50942a2f8df2e5e",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL2~0x32",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 16,
+          "offset": "0xd4100",
+          "bytes": 34976,
+          "sha256": "4898f1804f61cbda9c783faefa157ffd92a5c29137c61ad264d422347f2dfba2",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 16,
+          "offset": "0xd8a00",
+          "bytes": 36800,
+          "sha256": "cfef911574a64cac0c5bc79b17a84a36d33bb1ec3cecf3e8e928130fc4dd9c6e",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL3~0x33",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 17,
+          "offset": "0xdca00",
+          "bytes": 45712,
+          "sha256": "0b1bacb24f75cf9f6bc7efb93e355423d7b61c650c62f434759355b083363966",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 17,
+          "offset": "0xe1a00",
+          "bytes": 49488,
+          "sha256": "36ffe9a6f95130a467051912df85bc4b1159d448c0328a9f00ebbe8c9fd834b8",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL4~0x34",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 18,
+          "offset": "0xe7d00",
+          "bytes": 55488,
+          "sha256": "90bbea41d4b575ec70ccf4df563a2a12aadc8a8ae6e2d93284ba93187fe02129",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 18,
+          "offset": "0xedc00",
+          "bytes": 57760,
+          "sha256": "c2f605a0e5f5c031371576f419bd01fc20e7bfc49830ed3f567b2a2748c91c20",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL5~0x35",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 19,
+          "offset": "0xf5600",
+          "bytes": 52768,
+          "sha256": "6b76e5e9d33e9c788f62599b65c042602f26efeab8ba413a7beca22d8a65b3d6",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 19,
+          "offset": "0xfbe00",
+          "bytes": 54496,
+          "sha256": "fc1b23a0db92a7b3b849492f24b75a9a26ad6c64dad058f14e9074e3de44283c",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL6~0x36",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 20,
+          "offset": "0x102500",
+          "bytes": 38576,
+          "sha256": "de2adb9be1b5d36080f8a76ea787bed0bb0c0542ff6e87df344dd626f1c0be66",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 20,
+          "offset": "0x109300",
+          "bytes": 40352,
+          "sha256": "13224c7abb9ebd0ab8b1630065d01934918cb08ffdc15cd7399fe1e7596d3dee",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "ABL7~0x37",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 21,
+          "offset": "0x10bc00",
+          "bytes": 52688,
+          "sha256": "51fbb0a867612bc9802a4989f49530515124d58d3fe3016ea3bbc2c3a0f31df9",
+          "version_label": "21.2.12.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 21,
+          "offset": "0x113100",
+          "bytes": 55072,
+          "sha256": "e6ba151ae127ceb06317ad9a9c16477b446c7d55561e71d78c7d11095970b368",
+          "version_label": "23.6.19.EE",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "PSP_FW_BOOT_LOADER~0x1",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 1,
+          "offset": "0x13e400",
+          "bytes": 50112,
+          "sha256": "6eb69fea5d2c96eefa3f61e7c5e31bbc6f5f6eda845cd2beffdd896679763baa",
+          "version_label": "0.8.A1.7D",
+          "flags_from_existing_psptool_inventory": [
+            "signed(60BB)",
+            "verified",
+            "encrypted"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 1,
+          "offset": "0x13e400",
+          "bytes": 62400,
+          "sha256": "597ec8b7ea971888e6e4fd52dde8fc4973fe11dd3f1d95680595472539ab2585",
+          "version_label": "0.8.A0.90",
+          "flags_from_existing_psptool_inventory": [
+            "signed(60BB)",
+            "verified",
+            "encrypted"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "PSP_FW_RECOVERY_BOOT_LOADER~0x3",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 2,
+          "offset": "0x63700",
+          "bytes": 50112,
+          "sha256": "1539becf3d041ca01f7b9d2a80f504c94dd563ae641598ebeda6fa8f7568a4fe",
+          "version_label": "0.8.A1.7D",
+          "flags_from_existing_psptool_inventory": [
+            "signed(60BB)",
+            "verified",
+            "encrypted"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 2,
+          "offset": "0x63700",
+          "bytes": 62400,
+          "sha256": "f6e785ca140559b67bc2c7ef8a19eb8e85f9a7dace50358cb0e8e350d6d54efd",
+          "version_label": "0.8.A0.90",
+          "flags_from_existing_psptool_inventory": [
+            "signed(60BB)",
+            "verified",
+            "encrypted"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "SMU_OFFCHIP_FW~0x8",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 3,
+          "offset": "0x6fb00",
+          "bytes": 132688,
+          "sha256": "eb0129ba36cee8c507bfc85638b60e4fea7623552d5daa6bb34c1b47de84159d",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 3,
+          "offset": "0x72b00",
+          "bytes": 132688,
+          "sha256": "45e5ed4b44c5576824922fa4720e314c6d5ff727cffeaa33497f7025c9a0ef6a",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "SMU_OFFCHIP_FW~0x8",
+        "instance": 1,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 5,
+          "offset": "0x94700",
+          "bytes": 141936,
+          "sha256": "566bc87ca6f9e21cff32daf603c5fd2f6ce195438681d5d4c7c4881e112cb068",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 5,
+          "offset": "0x97700",
+          "bytes": 142464,
+          "sha256": "44fa5c58aa6e34979b956b5ae0a138ae9eb1562929f2edc279a42da435b9ffe0",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "SMU_OFF_CHIP_FW_2~0x12",
+        "instance": 0,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 4,
+          "offset": "0x90200",
+          "bytes": 17520,
+          "sha256": "729edd4233f986c24a9641494d6342cb7c2ce094253e50246eb9197b312f58fa",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 4,
+          "offset": "0x93200",
+          "bytes": 17520,
+          "sha256": "2abb84a3eae0b795770a23c72e80345f3465b79eef454886c87ba64e177843b9",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "SMU_OFF_CHIP_FW_2~0x12",
+        "instance": 1,
+        "directory": 0,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 6,
+          "offset": "0xb7200",
+          "bytes": 27648,
+          "sha256": "cb410ea1dd6718c390c6f360a3e61cf1e0efc448db08b0b119a0370b7df0a070",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 0,
+          "entry_index": 6,
+          "offset": "0xba400",
+          "bytes": 27536,
+          "sha256": "d9f187ce8c867cae333bed17dc12df34b1573bd763c2d34263cd59d1786577f6",
+          "version_label": "0.0.0.0",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "PSP_FW_TRUSTED_OS~0x2",
+        "instance": 0,
+        "directory": 1,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 1,
+          "entry_index": 2,
+          "offset": "0x14ab00",
+          "bytes": 62224,
+          "sha256": "9cd474e0ec0a9c2c8906a7f61374f63885ca9cd8773484e0a3b1bd43513fa50d",
+          "version_label": "0.8.A1.7D",
+          "flags_from_existing_psptool_inventory": [
+            "signed(60BB)",
+            "verified",
+            "encrypted"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 1,
+          "entry_index": 2,
+          "offset": "0x14db00",
+          "bytes": 66320,
+          "sha256": "e8f7be75342adef81c1b8591af677e47204ad0e23cec67c7fd6c311e5ca7375b",
+          "version_label": "0.8.A0.90",
+          "flags_from_existing_psptool_inventory": [
+            "signed(60BB)",
+            "verified",
+            "encrypted"
+          ]
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "APCB_COPY~0x68",
+        "instance": 0,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 2,
+          "offset": "0x288000",
+          "bytes": 8192,
+          "sha256": "5dc75f38a405c67437f1a17b8ca082093ee76b199d8b7109f61dbfd9a4fbe1a7",
+          "version_label": "",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 2,
+          "offset": "0x288000",
+          "bytes": 8192,
+          "sha256": "a1bd6e6d45edc14358d0fd0d7a347c96e8986828edc2991ab2b2db3075e80167",
+          "version_label": "",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "APCB~0x60",
+        "instance": 0,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 1,
+          "offset": "0x286000",
+          "bytes": 8192,
+          "sha256": "5dc75f38a405c67437f1a17b8ca082093ee76b199d8b7109f61dbfd9a4fbe1a7",
+          "version_label": "",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 1,
+          "offset": "0x286000",
+          "bytes": 8192,
+          "sha256": "a1bd6e6d45edc14358d0fd0d7a347c96e8986828edc2991ab2b2db3075e80167",
+          "version_label": "",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "MICROCODE_PATCH~0x66",
+        "instance": 0,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 14,
+          "offset": "0x2ac500",
+          "bytes": 3200,
+          "sha256": "c2d8c51382cf0a23507bdb5a9190b4caf345af83e28d6e866734e653943db59c",
+          "version_label": "0x8101016",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 14,
+          "offset": "0x2ac500",
+          "bytes": 3200,
+          "sha256": "b0320eb54532af8ce8cc0a18db0c44889b5a1777c9897e25ee88cda40dd75712",
+          "version_label": "0x810100b",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "byte_identical": false
+      },
+      {
+        "type": "MICROCODE_PATCH~0x66",
+        "instance": 1,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 15,
+          "offset": "0x2ad200",
+          "bytes": 3200,
+          "sha256": "6229aa2a26b54a05c2be7a25e37d04c28c43d49e61f2ebd3051671d7e9ccf720",
+          "version_label": "0x8200103",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 15,
+          "offset": "0x2ad200",
+          "bytes": 3200,
+          "sha256": "6229aa2a26b54a05c2be7a25e37d04c28c43d49e61f2ebd3051671d7e9ccf720",
+          "version_label": "0x8200103",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "MICROCODE_PATCH~0x66",
+        "instance": 2,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 16,
+          "offset": "0x2adf00",
+          "bytes": 3200,
+          "sha256": "003a5e311a4938c60415ebb38e26a4d881204029a716fc1e4b9a14a65d36fa6b",
+          "version_label": "0x8108109",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 16,
+          "offset": "0x2adf00",
+          "bytes": 3200,
+          "sha256": "003a5e311a4938c60415ebb38e26a4d881204029a716fc1e4b9a14a65d36fa6b",
+          "version_label": "0x8108109",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "MICROCODE_PATCH~0x66",
+        "instance": 3,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 17,
+          "offset": "0x2aec00",
+          "bytes": 3200,
+          "sha256": "a97b43a6e748513882900bda4a3eef0f9c48a017269286fd9e314237d4706078",
+          "version_label": "0x8108002",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 17,
+          "offset": "0x2aec00",
+          "bytes": 3200,
+          "sha256": "a97b43a6e748513882900bda4a3eef0f9c48a017269286fd9e314237d4706078",
+          "version_label": "0x8108002",
+          "flags_from_existing_psptool_inventory": []
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_CODE~0x64",
+        "instance": 0,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 6,
+          "offset": "0x29a000",
+          "bytes": 15424,
+          "sha256": "99cb2cfe2c412550edcde8dc06b9b7eea5cf3e105bbf76a8ea88ee9a2a1fd440",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 6,
+          "offset": "0x29a000",
+          "bytes": 15424,
+          "sha256": "99cb2cfe2c412550edcde8dc06b9b7eea5cf3e105bbf76a8ea88ee9a2a1fd440",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_CODE~0x64",
+        "instance": 1,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 8,
+          "offset": "0x29e100",
+          "bytes": 17936,
+          "sha256": "dc15e77e614d238de12bb4754cfe9470a8415d96038e8a3d5a37df34541960e9",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 8,
+          "offset": "0x29e100",
+          "bytes": 17936,
+          "sha256": "dc15e77e614d238de12bb4754cfe9470a8415d96038e8a3d5a37df34541960e9",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_CODE~0x64",
+        "instance": 2,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 10,
+          "offset": "0x2a2c00",
+          "bytes": 18480,
+          "sha256": "bb837b6198d6f6710bd9b85d11de7f52650b0309d2e40e75c86a816ea5af08d6",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 10,
+          "offset": "0x2a2c00",
+          "bytes": 18480,
+          "sha256": "bb837b6198d6f6710bd9b85d11de7f52650b0309d2e40e75c86a816ea5af08d6",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_CODE~0x64",
+        "instance": 3,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 12,
+          "offset": "0x2a7900",
+          "bytes": 18336,
+          "sha256": "3d6148237d7b2a6d3ac10140ee00b5e28719abeda77b32718970f2aab1c772ee",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 12,
+          "offset": "0x2a7900",
+          "bytes": 18336,
+          "sha256": "3d6148237d7b2a6d3ac10140ee00b5e28719abeda77b32718970f2aab1c772ee",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_DATA~0x65",
+        "instance": 0,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 7,
+          "offset": "0x29dd00",
+          "bytes": 816,
+          "sha256": "6de41b58e5ce03d6242c882baedb7ef84103fc9cd4295f5484beab31019e2174",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 7,
+          "offset": "0x29dd00",
+          "bytes": 816,
+          "sha256": "6de41b58e5ce03d6242c882baedb7ef84103fc9cd4295f5484beab31019e2174",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_DATA~0x65",
+        "instance": 1,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 9,
+          "offset": "0x2a2800",
+          "bytes": 800,
+          "sha256": "6edbad27505433287a8c566cb8a743de8e5286d7f87a4be96abfa44b0bc2cb4b",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 9,
+          "offset": "0x2a2800",
+          "bytes": 800,
+          "sha256": "6edbad27505433287a8c566cb8a743de8e5286d7f87a4be96abfa44b0bc2cb4b",
+          "version_label": "0.0.A1.41",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_DATA~0x65",
+        "instance": 2,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 11,
+          "offset": "0x2a7500",
+          "bytes": 880,
+          "sha256": "614892a8f04af3883752751e7ae4405cf5babbc0e7cec8caaa3f301c874b8ced",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 11,
+          "offset": "0x2a7500",
+          "bytes": 880,
+          "sha256": "614892a8f04af3883752751e7ae4405cf5babbc0e7cec8caaa3f301c874b8ced",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      },
+      {
+        "type": "PMU_DATA~0x65",
+        "instance": 3,
+        "directory": 3,
+        "ds1522": {
+          "payload_path": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 13,
+          "offset": "0x2ac100",
+          "bytes": 832,
+          "sha256": "5588e41e6bd619f9b098f3cd981a445a7053bdba3833f838ca0b7cbd26af7443",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "ds1525": {
+          "payload_path": "analysis/firmware/DS1525+_7.2.2-72806-U4/bios_payload.bin",
+          "directory": 3,
+          "entry_index": 13,
+          "offset": "0x2ac100",
+          "bytes": 832,
+          "sha256": "5588e41e6bd619f9b098f3cd981a445a7053bdba3833f838ca0b7cbd26af7443",
+          "version_label": "0.0.18.5",
+          "flags_from_existing_psptool_inventory": [
+            "compressed",
+            "signed(60BB)",
+            "verified"
+          ]
+        },
+        "byte_identical": true
+      }
+    ],
+    "limit": "Encrypted PSP contents and the behavioral consequences of changed AMD blob revisions were not reverse engineered. Presence of a changed revision does not identify a V1500B prerequisite missing from the other image."
+  },
+  "remaining_difference": {
+    "ds1525_only_selected_module": "AmdPspP2CmboxV2SmmBuffer.efi",
+    "finding": "This extracted module is absent by name from DS1522. No dependency tying it to first-time V1500B CPU initialization was established; its existence alone is not an identified missing-support blocker."
+  },
+  "limits": [
+    "DS1525 official V1500B operation validates its own motherboard and settings; it does not certify a DS1522 CPU replacement.",
+    "Official APCB bytes compared here are defaults. The main investigation reports live DS1522 APCB differences; this subtask did not read the live image and does not treat the default APCB comparison as complete current-configuration evidence.",
+    "Equal PMU programs do not prove equal SPD data, board memory parameters, signal integrity, or the outcome of training.",
+    "Different AGESA-related modules/blobs may include fixes beyond peripheral topology; no exact such missing prerequisite was identified within this bounded scope.",
+    "Deployment authenticity, preservation of live board data, recovery access, and useful failure diagnostics remain separate requirements owned by the main investigation. No recommendation to replace the CPU or flash a comparison-model image follows from this result."
+  ],
+  "tools": [
+    "Python SHA-256 and exact PE/firmware byte comparison",
+    "LLVM objdump",
+    "REA 6.4.0 isolated CLI with Ghidra 12.1.2"
+  ]
+}

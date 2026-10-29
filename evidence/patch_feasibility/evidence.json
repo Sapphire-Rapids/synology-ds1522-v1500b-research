@@ -1,0 +1,449 @@
+{
+  "scope": "Static offline integrity and signature coverage for editing data in DS1522+ AmdCpmOemInitPeim. No modified BIOS image generated or written, no NAS access, no updater/firmware execution, no system configuration change.",
+  "checked_on": "2026-10-28",
+  "inputs": [
+    {
+      "path": "../firmware/DS1522+_7.2.2-72806/bios.ROM",
+      "size": 9158376,
+      "sha256": "09289812c93bfc184425b8db7853a56d92abd60256904aeeaa4f6249f4552b68",
+      "matches_primary_deliverable": "../../DS1522+_BIOS/bios.ROM"
+    },
+    {
+      "path": "../firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+      "size": 8388608,
+      "sha256": "ac8eb91600c714bd17c7fa5bcac1e94463c8f633e7c26bd948a3b6f772415e65"
+    },
+    {
+      "path": "../firmware/DS1522+_7.2.2-72806/early_bios.bin",
+      "size": 3145728,
+      "sha256": "72d2ae15438d8f0b52a99bd68489bac0f37210c83657eea3e9b8a98324535432"
+    },
+    {
+      "path": "../modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+      "size": 23968,
+      "sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf"
+    }
+  ],
+  "coordinate_system": "Offsets named payload_offset refer to the raw8MiB payload; container_offset refer to the original9,158,376-byte signed Insyde PE container; early_offset refer to the decompressed3MiB PEI volume. Ranges are half-open.",
+  "target_module": {
+    "ffs_guid": "D617467B-1FF7-403F-A87D-29F61C80EE7C",
+    "ffs_early_offset": "0x41268",
+    "ffs_size": "0x5e2e",
+    "ffs_header_size": "0x18",
+    "file_attributes": "0x10",
+    "file_checksum_flag_0x40_set": false,
+    "file_checksum": "0xaa",
+    "header_checksum": "0xd1",
+    "header_checksum_valid": true,
+    "content_checksum_present": false,
+    "sections": [
+      {
+        "early_offset": "0x41280",
+        "type": "PEI DEPEX 0x1b",
+        "size": "0x28"
+      },
+      {
+        "early_offset": "0x412a8",
+        "type": "RAW 0x19",
+        "size": "0x14"
+      },
+      {
+        "early_offset": "0x412bc",
+        "type": "PE32 0x10",
+        "size": "0x5da4"
+      },
+      {
+        "early_offset": "0x47060",
+        "type": "UI 0x15",
+        "size": "0x28"
+      },
+      {
+        "early_offset": "0x47088",
+        "type": "VERSION 0x14",
+        "size": "0xe"
+      }
+    ],
+    "pe_body_early_offset": "0x412c0",
+    "pe_security_directory": [
+      0,
+      0
+    ],
+    "pe_checksum": 0,
+    "extracted_module_matches_pe_section": true,
+    "impact": "A same-size edit to table bytes does not change the FFS header. This file has no body checksum and no PE certificate table. If a structural/header field changes, its ordinary FFS header checksum can be recomputed."
+  },
+  "firmware_volume": {
+    "early_offset": "0x0",
+    "size": "0x300000",
+    "header_length": "0x48",
+    "header_checksum": "0xe33c",
+    "header_checksum_valid": true,
+    "coverage": "Only the72-byte FV header, not the volume body. Same-size module-data edits do not change this checksum."
+  },
+  "amd_compressed_bios": {
+    "payload_offset": "0x750000",
+    "container_offset": "0x8008d0",
+    "header_size": "0x100",
+    "compressed_length_field_payload_offset": "0x750014",
+    "compressed_length": "0x68481",
+    "stream_payload_range": [
+      "0x750100",
+      "0x7b8581"
+    ],
+    "stream_container_range": [
+      "0x8009d0",
+      "0x868e51"
+    ],
+    "packed_extent_size": "0x68581",
+    "decompressed_size": "0x300000",
+    "compression": "zlib/DEFLATE",
+    "adler32": "0xccd77f8e",
+    "adler32_verified": true,
+    "decompressed_bytes_exactly_match_early_bios": true,
+    "header_observation": "The0x100-byte compression header is zero except for its32-bit packed stream length at+0x14. No separate signature follows the compressed stream within its packed extent.",
+    "directory_references": [
+      {
+        "directory": "$BHD",
+        "entry_index": 4,
+        "payload_entry_offset": "0x126070"
+      },
+      {
+        "directory": "$BL2",
+        "entry_index": 4,
+        "payload_entry_offset": "0x285070"
+      }
+    ],
+    "directory_entry_raw": "62000b00000030000000f5ff000000000000b00900000000",
+    "directory_type": "0x62",
+    "directory_flags": "0x000b",
+    "directory_source_address": "0xfff50000",
+    "directory_destination_address": "0x09b00000",
+    "directory_size_field": "0x300000",
+    "important_repack_rule": "The directory size is the UNCOMPRESSED size. A same-size3MiB re-encoding retains that size and source/destination; it changes the packed-length field in the compression header. Do not replace the directory size with the compressed length.",
+    "observed_padding_after_extent": {
+      "payload_range": [
+        "0x7b8581",
+        "0x800000"
+      ],
+      "all_ff": true,
+      "bytes": 293503,
+      "limit": "This is space in the official update payload, not a measurement of the live SPI contents or an authorization to write it."
+    },
+    "unmodified_recompression_check": {
+      "zlib_runtime": "1.2.12",
+      "level": 9,
+      "new_stream_size": 425442,
+      "new_stream_size_hex": "0x67de2",
+      "byte_identical_to_original_stream": false,
+      "roundtrip_matches_original_early_bios": true,
+      "output_image_saved": false
+    },
+    "signature_scope_limit": "PSPTool classifies type0x62 as a non-PSP-header file and does not report an entry signature. This proves the parser/format observation only, not that hardware policy cannot authenticate the BIOS through another mechanism."
+  },
+  "amd_directories": [
+    {
+      "magic": "$PSP",
+      "payload_offset": "0x63000",
+      "entry_size": 16,
+      "count": 25,
+      "checksum_field": "0x63004",
+      "checksum_value": "0x33dc2ae9",
+      "checksum_covered_range": [
+        "0x63008",
+        "0x631a0"
+      ],
+      "checksum_verified": true,
+      "entry_types": [
+        "0x0",
+        "0x1",
+        "0x3",
+        "0x8",
+        "0x12",
+        "0x8",
+        "0x12",
+        "0x8",
+        "0x12",
+        "0x21",
+        "0x22",
+        "0x24",
+        "0x24",
+        "0x24",
+        "0x24",
+        "0x24",
+        "0x30",
+        "0x31",
+        "0x32",
+        "0x33",
+        "0x34",
+        "0x35",
+        "0x36",
+        "0x37",
+        "0x40"
+      ]
+    },
+    {
+      "magic": "$PL2",
+      "payload_offset": "0x13e000",
+      "entry_size": 16,
+      "count": 36,
+      "checksum_field": "0x13e004",
+      "checksum_value": "0xfa1c46de",
+      "checksum_covered_range": [
+        "0x13e008",
+        "0x13e250"
+      ],
+      "checksum_verified": true,
+      "entry_types": [
+        "0x1",
+        "0x0",
+        "0x2",
+        "0x4",
+        "0x8",
+        "0x8",
+        "0x54",
+        "0x9",
+        "0xb",
+        "0xc",
+        "0x12",
+        "0x12",
+        "0x13",
+        "0x21",
+        "0x22",
+        "0x24",
+        "0x24",
+        "0x24",
+        "0x24",
+        "0x24",
+        "0x25",
+        "0x25",
+        "0x25",
+        "0x28",
+        "0x29",
+        "0x2d",
+        "0x30",
+        "0x31",
+        "0x32",
+        "0x33",
+        "0x34",
+        "0x35",
+        "0x36",
+        "0x37",
+        "0x8",
+        "0x12"
+      ]
+    },
+    {
+      "magic": "$BHD",
+      "payload_offset": "0x126000",
+      "entry_size": 24,
+      "count": 14,
+      "checksum_field": "0x126004",
+      "checksum_value": "0x681018c2",
+      "checksum_covered_range": [
+        "0x126008",
+        "0x126160"
+      ],
+      "checksum_verified": true,
+      "entry_types": [
+        "0x5",
+        "0x60",
+        "0x68",
+        "0x61",
+        "0x62",
+        "0x64",
+        "0x65",
+        "0x64",
+        "0x65",
+        "0x64",
+        "0x65",
+        "0x64",
+        "0x65",
+        "0x70"
+      ]
+    },
+    {
+      "magic": "$BL2",
+      "payload_offset": "0x285000",
+      "entry_size": 24,
+      "count": 19,
+      "checksum_field": "0x285004",
+      "checksum_value": "0x6a0748e9",
+      "checksum_covered_range": [
+        "0x285008",
+        "0x2851d8"
+      ],
+      "checksum_verified": true,
+      "entry_types": [
+        "0x5",
+        "0x60",
+        "0x68",
+        "0x61",
+        "0x62",
+        "0x63",
+        "0x64",
+        "0x65",
+        "0x64",
+        "0x65",
+        "0x64",
+        "0x65",
+        "0x64",
+        "0x65",
+        "0x66",
+        "0x66",
+        "0x66",
+        "0x66",
+        "0x6a"
+      ]
+    }
+  ],
+  "amd_security_boundary": {
+    "bios_public_keys": [
+      {
+        "payload_offset": "0x126400",
+        "size": "0x340"
+      },
+      {
+        "payload_offset": "0x285400",
+        "size": "0x340"
+      }
+    ],
+    "bios_public_key_id": "3fc74204157b4d56a0165c50c1d18565",
+    "certifying_key_id": "60bba67e1a434c6b9807bc8dfdb41f40",
+    "key_format": "0x40-byte header,0x100-byte exponent,0x100-byte modulus,0x100-byte signature. The signed entity is the first0x240bytes of the key object; that signature protects the key object.",
+    "bios_public_key_modulus_matches_outer_update_signer": false,
+    "bios_rtm_firmware_type_0x06_or_signature_type_0x07_found_in_four_directories": false,
+    "existing_psptool_report": "../firmware/DS1522+_7.2.2-72806/psp.json reports the BIOS public key and separate PSP/SMU/ABL/PMU components as signed/verified. Those recognized signed objects are separate from the target compressed BIOS extent.",
+    "unknowns": [
+      "Actual processor fuses/PSB policy were not observed.",
+      "Presence of BIOS_PUBLIC_KEY alone does not establish enforced BIOS verification.",
+      "Absence of recognized RTM entries does not prove unrestricted boot of a modified raw image.",
+      "No live SPI image was inspected in this subtask."
+    ]
+  },
+  "insyde_bioscer_signature": {
+    "record_container_offset": "0x8bb078",
+    "signature_container_range": [
+      "0x8bb090",
+      "0x8bb190"
+    ],
+    "signature_length": 256,
+    "signature_sha256": "f595e274c40a5b6e067421612c4af39224b59be461946ff0e53fa88ece883ba8",
+    "algorithm": "RSA2048 PKCS#1 v1.5 with SHA256",
+    "verification": "openssl pkeyutl -verifyrecover succeeded using the public key from the embedded Synology UEFI Firmware Signing Certificate. The recovered ASN.1 DigestInfo names SHA256, and its digest equals the raw8MiB BIOS payload SHA256.",
+    "recovered_digestinfo_hex": "3031300d060960864801650304020105000420ac8eb91600c714bd17c7fa5bcac1e94463c8f633e7c26bd948a3b6f772415e65",
+    "covered_container_range": [
+      "0xb08d0",
+      "0x8b08d0"
+    ],
+    "covered_payload_range": [
+      "0x0",
+      "0x800000"
+    ],
+    "verified": true,
+    "impact": "Any changed byte in the8MiB payload invalidates this signature. Ordinary checksum repair cannot restore it; producing a replacement valid under the same trusted public key requires its private signing key."
+  },
+  "outer_pe_authenticode_signature": {
+    "pe_header_container_offset": "0xc8",
+    "pe_format": "PE32+",
+    "certificate_table_container_offset": "0x8bb840",
+    "certificate_table_size": "0x6a8",
+    "win_certificate_revision": "0x200",
+    "win_certificate_type": "0x2 PKCS_SIGNED_DATA",
+    "digest_algorithm": "SHA256",
+    "signature_algorithm": "RSA2048 PKCS#1 v1.5",
+    "certificate_subject": "C=TW, O=Synology Inc., OU=Synology Certificate Authority, CN=Synology UEFI Firmware Signing Certificate",
+    "certificate_issuer": "C=TW, O=Synology Inc., OU=Synology Certificate Authority, CN=Synology Secure Boot CA",
+    "certificate_sha256": "b68cf44ab56b49972f965269eff5b910934540efadbca6d4a226602ef6ee7625",
+    "authenticode_image_hash": "9c5b9a5859b635d823c8c3e90e1e5776523964f04ba7ea82e7a7e56885317dd6",
+    "calculated_image_hash_matches_signed_content": true,
+    "signed_content_hash": "d3ddaf2f5079f61fdd664fc7729721335efa906fdba384a90ead150bcc75bb23",
+    "signed_content_hash_matches_attributes": true,
+    "rsa_signature_verification": "Verified OK",
+    "trust_chain_or_live_platform_trust_checked": false,
+    "hash_exclusions": [
+      {
+        "range": [
+          "0x120",
+          "0x124"
+        ],
+        "meaning": "PE CheckSum field"
+      },
+      {
+        "range": [
+          "0x170",
+          "0x178"
+        ],
+        "meaning": "Certificate Table data-directory entry"
+      },
+      {
+        "range": [
+          "0x8bb840",
+          "0x8bbee8"
+        ],
+        "meaning": "Certificate table itself"
+      }
+    ],
+    "target_is_in_hashed_section": {
+      "name": ".reloc",
+      "raw_container_range": [
+        "0x5480",
+        "0x8bb840"
+      ]
+    },
+    "ordinary_pe_checksum": "0x8c1eaa",
+    "ordinary_pe_checksum_verified": true,
+    "impact": "The target compressed BIOS stream and BIOSCER signature lie inside the hashed PE content. Repacking the module changes the Authenticode digest. Recomputing the ordinary PE checksum does not repair this cryptographic signature."
+  },
+  "conclusions": {
+    "structural_repack": "Feasible as an offline format operation: same-size FFS data edit, zlib recompression, compressed-length update and any changed metadata checksums are understood. No patched image was generated.",
+    "vendor_authenticated_update_package": "Cannot regenerate a valid original-vendor-signed package from these public inputs alone: both the raw BIOSCER signature and the PE Authenticode signature cover the changed data.",
+    "booting_modified_raw_payload": "Unresolved. The recognized target BIOS entry carries compression/checksum structure without a recognized per-entry signature, but this does not establish the live PSP/CPU fuse policy or the behavior of every firmware verification path.",
+    "updater_enforcement": "The shipped H2OFFT binary contains secure-flash/VerifyBios functionality strings, but its execution path and the live platform policy were not tested; do not claim a particular bypass or universal rejection from strings alone."
+  },
+  "verification_methods": [
+    "Python standard-library binary parsing and SHA256/zlib/checksum calculations",
+    "OpenSSL ASN.1/PKCS7/X.509 read-only parsing",
+    "OpenSSL RSA signature verification/recovery using extracted PUBLIC key",
+    "Comparison with existing UEFIExtract/PSPTool reports and upstream format definitions"
+  ],
+  "upstream_sources": [
+    {
+      "url": "https://github.com/PSPReverse/PSPTool/blob/master/psptool/file.py",
+      "downloaded_content_sha256": "eebf2c02a857b0860c841059cb4e221813f8859aff84e64afc2b7ea19523707d"
+    },
+    {
+      "url": "https://github.com/PSPReverse/PSPTool/blob/master/psptool/directory.py",
+      "downloaded_content_sha256": "037c1d28a72a59eb1981a3529b4f4550c3790a439570a32485abaa32811eaac0"
+    },
+    {
+      "url": "https://github.com/PSPReverse/PSPTool/blob/master/psptool/entry.py",
+      "downloaded_content_sha256": "cc0d4e3b5ce3affe536ae9c37750c42017a638b7b632000d293b3e328f49923b"
+    },
+    {
+      "url": "https://github.com/PSPReverse/PSPTool/blob/master/psptool/utils.py",
+      "downloaded_content_sha256": "774f552f724db36c96cdde86762c72ada417cf796e42eb1471332b171b649c01"
+    },
+    {
+      "url": "https://github.com/PSPReverse/PSPTool/blob/master/psptool/pubkey_file.py",
+      "downloaded_content_sha256": "7fc8bc52dbd2187938b840af0cfb9f3b6eb96e3cb39dbd30c8bb54d7b6f227d4"
+    },
+    {
+      "url": "https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Pi/PiFirmwareFile.h",
+      "downloaded_content_sha256": "5d88e855e33c30effa4a48e27ad28f95460202d7f2cef1e89d80e3081e956be1"
+    },
+    {
+      "url": "https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Pi/PiFirmwareVolume.h",
+      "downloaded_content_sha256": "537f536a9df18efaeaa811757ba6895a6d9529af18ed650cc347f22e8a964e81"
+    },
+    {
+      "url": "https://github.com/jbit/uninsyde/blob/main/src/main.rs",
+      "downloaded_content_sha256": "6e8b4957caa511ac2e5515e8b4ace5bbf55339e0d1956c91c0f318e60dd947c7"
+    }
+  ],
+  "cleanup": "Temporary extracted public certificates/signatures and downloaded parser source files were removed after recording results; original inputs and all existing analysis files were left unchanged.",
+  "h2offt_export_followup": {
+    "findings": "h2offt_export_findings.json",
+    "evidence": "h2offt_rea_evidence.json.gz",
+    "summary": "G/O bypass normal flash programming, but initialization/cleanup can alter driver state and conditionally write sysrq controls. Protected read blocks can be exported as zeroes."
+  }
+}

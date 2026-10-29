@@ -1,0 +1,415 @@
+{
+  "scope": "Read-only static boot-path and console analysis; current R1600 state is an already collected input. No NAS access, boot-parameter edits, or firmware-image creation.",
+  "assumptions": [
+    "The kernel and ramdisk predictions below are conditional on firmware proceeding beyond ReadyToBoot without a subsequent reset.",
+    "The DOM and its kernel/initrd remain readable.",
+    "For the no-disk scenario, the only installed system disks are in slots 1–3 and JMB585 is not enumerated or those slots cannot be powered."
+  ],
+  "busybox_input": {
+    "path": "analysis/boot_diagnostics/busybox.original",
+    "sha256": "0e971a47eed862acd97e20b096c1c53a78e88ccbdb8f1d45a344552d298d8100",
+    "ramdisk_links": {
+      "/init": "bin/busybox",
+      "/linuxrc": "bin/busybox",
+      "/sbin/init": "../bin/busybox"
+    }
+  },
+  "stages": [
+    {
+      "stage": "Kernel and initramfs",
+      "predicted_behavior": "If the x86 CPU and memory initialization are sufficient, the kernel unpacks initramfs and executes /init. Because /init exists, kernel_init_freeable skips prepare_namespace; root=/dev/md0 does not force an immediate kernel root-mount panic before the ramdisk init runs.",
+      "markers": [
+        "Linux version 4.4.302+",
+        "Trying to unpack rootfs image as initramfs...",
+        "Freeing unused kernel memory"
+      ],
+      "sources": [
+        {
+          "path": "analysis/boot_diagnostics/source/linux-4.4.x/init/main.c",
+          "lines": [
+            1039,
+            1052,
+            1055,
+            1057,
+            976
+          ]
+        },
+        {
+          "path": "analysis/boot_diagnostics/source/linux-4.4.x/init/initramfs.c",
+          "lines": [
+            655
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "BusyBox starts Synology disk-root selection",
+      "predicted_behavior": "The original /init BusyBox invokes /bin/ash /linuxrc.syno with stdout/stderr redirected to /dev/console. The wrapper invokes linuxrc.syno.impl with logging.",
+      "markers": [
+        "START /linuxrc.syno",
+        "START /linuxrc.syno.impl",
+        "Insert basic USB modules...",
+        "Starting /usr/syno/bin/synocfgen..."
+      ],
+      "sources": [
+        {
+          "path": "analysis/boot_diagnostics/busybox_linuxrc_fallback.asm",
+          "addresses": [
+            "0x445a22",
+            "0x445a4d",
+            "0x445a56"
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/linuxrc.syno",
+          "lines": [
+            4,
+            10
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/linuxrc.syno.impl",
+          "lines": [
+            4,
+            261,
+            299
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Disk readiness wait",
+      "predicted_behavior": "CheckAllDiskReady polls /proc/sys/kernel/syno_disk_ready_check only when the node exists. While it reads 0 it sleeps 5 seconds, up to 120 iterations (600 seconds total sleep). After a prior wait, it adds 5 seconds once readiness is seen. This is an upper bound, not a claim that absent hardware necessarily causes a 10-minute wait.",
+      "markers": [
+        "Wait 5 more second for disk becoming ready",
+        "All disk ready or timeout execeed"
+      ],
+      "sources": [
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/linuxrc.syno.impl",
+          "lines": [
+            359,
+            363,
+            366,
+            369,
+            370,
+            372,
+            374,
+            377,
+            384
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "No installable disk",
+      "predicted_behavior": "With MaxDisks=5 and an empty synodiskport -installable_disk_list, the script creates /.nodisk and calls Exit 1. Exit prints the reason, saves it to /var/log/junior_reason, unmounts the temporary root, and exits 1. This occurs before assemble_system_raid.sh and CheckRootRaidStatus, so no system RAID assembly is attempted on this empty-list branch.",
+      "markers": [
+        "Exit on error [1] DISK NOT INSTALLED..."
+      ],
+      "sources": [
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/linuxrc.syno.impl",
+          "lines": [
+            128,
+            131,
+            132,
+            142,
+            144,
+            468,
+            470,
+            471,
+            472,
+            483,
+            488
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/synoinfo.conf",
+          "lines": [
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Stay in initramfs installation/recovery environment",
+      "predicted_behavior": "For DS1522+ (unique=synology_r1000_1522+), the linuxrc wrapper returns failure without its special reboot handler; that handler applies only to broadwellntbap. BusyBox sees nonzero shell exit status and emits linuxrc.syno failed on 1, then continues its init action loop. The compiled default init table includes ::sysinit:/etc/rc and ::respawn:/sbin/getty 115200 console. Success alone invokes /sbin/init.post to switch_root to the disk system. Thus missing disks do not imply a kernel panic on this path.",
+      "markers": [
+        "linuxrc.syno failed on 1",
+        "Starting scemd",
+        "Starting findhostd in flash_rd...",
+        "Starting services in flash_rd..."
+      ],
+      "sources": [
+        {
+          "path": "analysis/boot_diagnostics/busybox_linuxrc_fallback.asm",
+          "addresses": [
+            "0x445ab3",
+            "0x445ab9",
+            "0x445b13",
+            "0x445b36",
+            "0x445b88",
+            "0x445c27"
+          ]
+        },
+        {
+          "path": "analysis/boot_diagnostics/busybox_default_inittab.asm",
+          "addresses": [
+            "0x4455b0",
+            "0x445677"
+          ]
+        },
+        {
+          "path": "analysis/boot_diagnostics/busybox.original",
+          "default_init_strings_va": [
+            "0x459dac",
+            "0x459dbe"
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc",
+          "lines": [
+            289,
+            293,
+            301,
+            306,
+            370,
+            376,
+            410,
+            411,
+            426,
+            427
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/linuxrc.syno",
+          "lines": [
+            10,
+            14,
+            15,
+            20
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/usr/syno/share/reboot_handler.sh",
+          "lines": [
+            3,
+            5,
+            6,
+            9,
+            22,
+            25,
+            26
+          ]
+        },
+        {
+          "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/synoinfo.conf",
+          "lines": [
+            316
+          ]
+        },
+        {
+          "path": "analysis/boot_diagnostics/init.post",
+          "lines": [
+            7,
+            24,
+            30
+          ]
+        }
+      ],
+      "limit": "scemd failure is a separate explicit reboot branch at rc410-415; it is not an inevitable consequence of no disks. NIC enumeration/init failure can leave the recovery environment without an IP."
+    }
+  ],
+  "console": {
+    "historical_parameters": [
+      {
+        "source": "/var/log/kern.log",
+        "source_line": 1443,
+        "parameters": [
+          "root=/dev/md0",
+          "syno_ttyS0=mmio,0xfedc9000,115200,48000000",
+          "syno_ttyS1=mmio,0xfedca000,115200",
+          "syno_ttyS2=mmio,0xfedcf000,115200"
+        ]
+      }
+    ],
+    "current_state_source": "analysis/boot_enablement/current_console_state.json",
+    "current_state_summary": {
+      "proc_consoles": "ttyS0 -W- (EC   a) 4:64",
+      "active": "ttyS0",
+      "syno_forbid_console": 0
+    },
+    "automatic_early_console_chain": [
+      {
+        "path": "analysis/boot_diagnostics/source/linux-4.4.x/kernel/syno_bootargs.c",
+        "lines": [
+          984,
+          986,
+          987,
+          990
+        ],
+        "meaning": "syno_ttyS0= stores mapping AND calls setup_early_printk with its value."
+      },
+      {
+        "path": "analysis/boot_diagnostics/source/linux-4.4.x/arch/x86/kernel/early_printk.c",
+        "lines": [
+          246,
+          251,
+          252,
+          270,
+          278,
+          280,
+          285,
+          286,
+          650,
+          651,
+          652
+        ],
+        "meaning": "The mmio form parses address, baud, and base clock, uses 32-bit MMIO register access, initializes the UART, and registers earlyser."
+      }
+    ],
+    "default_output_conclusion": "The existing syno_ttyS0=mmio,0xfedc9000,115200,48000000 already enables Linux early serial output. Current R1600 additionally confirms normal ttyS0 console is active and not forbidden. Basic Linux and initramfs markers should not require adding independent console= or earlyprintk= parameters.",
+    "forbid_flag": {
+      "default_source_value": 0,
+      "control": "/proc/sys/kernel/syno_forbid_console",
+      "sources": [
+        {
+          "path": "analysis/boot_diagnostics/source/linux-4.4.x/kernel/sysctl.c",
+          "lines": [
+            455,
+            1992,
+            1993
+          ]
+        },
+        {
+          "path": "analysis/boot_diagnostics/source/linux-4.4.x/drivers/tty/serial/serial_core.c",
+          "lines": [
+            568,
+            1814
+          ]
+        },
+        {
+          "path": "analysis/os_followup/source/linux-4.4.x/synoconfigs/r1000",
+          "lines": [
+            731,
+            2813,
+            5101
+          ]
+        }
+      ],
+      "meaning": "The config enables a runtime inhibit feature; it does not mean output is disabled by default."
+    },
+    "changes_needed_only_if": "Extra logging verbosity or a different console destination may need separately chosen boot settings; no change is needed merely because the explicit console= list is empty. BIOS/bootloader verbosity and messages before Linux console setup are separate and not established here.",
+    "hardware_boundary": "No connector pinout, voltage, or assumptions about physical serial wiring are provided."
+  },
+  "limits": [
+    "Static analysis predicts the no-disk branch only if V1500B actually reaches the kernel and ramdisk.",
+    "No V1500B boot log is available to locate its final executed stage.",
+    "Current R1600 ttyS0 behavior does not prove the swapped CPU preserves the same UART initialization.",
+    "Official build72806 source was checked against key behavior in the actual U4 BusyBox binary; no claim of byte-identical source for every kernel function."
+  ],
+  "source_archive": {
+    "url": "https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-72806/r1000/linux-4.4.x.txz",
+    "md5": "ba64f6354f4daa3551cf90043f2d2be2",
+    "md5_verified": true
+  },
+  "historical_stage_boundary": {
+    "observation": "Four recovered lines say: 00/01/05---FF/00/0 can't find JMB585.",
+    "observed_log": "analysis/recovered_jmb585.log",
+    "observed_log_sha256": "1cc86fcfb6c87fce033dc84fb6bec5f5f0ffba997fcaa8e7e48b33bb2f36b2a5",
+    "static_phase": "SynoServiceDxe callback 0x3c0 registered for ReadyToBoot.",
+    "static_sources": [
+      {
+        "path": "analysis/key_function_evidence.json",
+        "label": "synoservice_callback_registration",
+        "procedure": "0x5a0",
+        "evidence_id": "ev_d1d0c415e26e893e8022429e8aacf9072e11b514ace4d778e0219bcf4ec4c629"
+      },
+      {
+        "path": "analysis/synoservice_jmb585_disassembly.txt",
+        "addresses": [
+          "0x3c0",
+          "0x40c",
+          "0x43a",
+          "0x448",
+          "0x52c",
+          "0x570",
+          "0x575",
+          "0x581"
+        ]
+      },
+      {
+        "path": "analysis/findings.json",
+        "section": "observations / SynoServiceDxe ReadyToBoot callback"
+      }
+    ],
+    "phase_inference": "The boot or boots that produced these messages reached this late firmware callback. The missing-controller branch logs the error and returns; the reset write at 0x51e–0x525 is on the separate present-controller/link-status branch.",
+    "collection_time_evidence": "analysis/historical_log_findings.json",
+    "collection_boundary": "The messages were collected by a later successful Linux/DSM boot correlated with 2025-08-19 evening. That collection boot attached all three SATA disks. Collection time is not each message's occurrence time.",
+    "unresolved": [
+      "The CPU installed when each message was produced is not recorded.",
+      "Four lines do not establish four separate boot attempts.",
+      "ReadyToBoot is a reached stage, not a measured final stopping point.",
+      "No V1500B serial log establishes whether its failed run later entered the kernel, disk selection, or recovery environment."
+    ]
+  },
+  "diagnostic_table": [
+    {
+      "stage": "Firmware ReadyToBoot",
+      "marker": "00/01/05---FF/00/0 can't find JMB585",
+      "establishes": "The OEM firmware controller check ran and failed to find JMB585 on the expected bridge.",
+      "does_not_establish": "CPU identity, final halt point, or that this branch reset the machine.",
+      "basis": "Recovered log plus callback disassembly."
+    },
+    {
+      "stage": "Linux kernel",
+      "marker": "Linux version 4.4.302+",
+      "establishes": "Linux began executing.",
+      "does_not_establish": "Successful driver initialization or disk discovery.",
+      "basis": "Kernel startup banner and historical Linux log."
+    },
+    {
+      "stage": "Initial RAM filesystem",
+      "marker": "START /linuxrc.syno.impl",
+      "establishes": "BusyBox started Synology early userspace.",
+      "does_not_establish": "The disk system was mounted.",
+      "basis": "linuxrc.syno and linuxrc.syno.impl."
+    },
+    {
+      "stage": "Disk readiness",
+      "marker": "Wait 5 more second for disk becoming ready",
+      "establishes": "The readiness node exists and read 0 for this iteration.",
+      "does_not_establish": "Which device is missing; the loop can time out after at most 120 sleeps.",
+      "basis": "linuxrc.syno.impl:359–384."
+    },
+    {
+      "stage": "No installable disk",
+      "marker": "Exit on error [1] DISK NOT INSTALLED...",
+      "establishes": "Installable-disk enumeration returned an empty list; disk RAID assembly was skipped.",
+      "does_not_establish": "Whether the cause is PCIe enumeration, power control, or another disk discovery failure.",
+      "basis": "linuxrc.syno.impl:468–488."
+    },
+    {
+      "stage": "RAM-based recovery continuation",
+      "marker": "linuxrc.syno failed on 1",
+      "establishes": "The early disk-root script returned failure and BusyBox continues its init actions.",
+      "does_not_establish": "That /etc/rc, scemd, or network discovery will complete.",
+      "basis": "Original BusyBox:0x445ab3–0x445c27; DS1522+ wrapper model gate."
+    },
+    {
+      "stage": "Recovery network discovery startup",
+      "marker": "Starting findhostd in flash_rd...",
+      "establishes": "The recovery startup script reached the discovery-daemon launch.",
+      "does_not_establish": "An enumerated NIC, assigned IP, or reachable web installer.",
+      "basis": "rd/etc/rc:370–371."
+    },
+    {
+      "stage": "Disk-root transition attempt",
+      "marker": "Post init",
+      "establishes": "BusyBox took the successful early disk-root branch and started init.post.",
+      "does_not_establish": "Successful final mount, switch_root, or a fully running DSM.",
+      "basis": "init.post:7–30 and original BusyBox successful branch."
+    }
+  ]
+}

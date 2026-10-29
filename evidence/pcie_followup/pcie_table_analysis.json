@@ -1,0 +1,833 @@
+{
+  "model_under_investigation": "DS1522+",
+  "date": "2026-10-28",
+  "question": "Why can an R1600 to V1500B replacement prevent SATA-controller discovery and network startup?",
+  "judgment": {
+    "best_supported_mechanism": "A CPU-dependent silicon classification selects a different OEM DXIO topology. The alternative DS1522 table lacks the PCIe roots used by the onboard NIC switch and JMB585, and assigns their logical lanes to Ethernet engines instead.",
+    "confidence": "Strong static mechanism with corroborating R1600 topology and historical JMB585 error; not yet an observed V1500B reproduction.",
+    "root_cause_proven": false,
+    "important_refinement": "This is more specific than a simple PCI function renumbering: the alternative table does not enable the required roots at all.",
+    "cpu_name_blacklist": "No such check is demonstrated by this chain; a CPU name/power branch can coexist with a board topology that is unsuitable for another silicon class."
+  },
+  "observations": [
+    {
+      "id": "PCIE-001",
+      "claim": "SynoServiceDxe reads an 8-bit value at ECAM base 0xF8000000 + 0xD019, the secondary-bus register of 00:01.5. Historical log reports FF at this point.",
+      "module": "SynoServiceDxe.efi",
+      "addresses": [
+        "0x40c",
+        "0x6ec",
+        "0xa20"
+      ],
+      "constant_data_address": "0x1ce0",
+      "evidence_files": [
+        "../synoservice_jmb585_disassembly.txt",
+        "../historical_bios_logs.json"
+      ],
+      "limit": "One byte does not prove the root port was absent; FF is consistent with an unavailable/uninitialized port but a full failed-boot config dump is unavailable."
+    },
+    {
+      "id": "PCIE-002",
+      "claim": "Current R1600 has 00:01.5 secondary bus 09 and 09:00.0 vendor 197b/device 0585. The four onboard Realtek NICs are below a switch on 00:01.4.",
+      "evidence_file": "current_r1600_topology.json"
+    },
+    {
+      "id": "PCIE-003",
+      "claim": "The OEM module contains two $A26 topology tables. Their masks distinguish platform ID0 from ID8; the actual raw entries are retained below.",
+      "table_offsets": [
+        "0x23a8",
+        "0x3d30"
+      ],
+      "evidence": "tables"
+    },
+    {
+      "id": "PCIE-004",
+      "claim": "CPM looks up tables by signature and accepts a nonzero header+8 platform mask only when it intersects 1 << platform_id.",
+      "module": "AmdCpmInitPeim_D919136E_early.efi",
+      "function": "0x9b47be0",
+      "evidence_file": "cpm_selection_pseudocode.json"
+    },
+    {
+      "id": "PCIE-005",
+      "claim": "For CPUID matching 0x00810F00 under mask0x0FFF0F00, CPM uses PCD0x4F0C4 high bits31:30 to choose class11 or class12. Values2/3 override the signature to0x00820F00. OEM $A01 maps the zero-board-value rows to platform0 or8.",
+      "module": "AmdCpmInitPeim_D919136E_early.efi",
+      "functions": [
+        "0x9b4952b",
+        "0x9b496d1",
+        "0x9b478b7"
+      ],
+      "classification_record_offsets": [
+        "0x40b0",
+        "0x4118"
+      ],
+      "evidence_file": "cpm_selection_pseudocode.json"
+    },
+    {
+      "id": "PCIE-006",
+      "claim": "AmdNbioEarlyPhaseRVPei sends SMU message0x51 and stores returned argument0 into PCD0x4F0C4.",
+      "module": "AmdNbioEarlyPhaseRVPei_52DFCF2E_early.efi",
+      "message_push_address": "0x9b6aac2",
+      "pcd_write_address": "0x9b6ab0d",
+      "evidence_files": [
+        "smu_silicon_class_pseudocode.json",
+        "nbio_early_phase_disassembly.txt"
+      ],
+      "limit": "The SMU service was not invoked on hardware. Exact V1500B and R1600 replies have not been captured."
+    },
+    {
+      "id": "PCIE-007",
+      "claim": "AmdCpmPcieInitPeim requests $A26 through the same mask-aware lookup, walks 0x194-byte descriptors, checks engine1 plus port-present, and publishes the selected table+0x14 as the DXIO descriptor pointer.",
+      "module": "AmdCpmPcieInitPeim_DE3D7A9C_early.efi",
+      "function": "0x9b4d693",
+      "addresses": [
+        "0x9b4d6f2",
+        "0x9b4da7b",
+        "0x9b4da84",
+        "0x9b4df05",
+        "0x9b4df20"
+      ],
+      "evidence_files": [
+        "pcie_dispatch_pseudocode.json",
+        "pcie_init_pei_disassembly.txt"
+      ]
+    },
+    {
+      "id": "PCIE-008",
+      "claim": "The DS1525 reference firmware has a tailored platform0 table with PCIe01.1 through01.6. Its opposite branch has the two-PCIe/Ethernet-engine layout. This is comparison evidence, not a drop-in firmware recommendation.",
+      "evidence": "tables"
+    },
+    {
+      "id": "PCIE-009",
+      "claim": "Synology kernel matches fixed PCI paths to disk slots. A mismatch returns slot0 after index conversion and HddPowerOn exits without switching the disk GPIO on; syno_hddmon also skips unmatched ATA ports.",
+      "evidence_file": "../os_followup/evidence.json",
+      "limit": "Explains the first three internal bays when their JMB585 path is unavailable/mismatched. All installed disks were in that group in preserved successful boots, but occupancy at the failed attempt was not independently recorded."
+    }
+  ],
+  "tables": [
+    {
+      "model": "DS1522+_7.2.2-72806",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+      "module_sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf",
+      "table_signature": "$A26",
+      "table_offset": "0x23a8",
+      "length": 6532,
+      "platform_mask": "0xff",
+      "matching_platform_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "active_pcie_ports": [
+        "00:01.1",
+        "00:01.2"
+      ],
+      "entries": [
+        {
+          "index": 0,
+          "file_offset": "0x23bc",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 15,
+          "end_logical_lane": 8,
+          "reset_group_raw": 4,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "first24_bytes": "0000000001000f08040000000121004e0000008000000000"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x2550",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 7,
+          "reset_group_raw": 19,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "first24_bytes": "0000000001000407130000000141005e0000008000000000"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x26e4",
+          "flags": "0x0",
+          "engine_type": 0,
+          "engine_interpretation": "unused",
+          "start_logical_lane": 2,
+          "end_logical_lane": 3,
+          "reset_group_raw": 27,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "first24_bytes": "00000000000002031b00000001a100320000008000000000"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x2878",
+          "flags": "0x0",
+          "engine_type": 0,
+          "engine_interpretation": "unused",
+          "start_logical_lane": 0,
+          "end_logical_lane": 3,
+          "reset_group_raw": 27,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "first24_bytes": "00000000000000031b00000001a100320000008000000000"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x2a0c",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000300030301000000010000000000002000000000"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x2ba0",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000300020201000000010000000000002000000000"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x2d34",
+          "flags": "0x0",
+          "engine_type": 16,
+          "engine_interpretation": "Ethernet",
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000001000000001000000010000000000000000000000"
+        },
+        {
+          "index": 7,
+          "file_offset": "0x2ec8",
+          "flags": "0x80000000",
+          "engine_type": 16,
+          "engine_interpretation": "Ethernet",
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000801000010101000000010000000000000000000000"
+        }
+      ]
+    },
+    {
+      "model": "DS1522+_7.2.2-72806",
+      "module": "analysis/modules/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+      "module_sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf",
+      "table_signature": "$A26",
+      "table_offset": "0x3d30",
+      "length": 6532,
+      "platform_mask": "0x3f001f00",
+      "matching_platform_ids": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "active_pcie_ports": [
+        "00:01.1",
+        "00:01.2",
+        "00:01.3",
+        "00:01.4",
+        "00:01.5"
+      ],
+      "entries": [
+        {
+          "index": 0,
+          "file_offset": "0x3d44",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 8,
+          "end_logical_lane": 11,
+          "reset_group_raw": 35,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "first24_bytes": "000000000100080b23000000012100f00000008000000000"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x3ed8",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 4,
+          "reset_group_raw": 37,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "first24_bytes": "000000000100040425000000014100f00000008000000000"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x406c",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 5,
+          "end_logical_lane": 5,
+          "reset_group_raw": 38,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 3,
+          "first24_bytes": "000000000100050526000000016100f00000008000000000"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x4200",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "reset_group_raw": 39,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 4,
+          "first24_bytes": "000000000100010127000000018100f00000008000000000"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x4394",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "reset_group_raw": 40,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "first24_bytes": "00000000010000002800000001a100f00000008000000000"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x4528",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000301030301000000010000000000002000000000"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x46bc",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000301020201000000010000000000002000000000"
+        }
+      ]
+    },
+    {
+      "model": "DS1525+_7.2.2-72806-U4",
+      "module": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemInitPeim_D617467B_early.efi",
+      "module_sha256": "7e41e27054cc5fdd3f7ee484c1a133d32bd34328cfda6d48c2a53e03ccb354a8",
+      "table_signature": "$A26",
+      "table_offset": "0x2428",
+      "length": 6532,
+      "platform_mask": "0xff",
+      "matching_platform_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "active_pcie_ports": [
+        "00:01.1",
+        "00:01.2",
+        "00:01.3",
+        "00:01.4",
+        "00:01.5",
+        "00:01.6"
+      ],
+      "entries": [
+        {
+          "index": 0,
+          "file_offset": "0x243c",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 12,
+          "end_logical_lane": 15,
+          "reset_group_raw": 35,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "first24_bytes": "0000000001000c0f23000000012100f00000008000000000"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x25d0",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 8,
+          "end_logical_lane": 11,
+          "reset_group_raw": 36,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "first24_bytes": "000000000100080b24000000014100f00000008000000000"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x2764",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 4,
+          "reset_group_raw": 41,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 3,
+          "first24_bytes": "000000000100040429000000016100f00000008000000000"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x28f8",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 5,
+          "end_logical_lane": 5,
+          "reset_group_raw": 42,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 4,
+          "first24_bytes": "00000000010005052a000000018100f00000008000000000"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x2a8c",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 6,
+          "end_logical_lane": 7,
+          "reset_group_raw": 37,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "first24_bytes": "00000000010006072500000001a100f00000008000000000"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x2c20",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "reset_group_raw": 38,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 6,
+          "first24_bytes": "00000000010000012600000001c100f00000008000000000"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x2db4",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000301030301000000010000000000002000000000"
+        },
+        {
+          "index": 7,
+          "file_offset": "0x2f48",
+          "flags": "0x80000000",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000800301020201000000010000000000002000000000"
+        }
+      ]
+    },
+    {
+      "model": "DS1525+_7.2.2-72806-U4",
+      "module": "analysis/modules/DS1525+_7.2.2-72806-U4/AmdCpmOemInitPeim_D617467B_early.efi",
+      "module_sha256": "7e41e27054cc5fdd3f7ee484c1a133d32bd34328cfda6d48c2a53e03ccb354a8",
+      "table_signature": "$A26",
+      "table_offset": "0x3db0",
+      "length": 6532,
+      "platform_mask": "0x3f001f00",
+      "matching_platform_ids": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "active_pcie_ports": [
+        "00:01.1",
+        "00:01.2"
+      ],
+      "entries": [
+        {
+          "index": 0,
+          "file_offset": "0x3dc4",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 11,
+          "end_logical_lane": 8,
+          "reset_group_raw": 4,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 1,
+          "first24_bytes": "0000000001000b08040000000121004e0000008000000000"
+        },
+        {
+          "index": 1,
+          "file_offset": "0x3f58",
+          "flags": "0x0",
+          "engine_type": 1,
+          "engine_interpretation": "PCIe",
+          "start_logical_lane": 4,
+          "end_logical_lane": 5,
+          "reset_group_raw": 19,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 2,
+          "first24_bytes": "0000000001000405130000000141005e0000008000000000"
+        },
+        {
+          "index": 2,
+          "file_offset": "0x40ec",
+          "flags": "0x0",
+          "engine_type": 0,
+          "engine_interpretation": "unused",
+          "start_logical_lane": 0,
+          "end_logical_lane": 1,
+          "reset_group_raw": 27,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "first24_bytes": "00000000000000011b00000001a100320000008000000000"
+        },
+        {
+          "index": 3,
+          "file_offset": "0x4280",
+          "flags": "0x0",
+          "engine_type": 0,
+          "engine_interpretation": "unused",
+          "start_logical_lane": 2,
+          "end_logical_lane": 3,
+          "reset_group_raw": 27,
+          "port_present_bit": true,
+          "desired_device": 1,
+          "desired_function": 5,
+          "first24_bytes": "00000000000002031b00000001a100320000008000000000"
+        },
+        {
+          "index": 4,
+          "file_offset": "0x4414",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 3,
+          "end_logical_lane": 3,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000300030301000000010000000000002000000000"
+        },
+        {
+          "index": 5,
+          "file_offset": "0x45a8",
+          "flags": "0x0",
+          "engine_type": 3,
+          "engine_interpretation": "SATA",
+          "start_logical_lane": 2,
+          "end_logical_lane": 2,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000000300020201000000010000000000002000000000"
+        },
+        {
+          "index": 6,
+          "file_offset": "0x473c",
+          "flags": "0x0",
+          "engine_type": 16,
+          "engine_interpretation": "Ethernet",
+          "start_logical_lane": 0,
+          "end_logical_lane": 0,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000001000000001000000010000000000000000000000"
+        },
+        {
+          "index": 7,
+          "file_offset": "0x48d0",
+          "flags": "0x80000000",
+          "engine_type": 16,
+          "engine_interpretation": "Ethernet",
+          "start_logical_lane": 1,
+          "end_logical_lane": 1,
+          "reset_group_raw": 1,
+          "port_present_bit": true,
+          "desired_device": 0,
+          "desired_function": 0,
+          "first24_bytes": "000000801000010101000000010000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "platform_mapping_table": {
+    "signature": "$A01",
+    "file_offset": "0x14c8",
+    "records": [
+      {
+        "offset": "0x14d8",
+        "cpu_class": 11,
+        "board_mask_raw": 31,
+        "board_value": 0,
+        "platform_id": 0
+      },
+      {
+        "offset": "0x14df",
+        "cpu_class": 11,
+        "board_mask_raw": 31,
+        "board_value": 4,
+        "platform_id": 1
+      },
+      {
+        "offset": "0x14e6",
+        "cpu_class": 11,
+        "board_mask_raw": 31,
+        "board_value": 8,
+        "platform_id": 2
+      },
+      {
+        "offset": "0x14ed",
+        "cpu_class": 11,
+        "board_mask_raw": 31,
+        "board_value": 24,
+        "platform_id": 3
+      },
+      {
+        "offset": "0x14f4",
+        "cpu_class": 11,
+        "board_mask_raw": 31,
+        "board_value": 16,
+        "platform_id": 4
+      },
+      {
+        "offset": "0x14fb",
+        "cpu_class": 12,
+        "board_mask_raw": 31,
+        "board_value": 0,
+        "platform_id": 8
+      },
+      {
+        "offset": "0x1502",
+        "cpu_class": 12,
+        "board_mask_raw": 31,
+        "board_value": 4,
+        "platform_id": 9
+      },
+      {
+        "offset": "0x1509",
+        "cpu_class": 12,
+        "board_mask_raw": 31,
+        "board_value": 8,
+        "platform_id": 10
+      },
+      {
+        "offset": "0x1510",
+        "cpu_class": 12,
+        "board_mask_raw": 31,
+        "board_value": 24,
+        "platform_id": 11
+      },
+      {
+        "offset": "0x1517",
+        "cpu_class": 12,
+        "board_mask_raw": 31,
+        "board_value": 16,
+        "platform_id": 12
+      }
+    ]
+  },
+  "conditional_static_evaluation": {
+    "kind": "Decoded branch evaluation using actual table bytes, not execution of firmware or measurement of CPU replies.",
+    "cpuid_example": "0x00810F81, reconstructed from the current R1600 family23/model24/stepping1",
+    "cases": [
+      {
+        "synthetic_smu_arg0_high_two_bits": 0,
+        "cpu_class": 11,
+        "platform_id": 0,
+        "selected_table": "0x23a8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2"
+        ]
+      },
+      {
+        "synthetic_smu_arg0_high_two_bits": 1,
+        "cpu_class": 11,
+        "platform_id": 0,
+        "selected_table": "0x23a8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2"
+        ]
+      },
+      {
+        "synthetic_smu_arg0_high_two_bits": 2,
+        "cpu_class": 12,
+        "platform_id": 8,
+        "selected_table": "0x3d30",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ]
+      },
+      {
+        "synthetic_smu_arg0_high_two_bits": 3,
+        "cpu_class": 12,
+        "platform_id": 8,
+        "selected_table": "0x3d30",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ]
+      }
+    ]
+  },
+  "causal_chain_inference": [
+    "A different CPU silicon classification can select platform0 instead of platform8.",
+    "On DS1522 platform0, the logical lane0/1 pair is assigned to Ethernet engines rather than the PCIe connections configured in platform8.",
+    "The currently observed NIC-switch root01.4 and JMB585 root01.5 therefore have no active PCIe descriptor in that branch.",
+    "This predicts missing onboard network devices and the BIOS failing to find JMB585, matching the reported symptoms and historical diagnostic.",
+    "If Linux proceeds, the fixed board path also prevents normal power-up of the affected disk bays when their controller cannot be mapped."
+  ],
+  "remaining_unknowns": [
+    "The failed V1500B boot has no captured SMU0x51 reply, selected platform ID or PCI config-space dump.",
+    "The historical four errors do not name the CPU; collection-time correlation is strong but does not prove each error was generated by V1500B.",
+    "No hardware repair or patched-firmware boot has been performed to establish causality or rule out a separate soldering/electrical fault.",
+    "The mapped 3 MiB early BIOS now matches the official image exactly, but a full SPI dump and live boot-authentication policy are still unavailable."
+  ],
+  "upstream_context": "../cpu_pcie_sources/evidence.json",
+  "independent_review": "../os_followup/bios_selection_review.json",
+  "native_evidence": [
+    {
+      "file": "oem_pei_pseudocode.json",
+      "evidence_id": "ev_355c9f5ade2335f9afd17f702be0a4c635bf5bfe474e6d6d6c2c06e6c043a0a0",
+      "operation": "batch_decompile",
+      "target_sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf"
+    },
+    {
+      "file": "cpm_selection_pseudocode.json",
+      "evidence_id": "ev_9a44442685345ccf6f3f5799a52b3e592065d6f24b6dc1ff0b87c2574f5ce037",
+      "operation": "batch_decompile",
+      "target_sha256": "46701360c3fd09965346c8f5b897e6ae12b9717ca55d6c0f533fc6e8a0c434bd"
+    },
+    {
+      "file": "pcie_dispatch_pseudocode.json",
+      "evidence_id": "ev_65d792faaac8538b48a0d633fed7c7f2ffdfa0617939f585d3b2ef6718f3b968",
+      "operation": "batch_decompile",
+      "target_sha256": "b901b6a298c66f3759c372e69d02f696dee739ddd21ea7eca52686f75b4aef2a"
+    },
+    {
+      "file": "smu_silicon_class_pseudocode.json",
+      "evidence_id": "ev_40cbf4bf6a84f3b0f3dd5762607ef78b232779267cc8d1680b1b495db5b248f3",
+      "operation": "batch_decompile",
+      "target_sha256": "15b33f25eb63e0ac8102cf4885bbdc9ba0bbc06292ce779051b0aaea91169985"
+    }
+  ],
+  "actions": {
+    "nas_actions": "Read CPU fields and PCI sysfs topology/config headers only.",
+    "bios_modified": false,
+    "nas_configuration_modified": false
+  },
+  "independent_review_completed": true,
+  "independent_review_scope": "Original table bytes, registration, masks, class-to-platform mapping and descriptor field use were independently checked; actual V1500B SMU reply remains outside the review evidence.",
+  "live_early_bios_verified": "../boot_enablement/live_code_verification.json",
+  "offline_candidate_verification": "../boot_enablement/candidate_emulation.json"
+}

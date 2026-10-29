@@ -1,0 +1,12 @@
+{
+  "mtd_interface_present": false,
+  "h2offt_device_present": false,
+  "dev_mem_exists": true,
+  "dev_mem_mode": "0o600",
+  "serial_parameters": [
+    "syno_ttyS0=mmio,0xfedc9000,115200,48000000",
+    "syno_ttyS1=mmio,0xfedca000,115200",
+    "syno_ttyS2=mmio,0xfedcf000,115200"
+  ],
+  "efi_variables": []
+}

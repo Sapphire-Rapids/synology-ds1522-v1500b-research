@@ -1,0 +1,239 @@
+{
+  "question": "How can a CPU-dependent PCIe root-port change affect DS1522+ HDD power-up and networking?",
+  "scope": "Static, read-only analysis of official build-72806 source, historical Update 4 ramdisk/module and previously collected R1600 PCI topology; no NAS access, no target execution, no patch.",
+  "source_archive": {
+    "url": "https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-72806/r1000/linux-4.4.x.txz",
+    "index_url": "https://archive.synology.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-72806",
+    "md5": "ba64f6354f4daa3551cf90043f2d2be2",
+    "md5_matches_index": true,
+    "sha256": "ae4615d04bd3fb4eb179a5daac7c4d85730733a72370bcf6e57650f6de06e881",
+    "retained_files": [
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/drivers/ata/ahci.c",
+        "sha256": "6869584bdfd1eefbe47f77eef73b447f79714ee1b81e65c87cb9b459dcd67e60"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/drivers/ata/libata-core.c",
+        "sha256": "48f90d687ab9fec3211a856262925e9f8e0ab6f1e30dc7cad68d62e8a045a2ca"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/drivers/ata/libata-scsi.c",
+        "sha256": "b6da3c84f189ef61078549a38477af367bfd668744b645a43153630d31592b17"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/drivers/hwmon/syno_hddmon.c",
+        "sha256": "fc2108355b4cd57fcc43d57056bccdb020d00d0da2237231c1d4505e5e8f6ace"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/drivers/of/fdt.c",
+        "sha256": "14b4826ceab69f4233cc9a49a3bd159b5c2f872e5c79fcb0b2df76e8d3453e0f"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/include/linux/synolib.h",
+        "sha256": "553534f36fee7a771a3b22f78c65a72541ed2f7447d573555720d7e7ece63dc1"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/include/linux/synosata.h",
+        "sha256": "a2b6bfb04add39004c06c5a6a81318b513740a803c61507f4bca221819480736"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/kernel/syno_fdt.c",
+        "sha256": "80a0a3ff8c3c6aebcd5a628b0771801899513206e97fb55442d84e00012014cd"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/lib/synolib/syno_pciepath_dts_pattern.c",
+        "sha256": "175e36a59e81da46a79d3164abd8369f39f3feca6aec0ee01bd4b1db610c06cd"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/net/core/net-sysfs.c",
+        "sha256": "3fd178c020b779fed25a2e3d7b6f213d35e0373fd6305c02ed4d90b81d0a65a5"
+      },
+      {
+        "path": "analysis/os_followup/source/linux-4.4.x/synoconfigs/r1000",
+        "sha256": "fc18f3ce7d5e9da54be84da7cde9a3574e00e10f029f8e1feeadb28318580163"
+      }
+    ],
+    "limitation": "Published build-72806 source is not claimed to be an exact revision match for every historical Update 4 kernel function. The key missing-port skip behavior is independently present in the actual Update 4 syno_hddmon module."
+  },
+  "execution_chain": [
+    {
+      "step": 1,
+      "kind": "observed source",
+      "description": "Construct actual PCI path from root bus/device/function and downstream device/functions; child bus numbers are deliberately omitted so ordinary secondary-bus renumbering does not break matching.",
+      "file": "analysis/os_followup/source/linux-4.4.x/lib/synolib/syno_pciepath_dts_pattern.c",
+      "lines": [
+        11,
+        13,
+        21,
+        35,
+        52,
+        59
+      ]
+    },
+    {
+      "step": 2,
+      "kind": "observed source",
+      "description": "Compare that actual path to device-tree pcie_root with strncmp. A root function change such as 00:01.5 to 00:01.6 fails this comparison.",
+      "file": "analysis/os_followup/source/linux-4.4.x/lib/synolib/syno_pciepath_dts_pattern.c",
+      "lines": [
+        76,
+        81,
+        87,
+        90,
+        94
+      ]
+    },
+    {
+      "step": 3,
+      "kind": "observed source",
+      "description": "AHCI sets syno_compare_node_info to syno_ahci_compare_ata_devicetree_info, which requires both ATA port and PCI path to match.",
+      "file": "analysis/os_followup/source/linux-4.4.x/drivers/ata/ahci.c",
+      "lines": [
+        3501,
+        3510,
+        3514,
+        4634
+      ]
+    },
+    {
+      "step": 4,
+      "kind": "observed source",
+      "description": "No matching internal_slot gives lookup_internal_slot=0 and syno_libata_index_get=-1.",
+      "file": "analysis/os_followup/source/linux-4.4.x/drivers/ata/libata-scsi.c",
+      "lines": [
+        8125,
+        8137,
+        8146,
+        8147,
+        8161,
+        8163,
+        8176,
+        8177,
+        8184
+      ]
+    },
+    {
+      "step": 5,
+      "kind": "observed source",
+      "description": "ata_port_probe calls HddPowerOn when dynamic power is supported. HddPowerOn adds one to the slot index: -1 becomes 0, so it exits before SYNO_CTRL_HDD_POWERON.",
+      "file": "analysis/os_followup/source/linux-4.4.x/drivers/ata/libata-core.c",
+      "lines": [
+        7582,
+        7588,
+        7591,
+        7593,
+        7610,
+        7733,
+        7734
+      ]
+    },
+    {
+      "step": 6,
+      "kind": "observed source",
+      "description": "Later HDD-monitor code looks up the ATA port for each slot with the same device-tree comparison. Missing port returns -ENODEV; the caller treats that nonzero result as a reason to skip a newly detected disk, without calling power-on.",
+      "files": [
+        {
+          "path": "analysis/os_followup/source/linux-4.4.x/drivers/ata/libata-core.c",
+          "lines": [
+            194,
+            219,
+            222,
+            223,
+            226
+          ]
+        },
+        {
+          "path": "analysis/os_followup/source/linux-4.4.x/drivers/hwmon/syno_hddmon.c",
+          "lines": [
+            120,
+            139,
+            140,
+            236,
+            237,
+            251
+          ]
+        }
+      ]
+    },
+    {
+      "step": 7,
+      "kind": "observed binary",
+      "description": "Update 4 syno_hddmon_routine directly corroborates the missing-port skip: call syno_ata_port_get_by_port at section offset 0x146, test result at 0x14e, jump on NULL at 0x151 to 0x160 and increment slot at 0x164. It bypasses SYNO_CTRL_HDD_POWERON at 0x1d3.",
+      "module": "analysis/os/DS1522+_7.2.2-72806-U4/rd/usr/lib/modules/syno_hddmon.ko",
+      "sha256": "1b88c7910f5d880f89b2ef55d841b2977e7895c8dc6f8003dd6574a6d455deb1",
+      "disassembly": "analysis/os_followup/syno_hddmon_routine.asm"
+    }
+  ],
+  "impact_boundaries": [
+    {
+      "kind": "observed configuration",
+      "description": "DS1522+ slots 1-3 and two eSATA ports are mapped under 00:01.5,00.0; slots 4-5 use 00:08.2,00.0.",
+      "reference": "analysis/os/DS1522+_7.2.2-72806/model.dtb.json"
+    },
+    {
+      "kind": "inference",
+      "description": "If the real JMB585 path changes or the device is absent, the failure chain can leave the first three internal disks unpowered even after the kernel starts; it need not be a CPU whitelist."
+    },
+    {
+      "kind": "conditional inference",
+      "description": "Historical successful boots in the incident window attached sata1-3 only. If the failed CPU-swap attempt had those same three occupied slots, loss of that one controller path can account for all installed HDDs not spinning. The occupancy of the failed attempt is not directly recorded."
+    },
+    {
+      "kind": "limit",
+      "description": "This single JMB585-path mismatch does not by itself explain failure of slots 4-5 or loss of all network interfaces."
+    },
+    {
+      "kind": "observed source",
+      "description": "Matching is insensitive to downstream bus numbers but sensitive to root device/function and downstream device/functions. A mere change of JMB585 secondary bus from 09 to another valid bus would not break this OS path matcher."
+    }
+  ],
+  "network": {
+    "current_topology_reference": "analysis/pcie_followup/current_r1600_topology.json",
+    "current_topology_observation": "All four onboard Realtek 10ec:8168 NICs are downstream of the ASMedia 1b21:2806 switch under CPU root port 0000:00:01.4; JMB585 197b:0585 is under 0000:00:01.5.",
+    "configuration_observation": "DS1522+ device tree has no eth@ PCI-root mapping. synoinfo.conf netif_seq is the index order 2 1 0 3.",
+    "script_observation": "rc calls synonetseqadj then continues to rc.network start; rc.network iterates configured interfaces and starts DHCP. Default eth0-3 configuration is ONBOOT=yes and BOOTPROTO=dhcp. No SATA-controller-found test guards this script path.",
+    "locations": [
+      {
+        "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/synoinfo.conf",
+        "lines": [
+          89
+        ]
+      },
+      {
+        "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc",
+        "lines": [
+          289,
+          290,
+          291,
+          292,
+          293,
+          301,
+          306
+        ]
+      },
+      {
+        "path": "analysis/os/DS1522+_7.2.2-72806-U4/rd/etc/rc.network",
+        "lines": [
+          311,
+          319,
+          323,
+          347,
+          702,
+          716,
+          732,
+          774,
+          778,
+          780,
+          782
+        ]
+      }
+    ],
+    "inference": "A pure SATA device-tree-path failure does not establish why no IP appeared. A broader PCIe initialization/enumeration failure could affect both neighboring root-port branches, but that is not observed for the swapped CPU.",
+    "limits": [
+      "No V1500B live PCI enumeration is available.",
+      "The proprietary scemd/synonetseqadj binary was not reverse-engineered in this subtask; the statement about index ordering is bounded to visible configuration and shell control flow."
+    ]
+  },
+  "historical_log_boundary": "Four cannot-find-JMB585 messages were collected in a later successful boot. Their source attempts and CPU identity are unknown; this analysis does not attribute them to V1500B.",
+  "key_unresolved": "Whether V1500B actually changed the JMB585 root function, prevented PCIe link/controller enumeration, or stopped boot before these OS functions."
+}

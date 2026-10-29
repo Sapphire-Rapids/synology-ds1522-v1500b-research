@@ -1,0 +1,304 @@
+{
+  "cpu": {
+    "vendor_id": "AuthenticAMD",
+    "cpu family": "23",
+    "model": "24",
+    "model name": "AMD Ryzen Embedded R1600",
+    "stepping": "1",
+    "cpu cores": "2",
+    "siblings": "4"
+  },
+  "devices": [
+    {
+      "bdf": "0000:00:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:00.0",
+      "vendor": "0x1022",
+      "device": "0x15d0",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:00.2",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:00.2",
+      "vendor": "0x1022",
+      "device": "0x15d1",
+      "class": "0x080600"
+    },
+    {
+      "bdf": "0000:00:01.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.0",
+      "vendor": "0x1022",
+      "device": "0x1452",
+      "class": "0x060000",
+      "config_first64_hex": "22105214000000000000000600008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "bdf": "0000:00:01.1",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.1",
+      "vendor": "0x1022",
+      "device": "0x15d3",
+      "class": "0x060400",
+      "config_first64_hex": "2210d315070410000000040610008100000000000000000000010100f101000000d040d0f1ff01000000000000000000000000005000000000000000ff000000",
+      "primary_bus": 0,
+      "secondary_bus": 1,
+      "subordinate_bus": 1
+    },
+    {
+      "bdf": "0000:00:01.3",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3",
+      "vendor": "0x1022",
+      "device": "0x15d3",
+      "class": "0x060400",
+      "config_first64_hex": "2210d315070410000000040610008100000000000000000000020200f1010000f0d0f0d0f1ff01000000000000000000000000005000000000000000ff000000",
+      "primary_bus": 0,
+      "secondary_bus": 2,
+      "subordinate_bus": 2
+    },
+    {
+      "bdf": "0000:00:01.4",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4",
+      "vendor": "0x1022",
+      "device": "0x15d3",
+      "class": "0x060400",
+      "config_first64_hex": "2210d31507041000000004061000810000000000000000000003080021510020b0d0e0d0f1ff01000000000000000000000000005000000000000000ff000000",
+      "primary_bus": 0,
+      "secondary_bus": 3,
+      "subordinate_bus": 8
+    },
+    {
+      "bdf": "0000:00:01.5",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.5",
+      "vendor": "0x1022",
+      "device": "0x15d3",
+      "class": "0x060400",
+      "config_first64_hex": "2210d31507041000000004061000810000000000000000000009090011110020a0d0a0d0f1ff01000000000000000000000000005000000000000000ff000000",
+      "primary_bus": 0,
+      "secondary_bus": 9,
+      "subordinate_bus": 9
+    },
+    {
+      "bdf": "0000:00:08.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.0",
+      "vendor": "0x1022",
+      "device": "0x1452",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:08.1",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1",
+      "vendor": "0x1022",
+      "device": "0x15db",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:00:08.2",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.2",
+      "vendor": "0x1022",
+      "device": "0x15dc",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:00:14.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:14.0",
+      "vendor": "0x1022",
+      "device": "0x790b",
+      "class": "0x0c0500"
+    },
+    {
+      "bdf": "0000:00:14.3",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:14.3",
+      "vendor": "0x1022",
+      "device": "0x790e",
+      "class": "0x060100"
+    },
+    {
+      "bdf": "0000:00:18.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.0",
+      "vendor": "0x1022",
+      "device": "0x15e8",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.1",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.1",
+      "vendor": "0x1022",
+      "device": "0x15e9",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.2",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.2",
+      "vendor": "0x1022",
+      "device": "0x15ea",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.3",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.3",
+      "vendor": "0x1022",
+      "device": "0x15eb",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.4",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.4",
+      "vendor": "0x1022",
+      "device": "0x15ec",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.5",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.5",
+      "vendor": "0x1022",
+      "device": "0x15ed",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.6",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.6",
+      "vendor": "0x1022",
+      "device": "0x15ee",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:00:18.7",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:18.7",
+      "vendor": "0x1022",
+      "device": "0x15ef",
+      "class": "0x060000"
+    },
+    {
+      "bdf": "0000:01:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.0",
+      "vendor": "0x1d6a",
+      "device": "0x04c0",
+      "class": "0x020000"
+    },
+    {
+      "bdf": "0000:02:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.0",
+      "vendor": "0x144d",
+      "device": "0xa804",
+      "class": "0x010802"
+    },
+    {
+      "bdf": "0000:03:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0",
+      "vendor": "0x1b21",
+      "device": "0x2806",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:04:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:00.0",
+      "vendor": "0x1b21",
+      "device": "0x2806",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:04:02.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:02.0",
+      "vendor": "0x1b21",
+      "device": "0x2806",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:04:06.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:06.0",
+      "vendor": "0x1b21",
+      "device": "0x2806",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:04:0e.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:0e.0",
+      "vendor": "0x1b21",
+      "device": "0x2806",
+      "class": "0x060400"
+    },
+    {
+      "bdf": "0000:05:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:00.0/0000:05:00.0",
+      "vendor": "0x10ec",
+      "device": "0x8168",
+      "class": "0x020000"
+    },
+    {
+      "bdf": "0000:06:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:02.0/0000:06:00.0",
+      "vendor": "0x10ec",
+      "device": "0x8168",
+      "class": "0x020000"
+    },
+    {
+      "bdf": "0000:07:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:06.0/0000:07:00.0",
+      "vendor": "0x10ec",
+      "device": "0x8168",
+      "class": "0x020000"
+    },
+    {
+      "bdf": "0000:08:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.4/0000:03:00.0/0000:04:0e.0/0000:08:00.0",
+      "vendor": "0x10ec",
+      "device": "0x8168",
+      "class": "0x020000"
+    },
+    {
+      "bdf": "0000:09:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:01.5/0000:09:00.0",
+      "vendor": "0x197b",
+      "device": "0x0585",
+      "class": "0x010601",
+      "config_first64_hex": "7b19850507041000000106011000000001120000811100000111000081100000011000000000a0d0000000007b1900000000ffff8000000000000000ff010000"
+    },
+    {
+      "bdf": "0000:0a:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0a:00.0",
+      "vendor": "0x1022",
+      "device": "0x145a",
+      "class": "0x130000"
+    },
+    {
+      "bdf": "0000:0a:00.2",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0a:00.2",
+      "vendor": "0x1022",
+      "device": "0x15df",
+      "class": "0x108000"
+    },
+    {
+      "bdf": "0000:0a:00.3",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0a:00.3",
+      "vendor": "0x1022",
+      "device": "0x15e5",
+      "class": "0x0c0330"
+    },
+    {
+      "bdf": "0000:0a:00.5",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0a:00.5",
+      "vendor": "0x1022",
+      "device": "0x15e2",
+      "class": "0x048000"
+    },
+    {
+      "bdf": "0000:0a:00.6",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0a:00.6",
+      "vendor": "0x1022",
+      "device": "0x15e3",
+      "class": "0x040300"
+    },
+    {
+      "bdf": "0000:0a:00.7",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.1/0000:0a:00.7",
+      "vendor": "0x1022",
+      "device": "0x15e6",
+      "class": "0x000000"
+    },
+    {
+      "bdf": "0000:0b:00.0",
+      "sysfs_path": "/sys/devices/pci0000:00/0000:00:08.2/0000:0b:00.0",
+      "vendor": "0x1022",
+      "device": "0x7901",
+      "class": "0x010601"
+    }
+  ]
+}

@@ -1,0 +1,453 @@
+{
+  "kind": "Offline module candidate and original-machine-code selector emulation",
+  "not_a_flash_image": true,
+  "original_module": "inputs/DS1522+_7.2.2-72806/AmdCpmOemInitPeim_D617467B_early.efi",
+  "original_sha256": "8a1a35e8bfa8d85d70d1831585eb6de03d7599b34a5857dc719a08af80976cbf",
+  "candidate_module": "build/candidate_module_only/AmdCpmOemInitPeim.board_topology_only.efi",
+  "candidate_sha256": "19536f87b29917839457311c0acdba61aee96c0bb90054b6a530fb15f97e4e28",
+  "module_size": 23968,
+  "changed_byte_count": 130,
+  "patches": [
+    {
+      "signature": "$A17",
+      "destination": "0x2208",
+      "source": "0x22d8",
+      "copied_body_bytes": 192,
+      "headers_and_platform_masks_preserved": true
+    },
+    {
+      "signature": "$A26",
+      "destination": "0x23a8",
+      "source": "0x3d30",
+      "copied_body_bytes": 6516,
+      "headers_and_platform_masks_preserved": true
+    }
+  ],
+  "original_code_unchanged": true,
+  "original_platform8_tables_unchanged": true,
+  "emulated_original_routines": [
+    "0x9b496d1",
+    "0x9b478b7",
+    "0x9b47bbc"
+  ],
+  "synthetic_dependencies": [
+    "CPUID EAX=0x00810F10 or0x00810F81; replacement-chip CPUID not measured",
+    "SMU argument0 high bits enumerated over0,1,2,3",
+    "PCD service getters/setters",
+    "CPM table registration memory"
+  ],
+  "emulation_results": [
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 0,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 0,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 1,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 1,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 2,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 2,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 3,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f10",
+        "synthetic_smu_arg0_high_bits": 3,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 0,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 0,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 1,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 1,
+        "cpu_class_from_original_machine_code": 11,
+        "platform_from_original_machine_code": 0,
+        "selected_dxio_file_offset": "0x23a8",
+        "selected_clock_table_file_offset": "0x2208",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 2,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 2,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      }
+    },
+    {
+      "original": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 3,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      },
+      "module_candidate": {
+        "synthetic_cpuid_eax": "0x810f81",
+        "synthetic_smu_arg0_high_bits": 3,
+        "cpu_class_from_original_machine_code": 12,
+        "platform_from_original_machine_code": 8,
+        "selected_dxio_file_offset": "0x3d30",
+        "selected_clock_table_file_offset": "0x22d8",
+        "active_pcie_ports": [
+          "00:01.1",
+          "00:01.2",
+          "00:01.3",
+          "00:01.4",
+          "00:01.5"
+        ],
+        "pcd_setter_calls": [
+          {
+            "token": "0x10000001",
+            "value": 0
+          },
+          {
+            "token": "0x10000000",
+            "value": 8
+          }
+        ]
+      }
+    }
+  ],
+  "compressed_region_verification": "region_rebuild_verification.json",
+  "limits": [
+    "Actual V1500B SMU response and selected platform have not been measured.",
+    "PCIe lane mapping/training, physical reset and clock behavior are not emulated.",
+    "This does not prove the R1600 topology is electrically and algorithmically valid for V1500B.",
+    "The compressed-code region was rebuilt offline and structurally checked; no valid vendor-signed package or deployable full SPI image was produced.",
+    "No firmware was written to the NAS and no hardware CPU/SMU command was executed."
+  ]
+}

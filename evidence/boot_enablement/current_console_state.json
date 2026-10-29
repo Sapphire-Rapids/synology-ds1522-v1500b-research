@@ -1,0 +1,5 @@
+{
+  "/proc/consoles": "ttyS0                -W- (EC   a)    4:64\n",
+  "/sys/class/tty/console/active": "ttyS0\n",
+  "/proc/sys/kernel/syno_forbid_console": "0\n"
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "Complete 8 MiB analysis candidate based on the live mapped aperture; not qualified for SPI programming",
+  "size": 8388608,
+  "replaced_region_start": "0x750000",
+  "replaced_region_size": 427393,
+  "all_bytes_outside_target_region_preserved": true,
+  "live_configuration_and_amd_directories_preserved": true,
+  "expanded_candidate_matches_verified_module": true,
+  "physical_spi_image_qualified": false,
+  "boot_authentication_acceptance_verified": false,
+  "r1600_candidate_boot_verified": false,
+  "v1500b_candidate_boot_verified": false,
+  "deployment": "No firmware write performed; do not use as a programmer image until physical flash layout, capture completeness, and deployment/recovery are established.",
+  "scope": "Construction verification only; the machine-specific candidate is not distributed. The public script rebuilds the module and code-region fragment from official inputs."
+}

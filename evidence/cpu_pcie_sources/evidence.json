@@ -1,0 +1,237 @@
+{
+  "scope": "Independent primary-source research for the DS1522+ R1600 to V1500B swap. No NAS access, no firmware execution, no shared REA session used.",
+  "checked_on": "2026-10-28",
+  "coreboot_sources": [
+    {
+      "local_file": "soc_util.c",
+      "upstream_file": "src/soc/amd/picasso/soc_util.c",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/soc_util.c",
+      "sha256": "2f5e3619530b86d98e494b48d14ed47b366f64af1015b9a1a2fc62b3c099b382"
+    },
+    {
+      "local_file": "vendor_platform_descriptors.h",
+      "upstream_file": "src/vendorcode/amd/fsp/picasso/platform_descriptors.h",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/fsp/picasso/platform_descriptors.h",
+      "sha256": "3305f6aae3637b8e06ace8c87e81a4eede9c15d03035791ce4f2960699e4af45"
+    },
+    {
+      "local_file": "mandolin_port_descriptors.c",
+      "upstream_file": "src/mainboard/amd/mandolin/variants/mandolin/port_descriptors.c",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/mainboard/amd/mandolin/variants/mandolin/port_descriptors.c",
+      "sha256": "709f95ca6b4f644078243c1f959e3d98092971fd6611f91e7b5e6cfa3a599b86"
+    },
+    {
+      "local_file": "fsp_s_params.c",
+      "upstream_file": "src/soc/amd/picasso/fsp_s_params.c",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/fsp_s_params.c",
+      "sha256": "e0ea0161db9e827835d263e4e90f7694bcdc1fc271396e6fdb3ffe05f931490e"
+    },
+    {
+      "local_file": "pci_devs.h",
+      "upstream_file": "src/soc/amd/picasso/include/soc/pci_devs.h",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/include/soc/pci_devs.h",
+      "sha256": "35e9331ef8b059bea0934adb428f1dae2739cfe49fe1d146c0c112a536eb8485"
+    },
+    {
+      "local_file": "trembyle_fsps.c",
+      "upstream_file": "src/mainboard/google/zork/variants/baseboard/trembyle/fsps.c",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/mainboard/google/zork/variants/baseboard/trembyle/fsps.c",
+      "sha256": "704c84e05b18efdda906ffb946f934cff35c0286b6e96bc1cdf7db3b3b9c4c84"
+    },
+    {
+      "local_file": "smu_common.c",
+      "upstream_file": "src/soc/amd/common/block/smu/smu.c",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/common/block/smu/smu.c",
+      "sha256": "71fd80400db8b103ec1c3b0452aced615910ebb28b17a9d08785f600cad8e880"
+    },
+    {
+      "local_file": "smu_picasso.h",
+      "upstream_file": "src/soc/amd/picasso/include/soc/smu.h",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/soc/amd/picasso/include/soc/smu.h",
+      "sha256": "ac740cee49d5e9405843a5b3d1effc53aaad15493d637f6ecec3bce14709e0db"
+    },
+    {
+      "local_file": "misc_data.h",
+      "upstream_file": "src/vendorcode/amd/fsp/picasso/misc_data.h",
+      "commit": "4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca",
+      "url": "https://github.com/coreboot/coreboot/blob/4bbee2f5dc7b0d6b05b18dab723dd7e230d4e4ca/src/vendorcode/amd/fsp/picasso/misc_data.h",
+      "sha256": "5045674c6e043ed16e064ec3a9e0960a867b761196c8bf9b2118a8b35a80f6c0"
+    }
+  ],
+  "official_amd_sources": [
+    {
+      "id": "AMD-PIN",
+      "url": "https://ir.amd.com/news-events/press-releases/detail/918/amd-enables-ecosystem-for-high-performance-mini-pcs-powered-by-amd-ryzen-embedded-processors",
+      "date": "2019-12-03",
+      "fact": "AMD describes the R1000 and V1000 families as using a pin-compatible package."
+    },
+    {
+      "id": "AMD-PIN-CASE",
+      "url": "https://www.amd.com/content/dam/amd/en/documents/resources/case-studies/simply-nuc-case-study.pdf",
+      "location": "PDF pages 1-2",
+      "fact": "AMD case study explicitly describes shared footprint and pin compatibility between R1000 and V1000 SoCs."
+    },
+    {
+      "id": "AMD-R1000",
+      "url": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/R1000-product-brief.pdf",
+      "location": "Enhanced I/O and SKU table",
+      "fact": "Family capability: up to 8 PCIe Gen3 lanes and 5 links. R1600: FP5, 2 cores/4 threads, 12-25 W, no graphics, DDR4-2400."
+    },
+    {
+      "id": "AMD-V1000",
+      "url": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/v1000-family-product-brief.pdf",
+      "location": "PDF page 4, Enhanced I/O and SKU table",
+      "fact": "Family capability: up to 16 PCIe Gen3 lanes (8 GFX + 8 GPP) and 7 links. V1500B: FP5, 4 cores/8 threads, 16 W, no graphics, DDR4-2400."
+    }
+  ],
+  "observations": [
+    {
+      "id": "PCI-SRC-001",
+      "claim": "FP5 pin compatibility is an explicit AMD family-level design feature. This rules against treating pin incompatibility as established merely from the R1000/V1000 labels. It does not certify a swap on the Synology board.",
+      "sources": [
+        "AMD-PIN",
+        "AMD-PIN-CASE"
+      ]
+    },
+    {
+      "id": "PCI-SRC-002",
+      "claim": "The families have different advertised PCIe lane/link capability, so CPU replacement changes more than CPU cores.",
+      "sources": [
+        "AMD-R1000",
+        "AMD-V1000"
+      ]
+    },
+    {
+      "id": "PCI-SRC-003",
+      "claim": "The AMD FSP Picasso DXIO descriptor explicitly carries logical lane range, port-present, desired root-port device/function numbers, link settings and clock request. Logical lanes are not physical-lane numbers.",
+      "file": "vendor_platform_descriptors.h",
+      "lines": [
+        132,
+        198
+      ]
+    },
+    {
+      "id": "PCI-SRC-004",
+      "claim": "coreboot passes board-supplied DXIO descriptors into AMD FSP configuration.",
+      "file": "fsp_s_params.c",
+      "lines": [
+        75,
+        115
+      ]
+    },
+    {
+      "id": "PCI-SRC-005",
+      "claim": "The AMD Mandolin board selects different descriptor sets by reduced-I/O silicon status. Its complete-I/O set includes root ports 01.4/01.5, whereas the reduced-I/O set lacks them. Shared peripherals retain explicit identical BDF assignments in both tables.",
+      "file": "mandolin_port_descriptors.c",
+      "lines": [
+        7,
+        158,
+        201,
+        216
+      ]
+    },
+    {
+      "id": "PCI-SRC-006",
+      "claim": "Upstream source distinguishes RV1, PCO and RV2 silicon. Some silicon reports a family/model normally associated with another variant, requiring firmware-provided silicon information. Reduced-I/O classification is not derived from a marketing model name alone.",
+      "file": "soc_util.c",
+      "lines": [
+        12,
+        18,
+        94,
+        164,
+        209,
+        217
+      ]
+    },
+    {
+      "id": "PCI-SRC-007",
+      "claim": "A second FP5 board example selects different NVMe lane width based on reduced-I/O status while retaining its root-port BDF. CPU changes do not necessarily make BDF addresses shift automatically.",
+      "file": "trembyle_fsps.c",
+      "lines": [
+        17,
+        122
+      ]
+    },
+    {
+      "id": "PCI-SRC-008",
+      "claim": "Root ports in this public platform are device 1, functions 1 through 7; internal bridges are device 8 functions 1 and 2.",
+      "file": "pci_devs.h",
+      "lines": [
+        21,
+        80
+      ]
+    }
+  ],
+  "mechanism_supported_as_general_platform_behavior": "CPU silicon and fuses determine available I/O resources; board firmware supplies lane allocation, desired BDF, clock/reset/training policy; different or inapplicable configuration can leave a root port absent or unusable. A later consumer that searches only a fixed BDF can then miss the attached controller.",
+  "limits": [
+    "The upstream FSP code illustrates a real AMD implementation, but it is not proof that Synology uses FSP or these exact descriptor layouts or selection rules.",
+    "A board comparison showing DS1522 at 00:01.5 and DS1525 at 00:01.6 does not prove that changing this DS1522 CPU moves JMB585 to 00:01.6.",
+    "The root agent verified the installed R1600 as Family 17h Model 18h Stepping 1. This task did not read the NAS. The failed V1500B chip's actual CPUID and fuse state are unknown.",
+    "A public V1500B CPU-info report was found in a NetBSD VM bug report, but its hypervisor context prevents using it as direct evidence of this replacement chip's silicon.",
+    "No authoritative public per-pin table or exact SKU-specific root-port assignment for the user's two chips was located. An unverified third-party copy labelled confidential appeared in search results and was not used as a supporting source.",
+    "A single secondary-bus register byte equal to FF is consistent with an absent/hidden/uninitialized root port but does not by itself establish why the register read returned FF or prove a new BDF."
+  ],
+  "best_next_static_target": "The Synology BIOS board-specific PCIe/DXIO descriptor data and CPU/fuse-dependent branch that selects or modifies it; compare requested lane/BDF assignments for the JMB585 lane without assuming DS1525 tables apply.",
+  "smu_classification_followup": {
+    "scope": "Public primary-source interpretation of the BIOS-observed SMU message 0x51 response and high bits; no hardware mailbox command sent.",
+    "bios_facts_supplied_by_root_agent": "The DS1522 BIOS obtains SmuArg[0] via NbioSmuServiceRequestV10 message 0x51, writes PCD token 0x4f0c4, and overrides a masked Family17h Model1xh signature to Model2xh when response bits31:30 equal 2 or 3. Root agent owns verification of that disassembly.",
+    "publicly_verified": [
+      {
+        "claim": "coreboot uses bits31 and30 of the Picasso misc-data HOB silicon_id as two separate flags: SILICON_IS_MYSTERY_MEAT and SILICON_IS_RV2.",
+        "file": "soc_util.c",
+        "lines": [
+          81,
+          91
+        ]
+      },
+      {
+        "claim": "With the FP5 package, a Family17h Model1xh CPUID combined with bit31 set is classified as Dali, a reduced-I/O SKU. Bit30 selects actual RV2 silicon even when CPUID looks like a Model1xh processor.",
+        "file": "soc_util.c",
+        "lines": [
+          124,
+          164,
+          209,
+          217
+        ]
+      },
+      {
+        "claim": "Original upstream implementation explicitly says it uses CPUID and selected bits in silicon_id in the Picasso misc-data HOB written by FSP-M.",
+        "url": "https://github.com/coreboot/coreboot/commit/828ca06cdbedacb41f73dc70bf18262031f7ad90"
+      },
+      {
+        "claim": "A subsequent upstream change explains that Dali can be fused-down PCO or RV2 silicon, while Pollock is RV2, and generalizes detection to reduced-I/O SKU.",
+        "url": "https://github.com/coreboot/coreboot/commit/42b0e8f4382fc872ee07af0568dbda75602aa251"
+      },
+      {
+        "claim": "Picasso coreboot defines BIOS-facing SMU message/response/argument SMN addresses 0x3b10528, 0x3b10564 and 0x3b10998, and six argument words. Its public enum does not name message0x51.",
+        "file": "smu_picasso.h",
+        "lines": [
+          6,
+          16
+        ]
+      },
+      {
+        "claim": "The public Linux Raven GPU SMU message header does not contain message0x51; its declared message count is0x42. It therefore cannot supply the meaning of the BIOS-facing message0x51.",
+        "url": "https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux/+/refs/tags/v6.12/drivers/gpu/drm/amd/pm/powerplay/inc/rv_ppsmc.h",
+        "local_file": "rv_ppsmc_v6_12.h"
+      }
+    ],
+    "derived_logic": "A two-bit value bits31:30 equal to 2 or 3 is exactly a test for bit31 set; bit30 can have either value.",
+    "supported_inference": "The BIOS-observed high-bit test has the same shape as the upstream distinction for a processor exposing Model1xh CPUID while requiring reduced-I/O/Dali-style handling. This is consistent with CPU-dependent platform selection.",
+    "not_proven": [
+      "No public primary source found directly connecting this exact BIOS SMU0x51 response word to the FSP-M misc-data HOB silicon_id. The same high-bit layout is corroboration, not an established transfer contract.",
+      "No authoritative SKU-specific table or measurement establishes that the failed V1500B returns high bits0/1, or that the current R1600 returns high bits2/3.",
+      "The exact failed chip's SMU response and actual selected BIOS table remain unobserved.",
+      "The precise public name of the BIOS-facing SMU0x51 command remains unresolved; meanings of the same number from other generations or GPU mailboxes were not substituted."
+    ],
+    "search_boundary": "Coreboot current fixed revision, original soc_util implementation/history, AMD FSP public headers, Linux v6.12 Raven GPU message header, and narrow searches of original RyzenAdj/ryzen_smu code. Unrelated message maps and speculative forum claims were not used."
+  }
+}

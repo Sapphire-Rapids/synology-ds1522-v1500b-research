@@ -1,0 +1,179 @@
+{
+  "question": "Why did DS1522+ fail to complete startup after replacing R1600 with V1500B? Is there an intentional BIOS CPU lock?",
+  "date": "2026-10-28",
+  "baseline": {
+    "incident_date": "2025-08-19",
+    "choice": "The incident baseline is DSM7.2.2-72806 Update4; the installed historical version was not recorded.",
+    "version": "DSM 7.2.2-72806 Update 4",
+    "bios_sha256": "09289812c93bfc184425b8db7853a56d92abd60256904aeeaa4f6249f4552b68",
+    "bios_identical_to_dsm_7_4_1_90080": true,
+    "physical_early_bios_read_verified": true,
+    "physical_early_bios_matches_official": true,
+    "physical_full_spi_dump_available": false,
+    "physical_mapped_8mib_capture_available": true
+  },
+  "judgment": {
+    "best_current_hypothesis": "CPU-dependent OEM DXIO topology selection. The alternative DS1522 table does not enable the PCIe roots currently used by JMB585 and the onboard NIC switch, and assigns their logical lanes to Ethernet engines instead.",
+    "confidence": "Strong static mechanism consistent with the historical error and current hardware topology; V1500B silicon-class return and selected table remain unobserved.",
+    "root_cause_proven": false
+  },
+  "observations": [
+    {
+      "claim": "Official DS1522+ BIOS contains an OPN comparison with V1500B followed by 16000 mW power-limit configuration, rather than a refusal in that branch.",
+      "module": "AmdNbioSmuV10Dxe",
+      "procedure": "0x2498",
+      "branch": "0x29e5–0x2a45",
+      "evidence_ids": [
+        "ev_941d9d88ece40d2ecf14366a8c18d6a14d38c43427fe2a92592495c2d2e7dc64",
+        "ev_051970ca8eff617225c28c260bb97c6635a516c98e528c71b87f27bffef1dc80",
+        "ev_517204fac1acc61b9b0604694597dc14fe47ea29df653811595222f03582d2d3"
+      ],
+      "limit": "Code presence and static branch semantics do not establish that the failed physical machine reached or enabled this branch."
+    },
+    {
+      "claim": "Early AMD SoC module compares CPUID 0x80000001 EAX masked by 0x0fff0f00 and package bits; no R1600-only marketing-name comparison was found in this routine.",
+      "module": "AmdSocFp5RvPei",
+      "evidence_id": "ev_2616ace6d3f20385f4129dc3eca62a102c9916c75d1fd799bff4c3c3d07c0990",
+      "limit": "This is one family/package initialization gate, not exhaustive validation of all BIOS execution paths."
+    },
+    {
+      "claim": "SynoServiceDxe ReadyToBoot callback reads the secondary bus behind PCI 00:01.5 and checks JMicron vendor 0x197b/device 0x0585. Missing controller is logged; a present controller with tested link-status nibble different from 0x10 is logged and triggers reset by writing 0x0e to I/O 0xcf9.",
+      "module": "SynoServiceDxe",
+      "callback": "0x3c0",
+      "evidence_files": [
+        "synoservice_jmb585_disassembly.txt",
+        "synoservice_dom_disassembly.txt"
+      ],
+      "method": "LLVM disassembly, because Ghidra default analysis did not create the callback function.",
+      "log_path_on_boot_filesystem": "EFI/Insyde/jmb585",
+      "limit": "Live follow-up recovered four matching BIOS diagnostic messages and correlated their collection with 2025-08-19 evening. Actual PCI enumeration and CPU identity at the time of failure are unavailable, so this remains a diagnostic lead rather than a proven root cause."
+    },
+    {
+      "claim": "GetCPUInfo reads frequency/core count. GetModel reads the configured NAS model string. synobios_model_init configures DS1522+ peripherals from that model. No CPU-name refusal was observed in these functions.",
+      "evidence_ids": [
+        "ev_89194cf1a3429bf7034f61bc15e78f8b6533db8c2c94f67843fe0dba640ca075",
+        "ev_80afabc2a6c3a107115556758f45eb2eab42abe710a298981406c9728352bb31",
+        "ev_81bc3492618326ea80e9af202ab090aabcac3ceddd9fa55cf56869862a968089"
+      ]
+    },
+    {
+      "claim": "DS1522+ uses software-controlled disk power and fixed r1000 board configuration. Selected U4 startup scripts/modules are identical to base 72806.",
+      "evidence_file": "os/evidence.json"
+    },
+    {
+      "claim": "The three first SATA bays are described under 00:01.5,00.0 in DS1522+ and 0000:00:01.6,00.0 in DS1525+.",
+      "evidence_file": "os/evidence.json",
+      "limit": "Different boards are a comparison only; this does not prove that swapping the processor changes PCI function numbering on DS1522+."
+    },
+    {
+      "claim": "Readable UEFI portions coexist with signed and, for some components, encrypted AMD PSP firmware.",
+      "evidence_file": "firmware/DS1522+_7.2.2-72806/psp.json",
+      "limit": "This is not evidence that Synology enabled OEM CPU binding or that the replacement CPU was fused to another OEM."
+    }
+  ],
+  "next_diagnostic": [
+    "DS1525 comparison completed: resolve the exact V1500B logical-lane split and root-port allocation, preserving DS1522-specific wiring and current machine configuration.",
+    "Before another CPU rework, establish verified SPI capture/restore and physical serial capture on the current R1600, then test the finalized candidate on R1600.",
+    "The current source-backed raw PSP feature read has no valid reporting; boot-time authentication and V1500B fuse state remain unknown.",
+    "If V1500B testing becomes justified, require diskless onboard-network reachability and record actual PCIe roots/endpoints alongside the boot-stage trace."
+  ],
+  "boundaries": [
+    "The live NAS was accessed for read-only diagnostics, including its mapped early BIOS code. Temporary collection files were removed; no firmware was flashed.",
+    "A module-only offline candidate and emulator verification were produced. No complete modified flash image has been deployed.",
+    "No exhaustive proof of absence of all vendor restrictions is claimed.",
+    "Comparison-model firmware is not established as a drop-in replacement for DS1522+."
+  ],
+  "sources": {
+    "reddit": "https://www.reddit.com/r/synology/comments/1muanb8/just_in_case_if_someone_needs_to_know/",
+    "amd_r1000": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/R1000-product-brief.pdf",
+    "amd_v1000": "https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/v1000-family-product-brief.pdf",
+    "ds1522_base": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1522%2B_72806.pat",
+    "ds1522_u4": "https://global.synologydownload.com/download/DSM/criticalupdate/update_pack/72806-4/synology_r1000_1522%2B.pat",
+    "ds1525_u4": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806-4/DSM_DS1525%2B_72806.pat",
+    "ds1621_base": "https://global.synologydownload.com/download/DSM/release/7.2.2/72806/DSM_DS1621%2B_72806.pat"
+  },
+  "tools": {
+    "UEFIExtract": "A76 official macOS binary",
+    "PSPTool": "3.7",
+    "Ghidra": "12.1.2 via REA",
+    "patology": "https://github.com/sud0woodo/patology",
+    "delta_key_definition": "https://github.com/prt1999/SynoXtract",
+    "IFLASH_format_reference": "https://github.com/jbit/uninsyde"
+  },
+  "live_followup": {
+    "observed_on": "2026-10-28",
+    "current_cpu": "AMD Ryzen Embedded R1600",
+    "current_bios": "M.305.00 (01/12/2022)",
+    "current_jmb585_path": "0000:00:01.5/0000:09:00.0",
+    "recovered_log": "recovered_jmb585.log",
+    "recovered_messages": 4,
+    "message_meaning": "BIOS could not find JMB585 behind 00:01.5; the logged secondary-bus value was FF.",
+    "inference": "The JMB585 discovery errors are strongly associated with the August 19 evening collection boot, rather than remaining an undated standalone artifact. The specific CPU and cause at error time are still unproven.",
+    "timestamp_limit": "The FAT entry alone says 2018. Subsequent DSM BIOS logs show collection at 2000-01-01 10:43:59, matching the kernel collector activity in a boot whose clock was corrected to 2025-08-19 20:44:18. The messages predate collection; their exact occurrence time and CPU identity are not recorded.",
+    "nas_temporary_files_removed": true,
+    "nas_temporary_mounts_remaining": false,
+    "local_partition_images_removed": true
+  },
+  "historical_log_followup": {
+    "observed_on": "2026-10-28",
+    "evidence_file": "historical_log_findings.json",
+    "conclusion": "The four recovered JMB585 errors were collected during the clock-reset boot correlated with 2025-08-19 evening. CPU identity and the precise cause of controller discovery failure remain unproven."
+  },
+  "pcie_topology_followup": {
+    "observed_on": "2026-10-28",
+    "evidence_file": "pcie_followup/pcie_table_analysis.json",
+    "native_selection_evidence": "pcie_followup/cpm_selection_pseudocode.json",
+    "os_power_path_evidence": "os_followup/evidence.json",
+    "independent_byte_review": "os_followup/bios_selection_review.json",
+    "root_of_mechanism": "CPUID plus an SMU-derived classification controls the platform ID and selects an OEM $A26 table by mask.",
+    "platform0_active_pcie": [
+      "00:01.1",
+      "00:01.2"
+    ],
+    "platform8_active_pcie": [
+      "00:01.1",
+      "00:01.2",
+      "00:01.3",
+      "00:01.4",
+      "00:01.5"
+    ],
+    "currently_observed_nic_switch_root": "00:01.4",
+    "currently_observed_jmb585_root": "00:01.5",
+    "unresolved": "The failed V1500B run has no captured SMU reply, selected platform ID or PCI enumeration. A module and compressed-region candidate now exist and passed bounded offline tests, but no candidate hardware boot has been performed."
+  },
+  "boot_enablement_followup": {
+    "status_file": "boot_enablement/status.json",
+    "live_code_verification": "boot_enablement/live_code_verification.json",
+    "module_candidate": "boot_enablement/candidate_emulation.json",
+    "integrity_and_signature_feasibility": "patch_feasibility/evidence.json",
+    "boot_diagnostics": "boot_diagnostics/evidence.json",
+    "v1500b_boot_verified": false,
+    "bios_flashing_performed": false,
+    "compressed_region_candidate": "boot_enablement/region_rebuild_verification.json",
+    "mapped_image_comparison": "go_no_go/live_image_comparison.json",
+    "pre_rework_decision": "go_no_go/decision.json",
+    "ds1525_comparison": "ds1525_comparison/",
+    "live_mapped_candidate": "go_no_go/live_candidate_verification.json"
+  },
+  "user_confirmed_network_observation": {
+    "clarified_on": "2026-10-28",
+    "observation": "After the V1500B replacement, the router did not show an IP address. The user tried both onboard Ethernet and the expansion 10 GbE port.",
+    "diagnostic_requirement": "A disk-only failure is not a sufficient explanation; the normal diskless recovery path starts networking independently of finding a disk system.",
+    "unmeasured": "This is a router-level observation, not a captured PCI enumeration, driver log or DHCP packet trace."
+  },
+  "network_followup": {
+    "evidence_file": "network_followup/evidence.json",
+    "expansion_port_secondary_checks": "expansion_pcie_followup/evidence.json",
+    "primary_fact": "The DS1522 recovery script loads NIC drivers and starts rc.network before discovery services, with no SATA-found gate.",
+    "conditional_chain": "A topology failure can remove the onboard NIC-switch and SATA-controller branches. If disk-root selection fails, the original U4 recovery environment has no Atlantic driver for the expansion NIC, so that port may also lack networking even if its PCIe link exists.",
+    "status": "Static mechanism checked; actual failed V1500B execution remains unobserved.",
+    "acceptance_criterion": "The first networking milestone is a diskless V1500B boot reachable through an onboard port, not just successful SATA enumeration."
+  },
+  "ds1525_comparison": {
+    "evidence": "ds1525_comparison/summary.json",
+    "judgment": "The official V1500B comparison reinforces a board-policy investigation and does not establish a missing basic CPU-init prerequisite or whole-image compatibility.",
+    "specific_remaining_gap": "V1500B acceptance/training of separate logical0 and1 x1 links and the complete candidate root-port assignment remains unknown.",
+    "no_proven_impossibility": true,
+    "cpu_rework_recommended_now": false
+  }
+}

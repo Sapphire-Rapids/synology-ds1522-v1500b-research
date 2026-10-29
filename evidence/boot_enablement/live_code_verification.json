@@ -1,0 +1,19 @@
+{
+  "capture_complete": true,
+  "kind": "CPU-addressable compressed BIOS code region; not a complete SPI-chip dump",
+  "physical_address": "0xfff50000",
+  "packed_size": 427137,
+  "expanded_size": 3145728,
+  "live_sha256": "72d2ae15438d8f0b52a99bd68489bac0f37210c83657eea3e9b8a98324535432",
+  "official_sha256": "72d2ae15438d8f0b52a99bd68489bac0f37210c83657eea3e9b8a98324535432",
+  "live_early_bios_matches_official": true,
+  "verified_at_utc": "2026-10-28T23:30:34.422208+00:00",
+  "live_packed_bytes_match_official": true,
+  "packed_sha256": "3f2749935e1d0f6fc3de10056e9923d62b326dfa354bd7a6d8b386bbd87ebb82",
+  "identical_packed_bytes_retained_in": "analysis/firmware/DS1522+_7.2.2-72806/bios_payload.bin",
+  "retained_range_offset": "0x750100",
+  "duplicate_capture_removed_after_exact_verification": true,
+  "remote_cleanup_verified": true,
+  "removed_remote_directory": "[temporary collection path omitted]",
+  "scope_limit": "This verifies the mapped early BIOS code region, not every byte of the full SPI chip or runtime fuse/authentication policy."
+}

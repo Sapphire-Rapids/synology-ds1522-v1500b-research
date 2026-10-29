@@ -1,0 +1,45 @@
+{
+  "module": "analysis/modules/DS1522+_7.2.2-72806/AmdNbioPcieRVPei_2B9E5A05_early.efi",
+  "sha256": "48b221559ef02fb891e4b797dfbc3559dadc1a053c11c2d5198ba486ce27a9fc",
+  "mapper_function": "0x09b8dcbd",
+  "allowlist_address": "0x09b90b3c",
+  "allowlist_file_offset": "0x9e1c",
+  "allowed_devfn_raw": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "candidate_devfn_raw": [
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "candidate_addresses_are_unique_and_allowed": true,
+  "scope": "Static validation of desired PCI device/function values against the actual mapper allowlist; not a link-training or lane-routing test.",
+  "exact_match_policy": {
+    "pcd_token": "0x41249",
+    "producer": "AmdNbioEarlyPhaseRVPei enables it for SMU high bits2/3.",
+    "consumer_address": "0x09b8bf0c",
+    "dxio_mailbox_message": "0x22",
+    "argument1": "0x12",
+    "candidate_change": "None. CPU silicon classification and the associated policy remain unchanged.",
+    "unresolved": "The behavior of the signed SMU firmware under this policy was not emulated."
+  },
+  "post_comparison_ordering_review": {
+    "evidence": "../pcie_followup/nbio_pcie_pei_disassembly.txt",
+    "mapper_range": "0x09b8dcbd..0x09b8ddc1",
+    "mapping_writer_range": "0x09b8ddc2..0x09b8df09",
+    "observed_mapper_behavior": "The mapper validates the requested device/function against seven allowed values, rejects duplicates, and stores it at an engine-provided port index. This routine does not compare lane start numbers or enforce ascending logical-lane order.",
+    "observed_writer_behavior": "The following routine preserves assigned values, fills unassigned slots, and programs the mapping using register sequences starting at0x13b100c0 and0x11140008.",
+    "limit": "These routines require a valid engine/port structure from the preceding initialization. They do not prove that SMU accepts the candidate lane allocation or exact-match policy on V1500B.",
+    "source_comment_interpretation": "The separate Picasso header ordering comment is not a demonstrated rejection in this target mapper. Keep it as context for full-path validation, not an established Raven prohibition.",
+    "nas_access": false,
+    "hardware_register_writes_performed": false
+  }
+}
